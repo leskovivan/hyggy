@@ -11,6 +11,7 @@ import imgLogo from '../images/logo.svg';
 import imgLocation from '../images/imgLocation.svg';
 import imgDropdown from '../images/imgDropdown.svg';
 import MenuSlider from './MenuSlider';
+import Breadcrumb from './Breadcrumb';
 
 const STORES = [
     {
@@ -66,6 +67,7 @@ function Header() {
     };
 
   return (
+    <div>
     <div className="header-wrapper">
       <div className="top-bar"></div>
       
@@ -120,6 +122,7 @@ function Header() {
         <Link to="/shops" className="nav-item">Магазини</Link>
         <Link to="/qa" className="nav-item">Питання-відповідь</Link>
         <Link to="/work" className="nav-item">Робота</Link></div>
+        
       </div>
 
             {isStoreSelectorOpen && (
@@ -158,7 +161,9 @@ function Header() {
             )}
 
             {isMenuOpen && <MenuSlider onClose={closeMenu} />}
-    </div>
+            
+    
+    </div></div>
   );
 }
 

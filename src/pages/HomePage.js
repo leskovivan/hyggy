@@ -7,14 +7,20 @@ import hastensLogo from '../images/Hastens.png';
 import fritzLogo from '../images/Fritz.png';
 import svenskaLogo from '../images/Svenska.png';
 import muutoLogo from '../images/muuto.png';
+import bedroom from '../images/bedroom.png';
+import bathroom from '../images/bathroom.png';
+import office from '../images/office.png';
+import livingRoom from '../images/vitalynia.png';
+import kitchen from '../images/kitchen.png';
+import garden from '../images/Garden.png';
 
 const CATEGORY_CARDS = [
-  { title: 'Спальня', image: 'https://www.figma.com/api/mcp/asset/8c34a7cf-0a30-4ae4-8b25-02fb7e9f4767' },
-  { title: 'Ванна', image: 'https://www.figma.com/api/mcp/asset/3dd92a61-2ed2-4b73-a16c-d8a5fa79e255' },
-  { title: 'Офіс', image: 'https://www.figma.com/api/mcp/asset/6c13674f-0354-4d5e-954b-391ca0e306bf' },
-  { title: 'Вітальня', image: 'https://www.figma.com/api/mcp/asset/a2db4c22-9949-4cf0-afa9-b568bfb397d2' },
-  { title: 'Кухня', image: 'https://www.figma.com/api/mcp/asset/cd96ea65-7df6-4b3b-87c2-a03952b756d6' },
-  { title: 'Для саду', image: 'https://www.figma.com/api/mcp/asset/9561768c-1f16-4a1f-a38c-20a0a05b0351' },
+  { title: 'Спальня', slug: 'bedroom', image: bedroom },
+  { title: 'Ванна', slug: 'bathroom', image: bathroom },
+  { title: 'Офіс', slug: 'office', image: office },
+  { title: 'Вітальня', slug: 'living-room', image: livingRoom },
+  { title: 'Кухня', slug: 'kitchen', image: kitchen },
+  { title: 'Для саду', slug: 'garden', image: garden },
 ];
 
 const BRAND_CARDS = [
@@ -120,12 +126,12 @@ function HomePage() {
 
       <section className="home-page__section home-page__categories">
         <div className="home-page__section-title-wrap home-page__section-title-wrap--compact categories">
-          <h2 className="home-page__section-title ">Категорії</h2>
+          <h2 className="home-page__section-title "><Link key="categories" to={`/category`} className="">Категорії</Link></h2>
         </div>
 
         <div className="home-page__categories-grid">
           {CATEGORY_CARDS.map((category) => (
-            <Link key={category.title} to="/shops" className="home-page__category-card">
+            <Link key={category.title} to={`/category/${category.slug}`} className="home-page__category-card">
               <img className="home-page__category-image" src={category.image} alt={category.title} />
               <span className="home-page__category-label">{category.title}</span>
             </Link>

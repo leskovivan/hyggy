@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирует контент по горизонтали */
+    justify-content: center; /* Центрирует по вертикали, если задашь высоту */
+    gap: 40px;
+    padding: 60px 134px;
+    background: #f3f3f3;
+    text-align: center;
+
+}
+
+.not-found-text {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400; 
+    color: #333;
+    line-height: 1.5;
+}

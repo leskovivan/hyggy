@@ -1,0 +1,131 @@
+.work-page {
+  font-family: 'Inter', sans-serif;
+  color: #231f20;
+  background-color: #f3f3f3;
+  padding-bottom: 100px;
+}
+
+.work-page__breadcrumbs {
+  padding: 40px 134px;
+  font-size: 20px;
+  font-weight: 300;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.work-page__hero {
+  position: relative;
+  width: calc(100% - 268px);
+  margin: 0 auto;
+  height: 415px;
+}
+
+.work-page__hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-page__hero-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: 700;
+  color: #000;
+}
+
+.work-page__intro {
+  padding: 80px 134px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.work-page__intro-text {
+  font-size: 24px;
+  line-height: 40px;
+  text-align: justify;
+}
+
+.work-page__opportunities {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px 134px;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 60px;
+}
+
+.work-page__opportunities-item {
+  width: 530px;
+  height: 418px;
+  position: relative;
+}
+
+.work-page__opportunities-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.work-page__join-banner {
+  background-color: #00aaad;
+  color: white;
+  padding: 50px 134px;
+  text-align: center;
+  margin: 80px 134px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  border-radius: 8px;
+}
+
+.work-page__join-title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.work-page__join-text {
+  font-size: 24px;
+  line-height: 40px;
+  text-align: justify;
+}
+
+.work-page__section {
+  display: flex;
+  gap: 60px;
+  padding: 60px 134px;
+  align-items: center;
+  background: white;
+  border-radius: 8px;
+}
+
+.work-page__section--reverse {
+  flex-direction: row-reverse;
+}
+
+.work-page__section-content {
+  flex: 1;
+}
+
+.work-page__section-title {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.work-page__section-text {
+  font-size: 24px;
+  line-height: 40px;
+  text-align: justify;
+}
+
+.work-page__section-img {
+  width: 800px;
+  max-width: 50%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}

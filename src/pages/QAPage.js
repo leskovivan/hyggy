@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './QAPage.css';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../components/Breadcrumb';
 
 const QA_CATEGORIES = [
   "Питання пов'язані з онлайн замовленнями",
@@ -38,16 +39,9 @@ function QAPage() {
 
   return (
     <main className="qa-page">
-      <div className="qa-page__breadcrumbs">
-        <Link to="/" className="qa-page__breadcrumb-link">Домашня сторінка</Link>
-        <div className="qa-page__breadcrumb-icon">
-            <svg width="11" height="16" viewBox="0 0 11 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2.5 0L0 2.36L5.5 8L0 13.64L2.5 16L10.5 8L2.5 0Z" fill="#000" fillOpacity="0.75" />
-            </svg>
-        </div>
-        <span className="qa-page__breadcrumb-current">Питання/відповіді</span>
-      </div>
-
+      <div className="work-page__breadcrumbs">
+                <Breadcrumb />
+              </div>
       <div className="qa-page__header">
         <h1 className="qa-page__title">Питання і відповіді</h1>
       </div>
