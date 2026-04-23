@@ -9,16 +9,16 @@ import facebookLogo from '../images/facebook.png';
 import youtubeLogo from '../images/youtube.svg';
 
 const PAYMENT_LOGOS = [
-	{ src: visaLogo, alt: 'Visa' },
-	{ src: mastercardLogo, alt: 'Mastercard' },
-	{ src: googlePayLogo, alt: 'Google Pay' },
+	{ src: "/images/visa.png", alt: 'Visa' },
+	{ src: "/images/mastercard.png", alt: 'Mastercard' },
+	{ src: "/images/googlepay.png", alt: 'Google Pay' },
 ];
 
 const SOCIAL_NETWORKS_IMAGE = [
-	{ src: telegramLogo, alt: 'Telegram' },
-	{ src: instagramLogo, alt: 'Instagram' },
-	{ src: facebookLogo, alt: 'Facebook' },
-	{ src: youtubeLogo, alt: 'YouTube' },
+	{ src: "/images/telegram.svg", alt: 'Telegram' },
+	{ src: "/images/instagram.svg", alt: 'Instagram' },
+	{ src: "/images/facebook.png", alt: 'Facebook' },
+	{ src: "/images/youtube.svg", alt: 'YouTube' },
 ];
 
 function Footer() {
