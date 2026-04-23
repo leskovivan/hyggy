@@ -1,43 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
-import heroImage from '../images/HERO_IMAGE.png';
-import aboutImage from '../images/about_us.png';
-import hastensLogo from '../images/Hastens.png';
-import fritzLogo from '../images/Fritz.png';
-import svenskaLogo from '../images/Svenska.png';
-import muutoLogo from '../images/muuto.png';
-import bedroom from '../images/bedroom.png';
-import bathroom from '../images/bathroom.png';
-import office from '../images/office.png';
-import livingRoom from '../images/vitalynia.png';
-import kitchen from '../images/kitchen.png';
-import garden from '../images/Garden.png';
+
+// ІМПОРТИ КАРТИНОК ВИДАЛЕНО, ТЕПЕР ВОНИ БЕРУТЬСЯ ПРЯМО З ПАПКИ PUBLIC
 
 const CATEGORY_CARDS = [
-  { title: 'Спальня', slug: 'bedroom', image: bedroom },
-  { title: 'Ванна', slug: 'bathroom', image: bathroom },
-  { title: 'Офіс', slug: 'office', image: office },
-  { title: 'Вітальня', slug: 'living-room', image: livingRoom },
-  { title: 'Кухня', slug: 'kitchen', image: kitchen },
-  { title: 'Для саду', slug: 'garden', image: garden },
+  { title: 'Спальня', slug: 'bedroom', image: '/images/bedroom.png' },
+  { title: 'Ванна', slug: 'bathroom', image: '/images/bathroom.png' },
+  { title: 'Офіс', slug: 'office', image: '/images/office.png' },
+  { title: 'Вітальня', slug: 'living-room', image: '/images/vitalynia.png' },
+  { title: 'Кухня', slug: 'kitchen', image: '/images/kitchen.png' },
+  { title: 'Для саду', slug: 'garden', image: '/images/Garden.png' },
 ];
 
 const BRAND_CARDS = [
   {
-    logo: hastensLogo,
+    logo: '/images/Hastens.png',
     description: 'Бренд, відомий своїми розкішними матрацами, які роблять із натуральних матеріалів з акцентом на якість та комфорт.',
   },
   {
-    logo: svenskaLogo,
+    logo: '/images/Svenska.png',
     description: 'Бренд пропонує широкий вибір меблів та товарів для дому, що поєднують стиль та функціональність.',
   },
   {
-    logo: fritzLogo,
+    logo: '/images/Fritz.png',
     description: 'Знаменита меблева компанія, що виробляє дизайнерські меблі та аксесуари, включаючи культові вироби від відомих дизайнерів.',
   },
   {
-    logo: muutoLogo,
+    logo: '/images/muuto.png',
     description: 'Пропонує сучасні меблі, освітлення та аксесуари з акцентом на скандинавський дизайн та простоту.',
   },
 ];
@@ -94,105 +84,105 @@ function HomePage() {
 
   return (
     <main className="home-page">
-        <div className='home-page-color'>
-      <section className="home-page__hero">
-        <img className="home-page__hero-image" src={heroImage} alt="Осіння акція HYGGY" />
-        <div className="home-page__hero-overlay">
-          <h1 className="home-page__hero-title">Осінь на вашому боці: Знижки до 50% на меблі! Змініть свій інтер&apos;єр зараз!</h1>
-        </div>
-      </section>
+      <div className='home-page-color'>
+        <section className="home-page__hero">
+          {/* ТУТ ЗАМІНЕНО HERO_IMAGE */}
+          <img className="home-page__hero-image" src="/images/HERO_IMAGE.png" alt="Осіння акція HYGGY" />
+          <div className="home-page__hero-overlay">
+            <h1 className="home-page__hero-title">Осінь на вашому боці: Знижки до 50% на меблі! Змініть свій інтер&apos;єр зараз!</h1>
+          </div>
+        </section>
 
-      <section className="home-page__section home-page__about">
-        <div className="home-page__section-title-wrap home-page__section-title-wrap--about">
-          
-        </div>
-
-        <div className="home-page__about-grid">
-          <div className="home-page__about-image-wrap">
-            <img className="home-page__about-image" src={aboutImage} alt="Інтер’єр HYGGY" />
+        <section className="home-page__section home-page__about">
+          <div className="home-page__section-title-wrap home-page__section-title-wrap--about">
           </div>
 
-          <div className="home-page__about-text">
-            <h2 >Про нас</h2>
-            <p>
-              У Hyggy ми робимо все можливе, щоб ваш будинок став більш затишним та стильним. Ми пропонуємо ретельно відібрані меблі від надійних виробників, забезпечуючи відмінну якість та сучасний дизайн. Наша мета – надати вам широкий вибір, який відповідає різним смакам та бюджетам. Ми пишаємось тим, що наш асортимент включає як класичні, так і сучасні рішення для будь-якого інтер&apos;єру. Ми розуміємо, що купівля меблів – це важлива подія, і прагнемо зробити цей процес простим та приємним. Наша команда професіоналів завжди готова допомогти вам з вибором та відповісти на будь-які питання.
-            </p>
-            <p>
-              Ми приділяємо особливу увагу кожному клієнту, щоб ви могли знайти те, що вам потрібно. У Hyggy ми прагнемо створити ідеальні умови для комфортного та стильного проживання.
-            </p>
+          <div className="home-page__about-grid">
+            <div className="home-page__about-image-wrap">
+              {/* ТУТ ЗАМІНЕНО ABOUT_US */}
+              <img className="home-page__about-image" src="/images/about_us.png" alt="Інтер’єр HYGGY" />
+            </div>
+
+            <div className="home-page__about-text">
+              <h2 >Про нас</h2>
+              <p>
+                У Hyggy ми робимо все можливе, щоб ваш будинок став більш затишним та стильним. Ми пропонуємо ретельно відібрані меблі від надійних виробників, забезпечуючи відмінну якість та сучасний дизайн. Наша мета – надати вам широкий вибір, який відповідає різним смакам та бюджетам. Ми пишаємось тим, що наш асортимент включає як класичні, так і сучасні рішення для будь-якого інтер&apos;єру. Ми розуміємо, що купівля меблів – це важлива подія, і прагнемо зробити цей процес простим та приємним. Наша команда професіоналів завжди готова допомогти вам з вибором та відповісти на будь-які питання.
+              </p>
+              <p>
+                Ми приділяємо особливу увагу кожному клієнту, щоб ви могли знайти те, що вам потрібно. У Hyggy ми прагнемо створити ідеальні умови для комфортного та стильного проживання.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="home-page__section home-page__categories">
-        <div className="home-page__section-title-wrap home-page__section-title-wrap--compact categories">
-          <h2 className="home-page__section-title "><Link key="categories" to={`/category`} className="">Категорії</Link></h2>
-        </div>
+        <section className="home-page__section home-page__categories">
+          <div className="home-page__section-title-wrap home-page__section-title-wrap--compact categories">
+            <h2 className="home-page__section-title "><Link key="categories" to={`/category`} className="">Категорії</Link></h2>
+          </div>
 
-        <div className="home-page__categories-grid">
-          {CATEGORY_CARDS.map((category) => (
-            <Link key={category.title} to={`/category/${category.slug}`} className="home-page__category-card">
-              <img className="home-page__category-image" src={category.image} alt={category.title} />
-              <span className="home-page__category-label">{category.title}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
+          <div className="home-page__categories-grid">
+            {CATEGORY_CARDS.map((category) => (
+              <Link key={category.title} to={`/category/${category.slug}`} className="home-page__category-card">
+                <img className="home-page__category-image" src={category.image} alt={category.title} />
+                <span className="home-page__category-label">{category.title}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      <section className="home-page__brands">
-        <div className="home-page__section home-page__brands-grid">
-          {BRAND_CARDS.map((brand) => (
-            <article key={brand.description} className="home-page__brand-card">
-              <img className="home-page__brand-logo" src={brand.logo} alt="Логотип бренду" />
-              <p className="home-page__brand-text">{brand.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="home-page__section home-page__blog">
-        <div className="home-page__section-title-wrap home-page__section-title-wrap--compact">
-          <h2 className="home-page__section-title">Блог</h2>
-        </div>
-
-        <div className="home-page__blog-carousel">
-          <button
-            type="button"
-            className="home-page__carousel-arrow home-page__carousel-arrow--left"
-            aria-label="Попередні записи"
-            onClick={handlePrevBlog}
-          >
-            <img src={BLOG_ARROW_LEFT} alt="Попередній слайд" className="home-page__carousel-arrow-icon" />
-          </button>
-
-          <div className="home-page__blog-track" aria-label="Блог статті">
-            {visibleBlogPosts.map((post) => (
-              <article key={post.title} className="home-page__blog-card">
-                <div className="home-page__blog-image-wrap">
-                  <img className="home-page__blog-image" src={post.image} alt={post.title} />
-                  <h3 className={`home-page__blog-title home-page__blog-title--${post.titleAlign}`}>{post.title}</h3>
-                </div>
-                <p className={`home-page__blog-text home-page__blog-text--${post.textAlign}`}>{post.description}</p>
-                <Link to="/blog" className="home-page__blog-more" data-node-id="1750:136">
-                  Детальніше
-                </Link>
+        <section className="home-page__brands">
+          <div className="home-page__section home-page__brands-grid">
+            {BRAND_CARDS.map((brand) => (
+              <article key={brand.description} className="home-page__brand-card">
+                <img className="home-page__brand-logo" src={brand.logo} alt="Логотип бренду" />
+                <p className="home-page__brand-text">{brand.description}</p>
               </article>
             ))}
           </div>
+        </section>
 
-          <button
-            type="button"
-            className="home-page__carousel-arrow home-page__carousel-arrow--right"
-            aria-label="Наступні записи"
-            onClick={handleNextBlog}
-          >
-            <img src={BLOG_ARROW_RIGHT} alt="Наступний слайд" className="home-page__carousel-arrow-icon" />
-          </button>
-        </div>
-      </section>
+        <section className="home-page__section home-page__blog">
+          <div className="home-page__section-title-wrap home-page__section-title-wrap--compact">
+            <h2 className="home-page__section-title">Блог</h2>
+          </div>
+
+          <div className="home-page__blog-carousel">
+            <button
+              type="button"
+              className="home-page__carousel-arrow home-page__carousel-arrow--left"
+              aria-label="Попередні записи"
+              onClick={handlePrevBlog}
+            >
+              <img src={BLOG_ARROW_LEFT} alt="Попередній слайд" className="home-page__carousel-arrow-icon" />
+            </button>
+
+            <div className="home-page__blog-track" aria-label="Блог статті">
+              {visibleBlogPosts.map((post) => (
+                <article key={post.title} className="home-page__blog-card">
+                  <div className="home-page__blog-image-wrap">
+                    <img className="home-page__blog-image" src={post.image} alt={post.title} />
+                    <h3 className={`home-page__blog-title home-page__blog-title--${post.titleAlign}`}>{post.title}</h3>
+                  </div>
+                  <p className={`home-page__blog-text home-page__blog-text--${post.textAlign}`}>{post.description}</p>
+                  <Link to="/blog" className="home-page__blog-more" data-node-id="1750:136">
+                    Детальніше
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="home-page__carousel-arrow home-page__carousel-arrow--right"
+              aria-label="Наступні записи"
+              onClick={handleNextBlog}
+            >
+              <img src={BLOG_ARROW_RIGHT} alt="Наступний слайд" className="home-page__carousel-arrow-icon" />
+            </button>
+          </div>
+        </section>
       </div>
     </main>
-    
   );
 }
 

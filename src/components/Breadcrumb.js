@@ -1,53 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Breadcrumb.css';
 
-// Твої статичні шляхи (я додав сюди /category)
-const routeNames = {
-  '/': 'Домашня сторінка',
-  '/blog': 'Блог',
-  '/shops': 'Магазини',
-  '/qa': 'Питання та відповіді',
-  '/work': 'Робота',
-  '/about': 'Про нас',
-  '/category': 'Категорії', 
-};
-
-// Словник для перекладу англійських назв категорій у URL
-const categoryTranslations = {
-  'bedroom': 'Спальня',
-  'bathroom': 'Ванна',
-  'office': 'Офіс',
-  'living-room': 'Вітальня',
-  'kitchen': 'Кухня',
-  'garden': 'Для саду'
-};
-
-// Додали пропс customLabels (порожній об'єкт за замовчуванням)
 const Breadcrumb = ({ customLabels = {} }) => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
+  
+  // Стейт для збереження перекладів із бази
+  const [translations, setTranslations] = useState(null);
 
-  if (location.pathname === '/') {
-    return null; // Не показуємо на головній
+  // Завантажуємо переклади при старті компонента
+  useEffect(() => {
+    fetch('http://localhost:3001/translations')
+      .then((res) => res.json())
+      .then((data) => {
+        setTranslations(data);
+      })
+      .catch((err) => console.error("Помилка завантаження перекладів:", err));
+  }, []);
+
+  // Не показуємо нічого на головній або поки дані ще вантажаться
+  if (location.pathname === '/' || !translations) {
+    return null;
   }
 
   return (
     <div className="breadcrumb">
+      {/* "Домашня сторінка" тепер теж може бути в перекладах або залишитись так */}
       <Link to="/" className="breadcrumb-link">
-        {routeNames['/']}
+        {translations.routes['/'] || 'Домашня сторінка'}
       </Link>
       
       {pathnames.map((value, index) => {
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
         const isLast = index === pathnames.length - 1;
         
-        // МАГІЯ ТУТ: Як ми визначаємо, що написати?
-        // 1. Шукаємо, чи не передали нам кастомну назву (наприклад, ім'я товару для його ID)
-        // 2. Якщо ні, шукаємо у твоїх статичних routeNames
-        // 3. Якщо ні, шукаємо в перекладах категорій
-        // 4. Якщо взагалі нічого немає — виводимо сам value з URL
-        const name = customLabels[value] || routeNames[to] || categoryTranslations[value] || value;
+        // ПРІОРИТЕТИ ПОШУКУ НАЗВИ:
+        // 1. customLabels[value] — назва товару (передаємо з ProductPage)
+        // 2. translations.routes[value] — статичні сторінки (blog, shops...)
+        // 3. translations.categories[value] — назви категорій (kitchen, bedroom...)
+        // 4. value — якщо нічого не знайдено, виводимо текст із URL
+        const name = 
+          customLabels[value] || 
+          translations.routes[value] || 
+          translations.categories[value] || 
+          value;
 
         return (
           <span key={to} className="breadcrumb-item">

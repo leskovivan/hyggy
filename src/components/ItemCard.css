@@ -174,3 +174,10 @@
   color: #888;
   font-weight: 600;
 }
+.item-card__favorite-btn svg {
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.item-card__favorite-btn:hover {
+    transform: scale(1.1);
+}

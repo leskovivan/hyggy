@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ProductGallery.css';
 
-const ProductGallery = ({ images }) => {
+const ProductGallery = ({ images = [] }) => {
+  // Встановлюємо перше фото як активне
   const [activeImage, setActiveImage] = useState(images[0]);
 
-  if (!images || images.length === 0) return null;
+  // Якщо пропси змінилися (перейшли на інший товар), оновлюємо головне фото
+  useEffect(() => {
+    if (images.length > 0) {
+      setActiveImage(images[0]);
+    }
+  }, [images]);
+
+  if (!images || images.length === 0) {
+    return <div className="gallery-placeholder">Зображення відсутні</div>;
+  }
 
   return (
     <div className="product-gallery">
-      
-      {/* Ліва колонка: Головне фото + мініатюри */}
-      <div className="gallery-left">
-        <img className="main-image" src={activeImage} alt="Головне фото" />
-        <div className="thumbnails">
-          {images.map((img, index) => (
-            <img 
-              key={index}
-              className={`thumb ${activeImage === img ? 'active' : ''}`}
-              src={img} 
-              alt={`Мініатюра ${index + 1}`} 
-              onClick={() => setActiveImage(img)}
-            />
-          ))}
+      {/* ЛІВА ЧАСТИНА: Головне вікно + Мініатюри */}
+      <div className="gallery-main">
+        <div className="main-image-container">
+          <img 
+            className="main-image" 
+            src={activeImage || images[0]} 
+            alt="Основний ракурс товару" 
+          />
         </div>
-      </div>
-
-      {/* Права колонка: Додаткове фото */}
-      <div className="gallery-right">
+        
+        {/* Рядок мініатюр (тільки якщо фото більше одного) */}
         {images.length > 1 && (
-          <img className="side-image" src={images[1]} alt="Додатковий ракурс" />
+          <div className="thumbnails-row">
+            {images.map((img, index) => (
+              <div 
+                key={index}
+                className={`thumb-wrapper ${activeImage === img ? 'active' : ''}`}
+                onClick={() => setActiveImage(img)}
+              >
+                <img src={img} alt={`Ракурс ${index + 1}`} />
+              </div>
+            ))}
+          </div>
         )}
       </div>
-      
+
+      {/* ПРАВА ЧАСТИНА: Додатковий великий ракурс (як на твоїх макетах) */}
+      <div className="gallery-secondary">
+        {images.length > 1 ? (
+          <img 
+            className="secondary-image" 
+            src={images[1]} 
+            alt="Додатковий ракурс в інтер'єрі" 
+          />
+        ) : (
+          /* Якщо фото лише одне, можна показати заглушку або залишити порожнім */
+          <div className="secondary-placeholder">
+            <span>HYGGY Design</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

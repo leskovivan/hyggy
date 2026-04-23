@@ -23,6 +23,13 @@ import LoginPage from './pages/LoginPage';
 // import LoginPage from './pages/LoginPage';
 // import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
+import RegisterPage from './pages/RegisterPage';
+import ConfirmPage from './pages/ConfirmPage';
+import SuccsessPage from './pages/SuccessPage';
+import ProfilePage from './pages/ProfilePage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import { CartProvider } from './context/CartContext';
+import CartDrawer from './pages/CartDrawer';
 
 function AppContent() {
   const location = useLocation();
@@ -30,7 +37,7 @@ function AppContent() {
   // Додаємо /login, /register та /admin у список відомих шляхів
   const staticPaths = [
     '/', '/blog', '/shops', '/qa', '/work', '/about', '/about-us', '/category', 
-    '/login', '/register', '/admin'
+     '/admin'
   ];
   
   const isKnownPath = 
@@ -50,14 +57,18 @@ function AppContent() {
         <Route path="/about" element={<AboutUs />} />
         <Route path="/category" element={<CatalogPage />} />
         
-        {/* Сторінки авторизації */}
-        {/* <Route path="/login" element={<LoginPage />} /> */}
-        {/* <Route path="/register" element={<RegisterPage />} /> */}
+
 
         {/* ДИНАМІЧНІ РОУТИ */}
         <Route path="/category/:categoryName" element={<CategoryPage />} />
         <Route path="/category/:categoryName/:productId" element={<ProductPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/confirm" element={<ConfirmPage />} />
+        <Route path="/success" element={<SuccsessPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
         {/* ЗАХИЩЕНИЙ РОУТ ДЛЯ АДМІНКИ */}
          <Route path="/admin" element={
           <ProtectedRoute adminOnly={true}>
@@ -84,11 +95,14 @@ function App() {
   return (
     // --- ОБГОРТАЄМО ВЕСЬ ДОДАТОК В AUTH PROVIDER ---
     <AuthProvider>
+      <CartProvider>
       <Router>
+        <CartDrawer />
         <div className="App">
           <AppContent />
         </div>
       </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

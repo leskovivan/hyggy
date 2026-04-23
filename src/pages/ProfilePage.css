@@ -1,0 +1,42 @@
+/* Сітка для карток у профілі */
+.profile-grid {
+    display: grid;
+    /* Робимо 3-4 колонки в залежності від ширини */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.profile-section-subtitle {
+    font-family: 'Raleway';
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-top: 30px;
+    border-top: 1px solid #ddd;
+}
+
+.profile-info-card {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.profile-avatar-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #00AAAD;
+}
+
+.user-display-name {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}

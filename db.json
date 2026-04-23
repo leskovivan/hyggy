@@ -1,0 +1,284 @@
+{
+  "translations": {
+    "routes": {
+      "/": "Домашня сторінка",
+      "blog": "Блог",
+      "shops": "Магазини",
+      "qa": "Питання та відповіді",
+      "work": "Робота",
+      "category": "Категорії"
+    },
+    "categories": {
+      "kitchen": "Кухня",
+      "bedroom": "Спальня",
+      "living-room": "Вітальня",
+      "office": "Офіс",
+      "bathroom": "Ванна",
+      "garden": "Для саду"
+    }
+  },
+  "products": [
+    {
+      "id": "1",
+      "category": "kitchen",
+      "slug": "bistrup-chair",
+      "brand": "BISTRUP",
+      "name": "Стілець обідній BISTRUP оливковий/дуб",
+      "price": 60,
+      "oldPrice": 100,
+      "inStock": true,
+      "hasDelivery": true,
+      "shortDescription": "Стілець BISTRUP — це стильне поєднання сучасного дизайну та практичності.",
+      "promoEndDate": "2026-04-30T23:59:59",
+      "isAlwaysLowPrice": false,
+      "discountPercent": 40,
+      "isNew": true,
+      "isGreatDeal": true,
+      "article": "3605035",
+      "image": "/images/muuto.png",
+      "images": [
+        "/images/muuto.png",
+        "/images/office.png",
+        "/images/Garden.png"
+      ],
+      "description": "Стілець BISTRUP — це стильне поєднання сучасного дизайну...",
+      "characteristics": [
+        {
+          "label": "Матеріал",
+          "value": "ППУ, Фанера, Поліестер, Сталь"
+        },
+        {
+          "label": "Колір",
+          "value": "Оливковий, Дуб"
+        },
+        {
+          "label": "Вага",
+          "value": "4 кг"
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "author": "Олена",
+          "rating": 3,
+          "text": "Цей стілець став справжньою знахідкою..."
+        },
+        {
+          "id": 2,
+          "author": "Андрій",
+          "rating": 5,
+          "text": "Придбали кілька стільців..."
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "category": "kitchen",
+      "slug": "bistrup-sofa",
+      "brand": "BISTRUP",
+      "name": "Диван обідній BISTRUP оливковий/дуб",
+      "price": 70,
+      "oldPrice": 100,
+      "inStock": true,
+      "hasDelivery": false,
+      "shortDescription": "Стильний обідній диван для вашої кухні.",
+      "promoEndDate": "2026-04-30T23:59:59",
+      "isAlwaysLowPrice": false,
+      "discountPercent": 30,
+      "isNew": false,
+      "isGreatDeal": true,
+      "article": "908312",
+      "image": "/images/muuto.png",
+      "images": [
+        "/images/muuto.png",
+        "/images/office.png",
+        "/images/Garden.png"
+      ],
+      "description": "Диван BISTRUP — це стильне поєднання сучасного дизайну...",
+      "characteristics": [
+        {
+          "label": "Матеріал",
+          "value": "ППУ, Фанера, Поліестер, Сталь"
+        },
+        {
+          "label": "Колір",
+          "value": "Оливковий, Дуб"
+        },
+        {
+          "label": "Вага",
+          "value": "10 кг"
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "author": "Олена",
+          "rating": 2,
+          "text": "Цей диван став справжньою знахідкою..."
+        },
+        {
+          "id": 2,
+          "author": "Андрій",
+          "rating": 4,
+          "text": "Придбали кілька диванів..."
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "category": "kitchen",
+      "slug": "vedbo-dining-table",
+      "brand": "VEDBO",
+      "name": "Стіл обідній VEDBO білий/дуб",
+      "price": 250,
+      "oldPrice": 320,
+      "inStock": true,
+      "hasDelivery": true,
+      "shortDescription": "Обідній стіл з матовою поверхнею, стійкою до відбитків.",
+      "promoEndDate": "2026-05-15T23:59:59",
+      "isAlwaysLowPrice": false,
+      "discountPercent": 22,
+      "isNew": true,
+      "isGreatDeal": false,
+      "article": "1048239",
+      "image": "/images/office.png",
+      "images": [
+        "/images/office.png",
+        "/images/muuto.png",
+        "/images/Garden.png"
+      ],
+      "description": "Обідній стіл VEDBO з матовою поверхнею, яка стійка до відбитків пальців.",
+      "characteristics": [
+        {
+          "label": "Матеріал",
+          "value": "МДФ, Масив дуба, Акриловий лак"
+        },
+        {
+          "label": "Колір",
+          "value": "Білий, Натуральний дуб"
+        }
+      ],
+      "reviews": [
+        {
+          "id": 1,
+          "author": "Марія",
+          "rating": 5,
+          "text": "Дуже стильний і міцний стіл."
+        }
+      ]
+    }
+  ],
+  "stores": [
+    {
+      "id": "1",
+      "name": "HYGGY Івано-Франківськ, ТЦ Арсен",
+      "city": "Івано-Франківськ",
+      "address": "Північний бульвар 2а",
+      "warehouse": "Загальний склад",
+      "image": "/images/stores/if_arsen.png",
+      "schedule": {
+        "mon": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "tue": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "wed": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "thu": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "fri": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "sat": {
+          "start": "10:00",
+          "end": "19:00"
+        },
+        "sun": {
+          "start": "10:00",
+          "end": "19:00"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "HYGGY Київ, ТЦ Променада",
+      "city": "Київ",
+      "address": "вул. Овруцька, 18",
+      "warehouse": "Склад Київ-Центр",
+      "image": "/images/stores/kyiv_pro.png",
+      "schedule": {
+        "mon": {
+          "start": "10:00",
+          "end": "20:00"
+        },
+        "tue": {
+          "start": "10:00",
+          "end": "20:00"
+        },
+        "wed": {
+          "start": "10:00",
+          "end": "20:00"
+        },
+        "thu": {
+          "start": "10:00",
+          "end": "20:00"
+        },
+        "fri": {
+          "start": "10:00",
+          "end": "20:00"
+        },
+        "sat": {
+          "start": "10:00",
+          "end": "18:00"
+        },
+        "sun": {
+          "start": "11:00",
+          "end": "17:00"
+        }
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@hyggy.com",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "name": "Vanya",
+      "email": "vanya@gmail.com",
+      "password": "08Vova1983",
+      "role": "user",
+      "subscribe": false,
+      "findOrders": false,
+      "createdAt": "2026-04-23T20:26:12.511Z",
+      "id": "hqp81MIe0q8"
+    },
+    {
+      "name": "рмпрлопдор",
+      "email": "vanyaf@gmail.com",
+      "password": "08Vova1983",
+      "role": "user",
+      "subscribe": false,
+      "findOrders": false,
+      "createdAt": "2026-04-23T20:46:27.964Z",
+      "id": "rdRJxDcezcY",
+      "favorites": [
+        3,
+        "3",
+        1
+      ]
+    }
+  ],
+  "favorites": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

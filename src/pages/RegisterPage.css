@@ -1,0 +1,100 @@
+.checkbox-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 10px 0 25px 0;
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center; /* Центруємо відносно великого тексту 25px */
+    gap: 12px;
+    color: #000;
+    font-family: Raleway;
+    font-size: 25px; /* Твій розмір */
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+/* ХОВАЄМО дефолтний інпут, але залишаємо логіку */
+.checkbox-item input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* ТВІЙ КАСТОМНИЙ СЕЛЕКТОР (35x35 як у SVG) */
+.custom-selector {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    background-color: #E0E0E0; /* Твій fill */
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Твій stroke */
+    border-radius: 5px; /* Твій rx */
+    position: relative;
+    transition: all 0.2s;
+}
+
+/* Стан, коли натиснуто (Checked) */
+.checkbox-item input:checked ~ .custom-selector {
+    background-color: #00AAAD;
+    border-color: #00AAAD;
+}
+
+/* Галочка всередині */
+.custom-selector::after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 12px;
+    top: 6px;
+    width: 7px;
+    height: 14px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkbox-item input:checked ~ .custom-selector::after {
+    display: block;
+}
+
+.checkbox-item a {
+    color: #00AAAD;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.preview-link {
+    margin-left: 5px;
+}
+
+/* Кнопка скасувати — стилізуємо під посилання */
+.cancel-link {
+    background: none;
+    border: none;
+    color: #00AAAD;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 20px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.cancel-link:hover {
+    color: #008a8d;
+}
+
+/* Якщо реєстрація має бути трохи ширшою за логін */
+.register-container-wide {
+    max-width: 810px; /* Твоя правка */
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import './AboutUs.css';
-import aboutImage from '../images/about_us.png';
+
 
 function AboutUs() {
   return (
     <main className="about-us">
       <div className="about-us__image-container">
-        <img src={"https://www.figma.com/api/mcp/asset/184ef092-486b-4f04-93d0-36f1dd7d697c" || aboutImage} alt="Про нас" className="about-us__image" />
+        <img src={"https://www.figma.com/api/mcp/asset/184ef092-486b-4f04-93d0-36f1dd7d697c" || "/images/office.png"} alt="Про нас" className="about-us__image" />
       </div>
       <div className="about-us__content">
         <h1 className="about-us__title">Про нас</h1>

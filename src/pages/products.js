@@ -1,9 +1,6 @@
-import mumuto from '../images/muuto.png';
-import office from '../images/office.png';
-import garden from '../images/Garden.png';
+// ІМПОРТИ КАРТИНОК ВИДАЛЕНО, ЩОБ НЕ БУЛО ПОМИЛОК МОДУЛЯ
 
 export const products = [
-  // Твої попередні товари (Стілець та Диван BISTRUP)
   {
     id: 1,
     category: 'kitchen',
@@ -21,8 +18,8 @@ export const products = [
     isNew: true,
     isGreatDeal: true,
     article: '3605035',
-    image: mumuto,
-    images: [mumuto, office, garden],
+    image: "/images/muuto.png",
+    images: ["/images/muuto.png", "/images/office.png", "/images/Garden.png"],
     description: 'Стілець BISTRUP — це стильне поєднання сучасного дизайну...',
     characteristics: [
       { label: 'Матеріал', value: 'ППУ, Фанера, Поліестер, Сталь' },
@@ -46,8 +43,8 @@ export const products = [
     hasDelivery: false,
     promoEndDate: '2026-04-30T23:59:59',
     article: '908312',
-    image: mumuto,
-    images: [mumuto, office, garden],
+    image: "/images/muuto.png",
+    images: ["/images/muuto.png", "/images/office.png", "/images/Garden.png"],
     description: 'Диван BISTRUP — це стильне поєднання сучасного дизайну...',
     characteristics: [
       { label: 'Матеріал', value: 'ППУ, Фанера, Поліестер, Сталь' },
@@ -59,9 +56,6 @@ export const products = [
       { id: 2, author: 'Андрій', rating: 4, text: 'Придбали кілька диванів...' }
     ]
   },
-
-  // --- НОВІ ТОВАРИ ДЛЯ КУХНІ ---
-
   {
     id: 3,
     category: 'kitchen',
@@ -74,8 +68,8 @@ export const products = [
     hasDelivery: true,
     promoEndDate: '2026-05-15T23:59:59',
     article: '1048239',
-    image: office, // Використовуємо твої існуючі імпорти для прикладу
-    images: [office, mumuto, garden],
+    image: "/images/office.png",
+    images: ["/images/office.png", "/images/muuto.png", "/images/Garden.png"],
     description: 'Обідній стіл VEDBO з матовою поверхнею, яка стійка до відбитків пальців. Ідеально підходить для великої родини, поєднуючи мінімалізм та практичність. Ніжки з масиву дуба гарантують стійкість.',
     characteristics: [
       { label: 'Матеріал', value: 'МДФ, Масив дуба, Акриловий лак' },
@@ -96,13 +90,13 @@ export const products = [
     brand: 'NORDVIKEN',
     name: 'Барний стілець NORDVIKEN чорний',
     price: 85,
-    oldPrice: null, // Товар без знижки (без перекресленої ціни і таймера)
-    inStock: false, // Немає в наявності (щоб перевірити червоний статус)
+    oldPrice: null,
+    inStock: false,
     hasDelivery: false,
     promoEndDate: null,
     article: '7729104',
-    image: garden,
-    images: [garden, office, mumuto],
+    image: "/images/Garden.png",
+    images: ["/images/Garden.png", "/images/office.png", "/images/muuto.png"],
     description: 'Зручний барний стілець з поглибленням у сидінні. Ідеальна висота для кухонного острова або високої барної стійки. Класичний чорний колір пасуватиме до будь-якого сучасного інтер\'єру.',
     characteristics: [
       { label: 'Матеріал', value: 'Масив сосни, Морилка, Прозорий акриловий лак' },
@@ -127,8 +121,8 @@ export const products = [
     hasDelivery: true,
     promoEndDate: '2026-06-01T23:59:59',
     article: '8910234',
-    image: mumuto,
-    images: [mumuto, garden, office],
+    image: "/images/muuto.png",
+    images: ["/images/muuto.png", "/images/Garden.png", "/images/office.png"],
     description: 'Додатковий робочий простір і місце для зберігання на вашій кухні. Візок можна легко пересувати завдяки коліщаткам. Має зручні висувні шухляди, які відкриваються з обох боків.',
     characteristics: [
       { label: 'Матеріал', value: 'Масив берези, Прозорий акриловий лак' },
@@ -155,8 +149,8 @@ export const products = [
     hasDelivery: true,
     promoEndDate: '2026-05-10T23:59:59',
     article: '4050212',
-    image: office,
-    images: [office, mumuto, garden],
+    image: "/images/office.png",
+    images: ["/images/office.png", "/images/muuto.png", "/images/Garden.png"],
     description: 'Зручне крісло HAVBERG з високою спинкою забезпечує оптимальну підтримку шиї та спини. М\'яка оббивка з міцної тканини гарантує комфортний відпочинок після довгого робочого дня.',
     characteristics: [
       { label: 'Матеріал', value: '100% поліестер, Пінополіуретан, Сталь' },
@@ -182,8 +176,8 @@ export const products = [
     hasDelivery: true,
     promoEndDate: null,
     article: '8992923',
-    image: garden,
-    images: [garden, office, mumuto],
+    image: "/images/Garden.png",
+    images: ["/images/Garden.png", "/images/office.png", "/images/muuto.png"],
     description: 'Каркас ліжка з масиву сосни. Натуральний матеріал, який з часом виглядає лише краще. Ви можете покрити його олією, воском, лаком або фарбою, щоб зробити ліжко унікальним.',
     characteristics: [
       { label: 'Матеріал', value: 'Масив сосни (без покриття)' },
@@ -209,8 +203,8 @@ export const products = [
     hasDelivery: false,
     promoEndDate: '2026-06-20T23:59:59',
     article: '2934041',
-    image: mumuto,
-    images: [mumuto, office, garden],
+    image: "/images/muuto.png",
+    images: ["/images/muuto.png", "/images/office.png", "/images/Garden.png"],
     description: 'Сучасна тумба під телевізор з прихованим зберіганням. Завдяки спеціальним отворам на задній панелі, ви зможете легко сховати та організувати всі дроти від техніки.',
     characteristics: [
       { label: 'Матеріал', value: 'ДСП, Паперова плівка, Пластик' },
@@ -231,12 +225,12 @@ export const products = [
     name: 'Торшер для читання LERSTA алюміній',
     price: 25,
     oldPrice: 35,
-    inStock: false, // Немає в наявності
+    inStock: false,
     hasDelivery: false,
     promoEndDate: '2026-04-28T23:59:59',
     article: '0011064',
-    image: office,
-    images: [office, garden, mumuto],
+    image: "/images/office.png",
+    images: ["/images/office.png", "/images/Garden.png", "/images/muuto.png"],
     description: 'Класичний торшер з гнучким штативом. Ви можете легко спрямувати світло саме туди, куди вам потрібно, що робить його ідеальним вибором для читання або роботи.',
     characteristics: [
       { label: 'Матеріал', value: 'Алюміній, Сталь, Пластик' },
@@ -261,8 +255,8 @@ export const products = [
     hasDelivery: true,
     promoEndDate: null,
     article: '7941743',
-    image: garden,
-    images: [garden, mumuto, office],
+    image: "/images/Garden.png",
+    images: ["/images/Garden.png", "/images/muuto.png", "/images/office.png"],
     description: 'Просторий письмовий стіл, за яким вистачить місця і для ноутбука, і для документів. Легкий, але міцний завдяки спеціальній конструкції стільниці.',
     characteristics: [
       { label: 'Матеріал стільниці', value: 'ДВП, Акрилова фарба' },
