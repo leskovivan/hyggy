@@ -1,0 +1,61 @@
+.product-specs-container {
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  margin: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-specs-title h2{
+  color: #000;
+    text-align: center;
+    font-family: Raleway;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.product-specs-table {
+    
+  border-collapse: collapse;
+  /* Тонкая рамка вокруг всей таблицы */
+  border: 1px solid #d1d1d1; 
+  background-color: #E0E0E0;
+  max-width: 1300px;
+  width: 100%; /* Добавил 100%, чтобы таблица растягивалась до твоих 1300px */
+}
+
+/* Общие стили для всех ячеек */
+.product-specs-table td {
+    padding: 27px 20px;
+    
+  border: 1px solid rgba(0, 0, 0, 0.50); /* Рамки между ячейками */
+  padding: 12px 20px;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Стили для левой колонки (Названия) */
+.spec-label {
+  width: 35%; /* Левая колонка чуть уже правой */
+  color: #000;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+
+.spec-value{
+
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}

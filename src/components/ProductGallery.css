@@ -1,0 +1,45 @@
+.product-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Дві абсолютно рівні колонки */
+  gap: 24px; /* Відстань між колонками */
+  width: 100%;
+}
+
+.gallery-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Відступ між головним фото і мініатюрами */
+}
+
+/* РОБИМО ФОТКИ ОДНАКОВИМИ */
+.main-image, .side-image {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Рівні квадрати. Якщо на макеті вони витягнуті, зміни на 4/5 */
+  object-fit: cover;
+  background-color: #f3f3f3; /* Сіра заглушка, поки вантажиться */
+}
+
+.gallery-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Притискає праву фотку до самого верху */
+}
+
+/* Мініатюри */
+.thumbnails {
+  display: flex;
+  gap: 15px;
+}
+
+.thumb {
+  width: 100px; /* Ширина мініатюр */
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.thumb.active, .thumb:hover {
+  border-color: #00A896; /* Твій бірюзовий колір з макета */
+}

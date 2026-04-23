@@ -2,7 +2,8 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { products } from './products'; // Твой массив со всеми товарами
 import ItemCard from '../components/ItemCard'; // Твой компонент карточки товара
-
+import Breadcrumb from '../components/Breadcrumb';
+import './CategoryPage.css';
 const CategoryPage = () => {
   // Вытаскиваем название категории из URL (например, "kitchen")
   const { categoryName } = useParams();
@@ -14,6 +15,8 @@ const CategoryPage = () => {
 
   return (
     <div className="container">
+      <div className='category-page-container'>
+      <Breadcrumb />
       <h1 className="category-title">
         {/* Делаем первую букву заглавной для красоты */}
         {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
@@ -28,7 +31,7 @@ const CategoryPage = () => {
           <p>У цій категорії поки що немає товарів.</p>
         )}
       </div>
-    </div>
+    </div></div>
   );
 };
 

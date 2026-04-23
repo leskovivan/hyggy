@@ -26,6 +26,7 @@ function Prefooter() {
 	return (
 		<section className="prefooter" data-node-id="1945:1744">
 			<div className="prefooter__top">
+				<div className='content-prefooter'>
 				{INFO_ITEMS.map((item) => (
 					<article className="prefooter__info-item" key={item.iconAlt}>
 						<div className="prefooter__icon-wrap">
@@ -33,7 +34,7 @@ function Prefooter() {
 						</div>
 						<p className="prefooter__info-text">{item.text}</p>
 					</article>
-				))}
+				))}</div>
 			</div>
 
 			<div className="prefooter__bottom">

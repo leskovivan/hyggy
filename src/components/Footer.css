@@ -2,7 +2,6 @@
 
 .footer {
   width: 100%;
-  max-width: 1920px;
   margin: 0 auto;
   background: #00aaad;
   color: #ffffff;
@@ -11,7 +10,9 @@
   box-sizing: border-box;
 }
 
-.footer__content {
+.footer__content, .footer__bottom {
+  margin: 0 auto;
+  max-width: 1920px;
   display: grid;
   grid-template-columns: 1.08fr 1.2fr 1fr 1.1fr;
   gap: 52px;
@@ -74,8 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 86px;
-  margin-right: 80px;
+  
 }
 
 .footer__payments {

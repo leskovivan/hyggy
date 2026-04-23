@@ -1,0 +1,469 @@
+.product-page-container {
+  width: 100%;
+  /* 1. СТАВИМ ТАКУЮ ЖЕ ШИРИНУ КАК В ХЕДЕРЕ! (Если в хедере 1300px, то и тут 1300px) */
+   
+  /* 2. Центрируем контейнер */
+  margin: 0 auto; 
+  /* 3. Делаем отступы: 35px сверху, 20px по бокам (как в хедере), 120px снизу */
+  padding: 35px 0px 120px; 
+  
+  background-color: #f3f3f3;
+  font-family: 'Raleway', sans-serif; /* Заменил на Raleway, так как весь сайт на нем */
+  color: #000;
+  position: relative;
+}
+.product-section, .similar-products {
+  scroll-margin-top: 120px; /* Це змусить сторінку зупинятися трохи вище заголовка. Підбери цифру під висоту свого хедера! */
+}
+.product-desc p{
+    color: #000;
+font-family: "Raleway", sans-serif;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.blue-line {
+  height: 84px;
+  background: #00AAAD;
+  width: 100%;
+  /* Flexbox центрирует внутренний контейнер ровно посередине этих 84px высоты */
+  display: flex; 
+  align-items: center; 
+}
+
+.tabs-wrapper {
+    margin: 0 auto; /* Центрируем по горизонтали */ 
+  display: flex;
+  align-items: center;
+  gap: 50px; /* Расстояние между словами (можешь изменить под свой макет) */
+  
+  /* Если в классе .product-page-main у тебя УЖЕ прописано:
+     max-width: 1300px; 
+     margin: 0 auto;
+     Тогда текст идеально выровняется по левому краю твоего контента! */
+}
+
+.tab-item {
+  color: #FFF;
+  font-family: 'Raleway', sans-serif;
+  font-size: 22px; /* Размер шрифта с макета */
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+/* Легкий эффект при наведении */
+.tab-item:hover {
+  opacity: 0.7; 
+}
+.product-page-main{
+    max-width: 1650px;
+    margin: 0 auto;
+    padding: 35px 135px 0;
+}
+.product-top-section {
+  /* В React файле у тебя тут Grid, поэтому эти Flex-правила можно даже удалить, 
+     но если оставишь - не страшно, inline-style из React (display: grid) их перебьет */
+  margin-bottom: 80px;
+}
+
+/* Секция с деталями продукта (описание, характеристики, отзывы) */
+.product-details-section {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-top: 60px;
+  /* УБРАЛИ padding: 0 20px, чтобы текст шел вровень с картинками! */
+}
+.description-and-blog-section {
+  font-family: 'Raleway', sans-serif;
+  color: #000;
+  width: 100%;
+}
+
+/* --- СЕКЦІЯ ОПИСУ --- */
+.section-main-title {
+  text-align: center; /* Заголовок по центру, як на макеті */
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.description-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Дві рівні колонки: текст і картинка */
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 60px;
+}
+
+.description-text p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  font-weight: 400;
+}
+
+.description-text .article-text {
+  margin-top: 30px;
+  font-size: 16px;
+}
+
+.description-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background-color: #f3f3f3; /* Легкий фон під картинку, якщо вона прозора */
+}
+
+/* --- СЕКЦІЯ БЛОГУ --- */
+.blog-articles-container {
+  margin-top: 50px;
+}
+
+.blog-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  text-align: left; /* Заголовок зліва, як на макеті */
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 колонки для карток */
+  gap: 20px;
+}
+
+.blog-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Пропорція картинки (ширша ніж вища) */
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.blog-card-text {
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 400;
+  color: #000;
+}
+
+/* --- АДАПТИВНІСТЬ --- */
+@media (max-width: 992px) {
+  /* На планшетах опис стає в одну колонку, блог - в дві */
+  .description-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  /* На телефонах все в одну колонку */
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.product-section {
+  /* УБРАЛИ padding: 20px, чтобы не было смещения внутрь */
+}
+
+.product-section h2 {
+  color: #000;
+text-align: center;
+font-family: Raleway;
+font-size: 40px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+
+
+/* Похожие товары */
+.similar-products {
+  margin-top: 100px;
+  /* УБРАЛИ padding: 0 20px */
+}
+
+.similar-products h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* --- АДАПТИВ --- */
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  /* Тут мы перестраиваем Grid галереи и инфо в одну колонку на планшетах */
+  .product-top-section {
+    display: flex !important; /* Перебиваем inline-grid из React */
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .product-top-section > * {
+    width: 100%;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-section h2, .similar-products h2 {
+    font-size: 24px;
+  }
+}
+.product-feature-section {
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  color: #000;
+  margin-top: 40px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+/* --- УНІВЕРСАЛЬНА СІТКА --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr; /* Ліва частина для тексту ширша, права для медіа */
+  grid-template-rows: auto auto; 
+  gap: 40px; 
+  align-items: start;
+}
+
+/* 1. Текстова ячейка */
+.feature-grid-text {
+  grid-column: 1; 
+  grid-row: 1;    
+}
+
+.feature-grid-text p {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+.feature-article {
+  margin-top: 30px;
+}
+
+/* 2. Додатковий контент (блог) під текстом */
+.feature-grid-extra {
+  grid-column: 1; 
+  grid-row: 2;    
+}
+
+.extra-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  background-color: #f3f3f3; 
+  display: inline-block;
+}
+
+.extra-cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+}
+
+.extra-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.extra-card p {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* 3. Медіа блок (займає 2 ряди) */
+.feature-grid-media {
+  grid-column: 2; 
+  grid-row: 1 / span 2; /* Розтягується на висоту тексту і блогу */
+  height: 100%; 
+}
+
+.feature-grid-media img {
+  width: 100%;
+   
+  object-fit: cover; 
+}
+
+/* --- Адаптив --- */
+@media (max-width: 992px) {
+  .feature-grid {
+    grid-template-columns: 1fr; 
+  }
+  
+  .feature-grid-text,
+  .feature-grid-extra,
+  .feature-grid-media {
+    grid-column: 1;
+    grid-row: auto; 
+  }
+  
+  .feature-grid-media {
+    order: -1; /* Медіа стрибає наверх на мобільних */
+    height: 400px; 
+  }
+}
+/* --- СХОЖІ ТОВАРИ (Карусель) --- */
+.similar-products-section {
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.similar-products-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0 20px 0; /* Місце для тіней карток */
+  
+  /* Магнітний скрол для телефонів */
+  scroll-snap-type: x mandatory; 
+  
+  /* Ховаємо скролбар */
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  
+}
+
+.similar-products-carousel::-webkit-scrollbar {
+  display: none; 
+}
+
+/* --- СХОЖІ ТОВАРИ (Карусель) --- */
+.similar-products-section {
+  width: 100%;
+  margin-top: 80px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.carousel-wrapper {
+  position: relative;
+  width: 100%; /* Займаємо всю ширину */
+}
+
+.similar-products-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0 20px 0;
+  width: 100%; /* ОСЬ ЦЕЙ РЯДОК НЕ ДАСТЬ УТВОРЮВАТИСЯ ДІРКАМ */
+  
+  scroll-snap-type: x mandatory; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none;  
+}
+
+.similar-products-carousel::-webkit-scrollbar {
+  display: none; 
+}
+
+/* Робимо картки знову "гумовими", щоб 4 штуки ідеально ставали в ряд */
+.carousel-item {
+  flex: 0 0 calc(25% - 18px); 
+  scroll-snap-align: start; 
+}
+
+.carousel-item > * {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- КНОПКИ КАРУСЕЛІ --- */
+.carousel-btn {
+  position: absolute;
+  top: 40%; 
+  transform: translateY(-50%);
+  background-color: #fff;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  color: #000;
+  transition: all 0.2s ease;
+}
+
+.carousel-btn:hover {
+  background-color: #00AAAD;
+  color: #fff;
+  border-color: #00AAAD;
+}
+
+.carousel-btn.prev { left: -25px; }
+.carousel-btn.next { right: -25px; }
+
+/* --- АДАПТИВ --- */
+@media (max-width: 1200px) {
+  .carousel-item {
+    flex: 0 0 calc(33.333% - 16px); /* 3 картки */
+  }
+}
+
+@media (max-width: 992px) {
+  .carousel-item {
+    flex: 0 0 calc(50% - 12px); /* 2 картки */
+  }
+}
+
+@media (max-width: 600px) {
+  .carousel-item {
+    flex: 0 0 80%; /* 1 картка + шматочок наступної */
+  }
+  .carousel-btn {
+    display: none; 
+  }
+}

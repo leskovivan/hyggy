@@ -160,12 +160,13 @@
 }
 
 .home-page__brands-grid {
+  max-width: 100%;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 26px;
   align-items: start;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.25);
-  width: 1920px;
+  
 }
 
 .home-page__brand-card {

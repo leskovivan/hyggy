@@ -78,8 +78,8 @@ function Footer() {
 					<p className="footer__text">Тел: <a className="footer__link footer__link--underlined" href="tel:+380123456789">+380123456789</a></p>
 					<a className="footer__link footer__link--strong footer__link--underlined" href="/">Зв’яжіться з нами</a>
 				</section>
+				
 			</div>
-
 			<div className="footer__bottom">
 				<div className="footer__payments" aria-label="Способи оплати">
 					{PAYMENT_LOGOS.map((logo) => (
@@ -103,6 +103,7 @@ function Footer() {
 					))}
 				</div>
 			</div>
+			
 		</footer>
 	);
 }

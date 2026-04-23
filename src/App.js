@@ -13,15 +13,26 @@ import NotFound from './pages/NotFound';
 
 import CategoryPage from './pages/CategoryPage';
 import CatalogPage from './pages/Catalog';
+import ProductPage from './pages/ProductPage';
 
+// --- ІМПОРТУЄМО ПРОВАЙДЕР ТА ЗАХИЩЕНИЙ РОУТ ---
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './context/ProtectedRoute';
+import LoginPage from './pages/LoginPage';
+// (Припустимо, що ці сторінки ти скоро створиш)
+// import LoginPage from './pages/LoginPage';
+// import RegisterPage from './pages/RegisterPage';
+import AdminPage from './pages/AdminPage';
 
 function AppContent() {
   const location = useLocation();
 
-  // Список статических путей
-  const staticPaths = ['/', '/blog', '/shops', '/qa', '/work', '/about', '/about-us', '/category'];
+  // Додаємо /login, /register та /admin у список відомих шляхів
+  const staticPaths = [
+    '/', '/blog', '/shops', '/qa', '/work', '/about', '/about-us', '/category', 
+    '/login', '/register', '/admin'
+  ];
   
-  // Проверяем: либо это статический путь, либо динамический путь каталога (/category/что-то)
   const isKnownPath = 
     staticPaths.includes(location.pathname) || 
     location.pathname.startsWith('/category/');
@@ -30,7 +41,6 @@ function AppContent() {
     <>
       <Header />
     
-      
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
@@ -39,18 +49,30 @@ function AppContent() {
         <Route path="/work" element={<WorkPage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/category" element={<CatalogPage />} />
-        {/* Динамический роут для категорий из твоего макета */}
-        <Route path="/category/:categoryName" element={<CategoryPage />} />
+        
+        {/* Сторінки авторизації */}
+        {/* <Route path="/login" element={<LoginPage />} /> */}
+        {/* <Route path="/register" element={<RegisterPage />} /> */}
 
+        {/* ДИНАМІЧНІ РОУТИ */}
+        <Route path="/category/:categoryName" element={<CategoryPage />} />
+        <Route path="/category/:categoryName/:productId" element={<ProductPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        {/* ЗАХИЩЕНИЙ РОУТ ДЛЯ АДМІНКИ */}
+         <Route path="/admin" element={
+          <ProtectedRoute adminOnly={true}>
+            <AdminPage />
+          </ProtectedRoute>
+        } /> 
+        
 
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      {/* Футеры скрываются на 404 */}
+      {/* Футери приховуються на 404 */}
       {isKnownPath && (
         <>
           <Prefooter />
-          
         </>
       )}
       <Footer />
@@ -60,11 +82,14 @@ function AppContent() {
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <AppContent />
-      </div>
-    </Router>
+    // --- ОБГОРТАЄМО ВЕСЬ ДОДАТОК В AUTH PROVIDER ---
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <AppContent />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

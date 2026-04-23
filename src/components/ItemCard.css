@@ -1,0 +1,176 @@
+.item-card {
+  width: 100%;
+  max-width: 300px;
+  background-color: #fff;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- ЗОНА КАРТИНКИ --- */
+.item-card__image-box {
+  position: relative;
+  background-color: #D9D9D9; /* Сіра заглушка, як на макеті */
+  aspect-ratio: 4 / 5; /* Пропорції блоку з картинкою */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.item-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-card__favorite-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+/* --- БЕЙДЖІ --- */
+.item-card__badges {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge {
+  color: white;
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.badge--discount {
+  background-color: #E60000; /* Червоний */
+}
+
+.badge--new {
+  background-color: #32CD32; /* Зелений */
+}
+
+/* --- ІНФО --- */
+.item-card__info {
+  padding: 20px 15px;
+  height: 290px;
+}
+
+.item-card__brand {
+  font-weight: 700;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.item-card__name {
+  font-weight: 400;
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.item-card__stars {
+  color: #000;
+  letter-spacing: 2px;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* --- ЦІНИ --- */
+.item-card__prices {
+  margin-bottom: 15px;
+}
+
+.price-current {
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  line-height: 1;
+}
+
+.price-old {
+  font-size: 18px;
+  font-weight: 700;
+  color: #999;
+  text-decoration: line-through;
+  margin-top: 5px;
+}
+
+.price-unit {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* --- СТАТУСИ --- */
+.item-card__statuses {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-green {
+  background-color: #32CD32;
+}
+
+.dot-red {
+  background-color: #E60000;
+}
+.item-card-link {
+  text-decoration: none; /* Убираем подчеркивание */
+  color: inherit;       /* Наследуем цвет текста от родителя */
+  display: block;       /* Ссылка должна занимать все место карточки */
+  transition: transform 0.2s ease;
+}
+
+.item-card-link:hover {
+  transform: translateY(-5px); /* Легкий подъем всей карточки при наведении */
+}
+.item-card__stars {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Відстань між зірочками та цифрою */
+  margin-bottom: 15px;
+}
+
+.item-card__stars-icons {
+  display: flex;
+  align-items: center;
+  gap: 2px; /* Відстань між самими зірочками */
+}
+
+.item-card__reviews-count {
+  font-size: 12px;
+  color: #888;
+  font-weight: 600;
+}

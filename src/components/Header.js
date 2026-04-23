@@ -107,22 +107,23 @@ function Header() {
         </div>
       </div>
 
-      <div className="bottom-nav">
-        <div className='left-bottom'>
-                <button className="location-selector" type="button" onClick={toggleStoreSelector}>
-            <div className="location-icon-container">
-                <img src={imgLocation} alt="Location" className="location-icon" />
-            </div>
-            <span>HYGGY Київ ТЦ Променада</span>
-            <img src={imgDropdown} alt="Dropdown" className="dropdown-icon" />
-        </button></div>
+      <div className="bottom-nav-container">
+        <div className="bottom-nav">
+          <div className='left-bottom'>
+                  <button className="location-selector" type="button" onClick={toggleStoreSelector}>
+              <div className="location-icon-container">
+                  <img src={imgLocation} alt="Location" className="location-icon" />
+              </div>
+              <span>HYGGY Київ ТЦ Променада</span>
+              <img src={imgDropdown} alt="Dropdown" className="dropdown-icon" />
+          </button></div>
 
-        <div className="nav-bottom-buttons">
-        <Link to="/blog" className="nav-item">Блог</Link>
-        <Link to="/shops" className="nav-item">Магазини</Link>
-        <Link to="/qa" className="nav-item">Питання-відповідь</Link>
-        <Link to="/work" className="nav-item">Робота</Link></div>
-        
+          <div className="nav-bottom-buttons">
+          <Link to="/blog" className="nav-item">Блог</Link>
+          <Link to="/shops" className="nav-item">Магазини</Link>
+          <Link to="/qa" className="nav-item">Питання-відповідь</Link>
+          <Link to="/work" className="nav-item">Робота</Link></div>
+        </div>
       </div>
 
             {isStoreSelectorOpen && (
