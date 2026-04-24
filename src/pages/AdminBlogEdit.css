@@ -1,0 +1,253 @@
+.admin-blog-edit {
+    max-width: 900px; /* Центруємо контентну область */
+    margin: 0 auto;
+}
+
+.admin-header {
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    color: #333;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Базові інпути */
+.admin-input, .admin-select, .admin-textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #e5e5e5; /* Сірий фон інпутів як на макеті */
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.admin-input::placeholder, .admin-textarea::placeholder {
+    color: #888;
+}
+
+.admin-select {
+    cursor: pointer;
+    appearance: none; /* Прибирає стандартну стрілочку браузера */
+}
+
+/* Секції */
+.admin-section {
+    margin-top: 10px;
+}
+
+.admin-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Завантаження обкладинки */
+.upload-placeholder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e5e5e5;
+    padding: 10px 20px;
+    border-radius: 4px;
+}
+
+.image-preview-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 300px;
+}
+
+.image-preview-wrapper img {
+    width: 100%;
+    border-radius: 4px;
+    display: block;
+}
+
+.delete-icon-btn {
+    position: absolute;
+    bottom: 10px;
+    right: -40px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Динамічний контент */
+.dynamic-content-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.content-block-editor {
+    position: relative;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.delete-block-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-textarea {
+    min-height: 150px;
+    resize: vertical;
+    background-color: #e5e5e5;
+}
+
+/* Галерея в редакторі */
+.gallery-images {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.gallery-images img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Кнопки */
+.content-controls, .keyword-inputs {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.teal-btn {
+    background-color: #00aaad;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.red-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+/* Ключові слова */
+.keywords-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.keyword-chip {
+    background-color: #e5e5e5;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.keyword-chip button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+}
+
+.small-input {
+    width: 200px;
+}
+
+/* Фінальна кнопка */
+.save-action-area {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.large-save-btn {
+    padding: 15px 50px;
+    font-size: 16px;
+}
+.product-images-grid {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.admin-image-preview {
+    position: relative;
+    width: 120px;
+    height: 120px;
+}
+
+.admin-image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.delete-photo-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.save-btn-main {
+    margin-top: 50px;
+    padding: 15px !important;
+    font-size: 18px !important;
+    width: 100%;
+}

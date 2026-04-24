@@ -1,0 +1,177 @@
+/* BlogPage.css */
+
+.blog-page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.blog-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.blog-header h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.blog-header p {
+    font-size: 18px;
+    color: #333;
+}
+
+/* ГОЛОВНІ ТАБИ */
+.blog-main-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.blog-tab-btn {
+    padding: 12px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #e6e6e6; /* Сірий для неактивних */
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.blog-tab-btn.active {
+    background-color: #00aaad; /* Бірюзовий для активного */
+    color: white;
+}
+
+/* ПІДКАТЕГОРІЇ (ІКОНКИ) */
+.blog-subcategories {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+}
+
+.subcategory-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.subcategory-item:hover {
+    transform: translateY(-5px);
+}
+
+.subcategory-icon-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: #f0f0f0; /* Заглушка, поки немає картинок */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.subcategory-icon-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.subcategory-item span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* ЗАГОЛОВОК СЕКЦІЇ */
+.blog-section-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* СІТКА СТАТЕЙ */
+.blog-articles-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Дві рівні колонки */
+    gap: 20px;
+}
+
+.blog-small-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Світла сітка 2х2 праворуч */
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+}
+
+/* КАРТКИ БЛОГУ */
+.blog-card {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.blog-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.blog-card:hover img {
+    transform: scale(1.05);
+}
+
+.blog-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Градієнт зверху вниз, щоб білий текст був читабельним на будь-якому фото */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.blog-card-overlay h3 {
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.large-card {
+    height: 100%;
+    min-height: 500px;
+}
+
+.large-card .blog-card-overlay h3 {
+    font-size: 24px; /* У великій картці більший текст */
+}
+
+.small-card {
+    min-height: 240px;
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 900px) {
+    .blog-articles-layout {
+        grid-template-columns: 1fr; /* Одна колонка на вузьких екранах */
+    }
+    .large-card {
+        min-height: 400px;
+    }
+}

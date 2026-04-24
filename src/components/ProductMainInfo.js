@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useCart } from '../context/CartContext'; // Підключаємо наш кошик
+import { useCart } from '../context/CartContext'; 
 import './ProductMainInfo.css';
 
 const StarIcon = ({ width = 16, height = 16, fill = "black" }) => (
@@ -11,16 +11,12 @@ const StarIcon = ({ width = 16, height = 16, fill = "black" }) => (
 const ProductMainInfo = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [timeLeft, setTimeLeft] = useState(''); 
-  
-  // Викликаємо функцію додавання з контексту
   const { addToCart } = useCart();
 
   const handleDecrease = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
   const handleIncrease = () => setQuantity(prev => prev + 1);
 
-  // Обробка натискання "Додати в кошик"
   const onAddToCartClick = () => {
-    // Передаємо продукт та обрану кількість
     addToCart(product, quantity);
   };
 
@@ -28,6 +24,13 @@ const ProductMainInfo = ({ product }) => {
   const averageRating = hasReviews 
     ? Math.round(product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length) 
     : 0;
+
+  // --- ОБЧИСЛЕННЯ СТАРОЇ ЦІНИ ---
+  const currentPrice = product.price;
+  const discount = product.discountPercent;
+  const oldPrice = discount > 0 
+    ? Math.round(currentPrice / (1 - discount / 100)) 
+    : null;
 
   useEffect(() => {
     if (!product.promoEndDate) return;
@@ -62,10 +65,11 @@ const ProductMainInfo = ({ product }) => {
           <span className="reviews-count">({hasReviews ? product.reviews.length : 0})</span>
         </div>
 
+        {/* ОНОВЛЕНИЙ БЛОК ЦІНИ */}
         <div className="product-prices">
-          <span className="current-price">{product.price}$<small>/шт.</small></span>
-          {product.oldPrice && (
-            <span className="old-price">{product.oldPrice}$<small>/шт.</small></span>
+          <span className="current-price">{currentPrice}$<small>/шт.</small></span>
+          {oldPrice && (
+            <span className="old-price">{oldPrice}$<small>/шт.</small></span>
           )}
         </div>
 
@@ -104,7 +108,6 @@ const ProductMainInfo = ({ product }) => {
             <span className="qty-value">{quantity}</span>
             <button onClick={handleIncrease} className="qty-btn">+</button>
           </div>
-          {/* При натисканні викликаємо нашу нову функцію */}
           <button className="add-to-cart-btn" onClick={onAddToCartClick}>Додати в кошик</button>
         </div>
       </div>

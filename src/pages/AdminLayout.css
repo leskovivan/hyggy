@@ -1,0 +1,95 @@
+/* Скидаємо базові відступи для адмінки */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Raleway', sans-serif;
+    background-color: #f8f9fa; /* Світло-сірий фон контенту */
+}
+
+/* БІЧНА ПАНЕЛЬ */
+.admin-sidebar {
+    width: 260px; /* Фіксована ширина як на макеті */
+    background-color: #00aaad; /* Твій фірмовий бірюзовий */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.admin-logo-area {
+    padding: 30px 20px;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.to-site-btn {
+    display: block;
+    background: white;
+    color: #00aaad;
+    text-align: center;
+    padding: 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.admin-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.admin-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.admin-nav a:hover, .admin-nav a.active {
+    background-color: rgba(255, 255, 255, 0.2); /* Підсвічування активного пункту */
+    font-weight: 600;
+}
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-group-title {
+    padding: 15px 30px 5px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-group a {
+    padding: 10px 30px 10px 45px; /* Зсув вправо для підпунктів */
+    font-size: 14px;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: left;
+    padding: 20px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logout-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* КОНТЕНТНА ЧАСТИНА (Справа) */
+.admin-content-area {
+    flex: 1;
+    padding: 40px 60px; /* Великі відступи як на макеті */
+    overflow-y: auto; /* Щоб скролився тільки контент, а меню стояло на місці */
+    height: 100vh;
+    box-sizing: border-box;
+}

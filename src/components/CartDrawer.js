@@ -1,9 +1,32 @@
 import React from 'react';
-import { useCart } from '../context/AuthContext'; // Або твій CartContext
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext'; 
+import { useAuth } from '../context/AuthContext'; 
 import './CartDrawer.css';
 
 const CartDrawer = () => {
   const { cartItems, isCartOpen, toggleCart, updateQuantity, removeFromCart, totalAmount } = useCart();
+  const { user } = useAuth(); 
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    // Цей лог допоможе перевірити, чи працює кнопка взагалі
+    console.log("Кнопка натиснута! Користувач:", user);
+
+    // 1. ПЕРЕВІРКА АВТОРИЗАЦІЇ
+    if (!user) {
+      alert("Будь ласка, увійдіть в акаунт, щоб оформити замовлення!");
+      toggleCart();
+      navigate('/login');
+      return;
+    }
+
+    // 2. ПЕРЕХІД НА СТОРІНКУ ОГЛЯДУ
+    // Ми просто закриваємо кошик і йдемо на /cart.
+    // Оформлення (fetch) тепер робимо ТІЛЬКИ на сторінці CartPage.
+    toggleCart(); 
+    navigate('/cart'); 
+  };
 
   return (
     <>
@@ -42,7 +65,10 @@ const CartDrawer = () => {
               <span>Разом:</span>
               <span>{totalAmount} $</span>
             </div>
-            <button className="go-to-checkout">Оформити замовлення</button>
+            {/* Сама кнопка */}
+            <button className="go-to-checkout" onClick={handleCheckout}>
+              Оформити замовлення
+            </button>
           </div>
         )}
       </aside>

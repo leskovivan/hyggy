@@ -1,0 +1,15 @@
+.admin-mini-select {
+    padding: 8px 15px;
+    background: #e5e5e5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.filter-plus-btn {
+    background: transparent;
+    border: none;
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+}

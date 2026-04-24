@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 import imgMenu from '../images/imgMenu.svg';
@@ -11,24 +11,29 @@ import imgLocation from '../images/imgLocation.svg';
 import imgDropdown from '../images/imgDropdown.svg';
 import MenuSlider from './MenuSlider';
 import { useAuth } from '../context/AuthContext'; 
-import { useCart } from '../context/CartContext'; // Імпортуємо контекст кошика
+import { useCart } from '../context/CartContext'; 
 
 function Header() {
+    const navigate = useNavigate();
     const [isStoreSelectorOpen, setIsStoreSelectorOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     
     // --- ДАНІ З КОНТЕКСТІВ ---
     const { user } = useAuth(); 
-    const { toggleCart, cartItems } = useCart(); // Дістаємо функції кошика
-
-    // Рахуємо загальну кількість товарів у кошику
+    const { toggleCart, cartItems } = useCart(); 
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
     // --- СТАН МАГАЗИНІВ ---
     const [stores, setStores] = useState([]); 
     const [selectedStore, setSelectedStore] = useState(null); 
-    const [searchQuery, setSearchQuery] = useState(''); 
+    const [storeSearch, setStoreSearch] = useState(''); // Пошук для селектора магазинів
 
+    // --- СТАН ПОШУКУ ТОВАРІВ ---
+    const [productSearch, setProductSearch] = useState(''); // Текст у полі пошуку
+    const [searchResults, setSearchResults] = useState([]); // Результати з бази
+    const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+
+    // Завантаження магазинів при старті
     useEffect(() => {
         fetch('http://localhost:3001/stores')
             .then(res => res.json())
@@ -39,6 +44,48 @@ function Header() {
             .catch(err => console.error("Помилка завантаження магазинів:", err));
     }, []);
 
+    // ЖИВИЙ ПОШУК ТОВАРІВ
+    useEffect(() => {
+    const getLiveResults = async () => {
+        if (productSearch.length > 1) {
+            try {
+                // Завантажуємо товари для пошуку
+                const response = await fetch(`http://localhost:3001/products`);
+                const data = await response.json();
+
+                // Фільтруємо так само розумно, як на сторінці пошуку
+                const searchWords = productSearch.toLowerCase().trim().split(/\s+/);
+                
+                const filtered = data.filter(product => {
+                    const nameLower = product.name.toLowerCase();
+                    // Перевіряємо, чи всі слова із запиту є в назві
+                    return searchWords.every(word => nameLower.includes(word));
+                });
+
+                setSearchResults(filtered.slice(0, 5)); // Показуємо максимум 5 результатів
+                setIsSearchDropdownOpen(true);
+            } catch (err) {
+                console.error("Помилка живого пошуку:", err);
+            }
+        } else {
+            setSearchResults([]);
+            setIsSearchDropdownOpen(false);
+        }
+    };
+
+    getLiveResults();
+}, [productSearch]);
+
+    // Обробка натискання Enter
+    const handleSearchKeyDown = (e) => {
+        if (e.key === 'Enter' && productSearch.length > 1) {
+            setIsSearchDropdownOpen(false);
+            navigate(`/search?q=${productSearch}`);
+            setProductSearch(''); // Очищуємо поле після переходу
+        }
+    };
+
+    // Перемикачі інтерфейсу
     const toggleStoreSelector = () => setIsStoreSelectorOpen(!isStoreSelectorOpen);
     const closeStoreSelector = () => setIsStoreSelectorOpen(false);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -50,8 +97,8 @@ function Header() {
     };
 
     const filteredStores = stores.filter(store => 
-        store.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        store.city.toLowerCase().includes(searchQuery.toLowerCase())
+        store.name.toLowerCase().includes(storeSearch.toLowerCase()) ||
+        store.city.toLowerCase().includes(storeSearch.toLowerCase())
     );
 
     return (
@@ -68,10 +115,50 @@ function Header() {
                             <img src={imgMenu} alt="Menu" className="menu-icon" />
                             <span>Меню</span>
                         </button>
+
+                        {/* СЕКЦІЯ ПОШУКУ */}
                         <div className="search-section">
                             <div className="search-box">
-                                <input type="text" placeholder="Пошук..." className="search-input" />
-                                <button className="search-icon-btn"><img src={imgSearch} alt="Search" /></button>
+                                <input 
+                                    type="text" 
+                                    placeholder="Пошук товарів..." 
+                                    className="search-input" 
+                                    value={productSearch}
+                                    onChange={(e) => setProductSearch(e.target.value)}
+                                    onKeyDown={handleSearchKeyDown}
+                                    onBlur={() => setTimeout(() => setIsSearchDropdownOpen(false), 200)}
+                                    onFocus={() => productSearch.length > 1 && setIsSearchDropdownOpen(true)}
+                                />
+                                <button className="search-icon-btn">
+                                    <img src={imgSearch} alt="Search" />
+                                </button>
+
+                                {/* ВИПАДАЮЧИЙ СПИСОК РЕЗУЛЬТАТІВ ПОШУКУ */}
+                                {isSearchDropdownOpen && (
+                                    <div className="search-dropdown">
+                                        {searchResults.length > 0 ? (
+                                            searchResults.map(product => (
+                                                <Link 
+                                                    key={product.id} 
+                                                    to={`/category/${product.category}/${product.id}`}
+                                                    className="search-result-item"
+                                                    onClick={() => {
+                                                        setProductSearch('');
+                                                        setIsSearchDropdownOpen(false);
+                                                    }}
+                                                >
+                                                    <img src={product.image} alt={product.name} />
+                                                    <div className="search-result-info">
+                                                        <p className="search-result-name">{product.name}</p>
+                                                        <p className="search-result-price">{product.price} $</p>
+                                                    </div>
+                                                </Link>
+                                            ))
+                                        ) : (
+                                            <div className="search-no-results">Нічого не знайдено</div>
+                                        )}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -82,13 +169,11 @@ function Header() {
                             <span>Обране</span>
                         </Link>
                         
-                        {/* ЛОГІКА ВХОДУ / ПРОФІЛЮ */}
                         <Link to={user ? "/profile" : "/login"} className="icon-btn">
                             <img src="/images/imgProf.svg" alt="Profile" />
                             <span>{user ? user.name : 'Вхід'}</span>
                         </Link>
 
-                        {/* КНОПКА КОШИКА (відкриває Drawer) */}
                         <button className="icon-btn" onClick={toggleCart}>
                             <div className="cart-icon-wrapper" style={{ position: 'relative', display: 'inline-flex' }}>
                                 <img src={imgCart} alt="Cart" />
@@ -135,8 +220,8 @@ function Header() {
                                 className="store-selector__search-input" 
                                 type="text" 
                                 placeholder="Пошук міста або ТЦ..." 
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                value={storeSearch}
+                                onChange={(e) => setStoreSearch(e.target.value)}
                             />
                             <button type="button" className="store-selector__search-button">
                                 <img src={imgSearch} alt="Пошук" />

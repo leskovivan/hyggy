@@ -1,0 +1,96 @@
+/* Фон, що закриває всю сторінку */
+.review-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Поверх усього */
+}
+
+/* Сама картка вікна */
+.review-modal-card {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+/* Кнопка закриття (хрестик) */
+.review-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+}
+
+.review-modal-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.review-modal-stars {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.review-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-modal-form input,
+.review-modal-form textarea {
+  width: 100%;
+  padding: 12px;
+  background: #f1f1f1;
+  border: none;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.review-modal-form textarea {
+  height: 120px;
+  resize: none;
+}
+
+.review-modal-terms {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.review-modal-submit {
+  background: #00aaad;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.review-modal-submit:hover {
+  background: #008c8e;
+}

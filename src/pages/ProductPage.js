@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react'; 
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom'; 
 import './ProductPage.css';
 
 import ItemCard from '../components/ItemCard';
@@ -8,14 +8,21 @@ import ProductMainInfo from '../components/ProductMainInfo';
 import ProductReviews from '../components/ProductReviews';
 import ProductSpecs from '../components/ProductSpecs';
 import Breadcrumb from '../components/Breadcrumb';
+import ReviewModal from '../components/ReviewModal'; 
+import RelatedBlogs from '../components/RelatedBlogs'; 
+import { useAuth } from '../context/AuthContext'; 
 
 const ProductPage = () => {
   const { productId } = useParams();
+  const { user } = useAuth();
   
   const [product, setProduct] = useState(null);
   const [similarProducts, setSimilarProducts] = useState([]);
-  const [recentItems, setRecentItems] = useState([]); // Стейт для переглянутих
+  const [recentItems, setRecentItems] = useState([]);
+  const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [error, setError] = useState(false);
 
   const carouselRef = useRef(null);
   const recentCarouselRef = useRef(null);
@@ -32,7 +39,6 @@ const ProductPage = () => {
       const limitedHistory = history.slice(0, 5);
       localStorage.setItem('viewedProducts', JSON.stringify(limitedHistory));
 
-      // Завантажуємо дані для блоку "Нещодавно переглянуті" (крім поточного)
       const idsToShow = limitedHistory.filter(id => Number(id) !== idToStore);
       if (idsToShow.length > 0) {
         const query = idsToShow.map(id => `id=${id}`).join('&');
@@ -44,28 +50,93 @@ const ProductPage = () => {
     }
   }, [productId]);
 
-  // Завантаження основного товару
+  // --- ЗАВАНТАЖЕННЯ ТОВАРУ ТА ФІЛЬТРОВАНИХ БЛОГІВ ---
   useEffect(() => {
     setLoading(true);
+    setError(false);
+
     fetch(`http://localhost:3001/products/${productId}`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Not Found');
+        return res.json();
+      })
       .then(currentProduct => {
+        if (!currentProduct || Object.keys(currentProduct).length === 0) {
+          throw new Error('Empty Product');
+        }
+
         setProduct(currentProduct);
         
-        fetch(`http://localhost:3001/products?category=${currentProduct.category}&id_ne=${currentProduct.id}&_limit=6`)
-          .then(res => res.json())
-          .then(similars => {
-            setSimilarProducts(similars);
-            setLoading(false);
-          });
+        Promise.all([
+          fetch(`http://localhost:3001/products?category=${currentProduct.category}`).then(r => r.json()),
+          fetch(`http://localhost:3001/blogs`).then(r => r.json())
+        ]).then(([allSimilars, allBlogs]) => {
+          // Схожі товари за категорією
+          setSimilarProducts(allSimilars.filter(p => String(p.id) !== String(productId)).slice(0, 6));
+          
+          // --- ЛОГІКА ПОШУКУ СТАТЕЙ ЗА НАЗВОЮ ---
+          const productName = currentProduct.name.toLowerCase();
+          const keywords = ['стілець', 'стіл', 'диван', 'ліжко', 'шафа', 'кухня', 'вітальня'];
+          
+          const filteredBlogs = allBlogs.filter(blog => {
+            const blogTitle = blog.title.toLowerCase();
+            // Шукаємо, чи є в назві товару та в заголовку блогу одне й те саме ключове слово
+            return keywords.some(word => 
+              productName.includes(word) && blogTitle.includes(word)
+            );
+          }).slice(0, 3);
+            
+          // Якщо збігів не знайдено, показуємо перші 3 статті як дефолт
+          if (filteredBlogs.length === 0) {
+            setRelatedBlogs(allBlogs.slice(0, 3));
+          } else {
+            setRelatedBlogs(filteredBlogs);
+          }
+
+          setLoading(false);
+        });
       })
       .catch(err => {
-        console.error("Помилка БД:", err);
+        console.error("Помилка завантаження:", err);
+        setError(true);
         setLoading(false);
       });
       
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, [productId]);
+
+  // --- ОБРОБКА ВІДГУКУ З СИНХРОНІЗАЦІЄЮ РЕЙТИНГУ ---
+  const handleReviewSubmit = async (formDataFromModal) => {
+    const newReview = {
+      id: Date.now(),
+      author: formDataFromModal.name,
+      text: formDataFromModal.comment,
+      rating: formDataFromModal.rating,
+      date: new Date().toLocaleDateString()
+    };
+
+    const updatedReviews = [...(product.reviews || []), newReview];
+    const totalRating = updatedReviews.reduce((sum, r) => sum + r.rating, 0);
+    const newAverageRating = Math.round(totalRating / updatedReviews.length);
+
+    try {
+      const res = await fetch(`http://localhost:3001/products/${product.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          reviews: updatedReviews,
+          rating: newAverageRating
+        })
+      });
+
+      if (res.ok) {
+        setProduct({ ...product, reviews: updatedReviews, rating: newAverageRating });
+        setIsModalOpen(false);
+      }
+    } catch (err) {
+      console.error("Помилка оновлення:", err);
+    }
+  };
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -76,16 +147,26 @@ const ProductPage = () => {
   
   const scrollCarousel = (ref, direction) => {
     if (ref.current) {
-      const scrollAmount = 320; 
-      ref.current.scrollBy({ 
-        left: direction === 'left' ? -scrollAmount : scrollAmount, 
-        behavior: 'smooth' 
+      const scrollAmount = 320;
+      ref.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
       });
     }
   };
 
-  if (loading) return null; 
-  if (!product) return <h2 style={{ textAlign: 'center', marginTop: '50px' }}>Товар не знайдено</h2>;
+  if (loading) return null;
+
+  if (error || !product) {
+    return (
+      <div className="product-page-main" style={{ textAlign: 'center', padding: '120px 20px' }}>
+        <h1 style={{ fontSize: '120px', color: '#00aaad', margin: 0 }}>404</h1>
+        <h2 style={{ fontSize: '32px', marginBottom: '20px' }}>Товар не знайдено</h2>
+        <p style={{ color: '#666', marginBottom: '40px' }}>Вибачте, але товару за цим посиланням не існує. Можливо, він був видалений.</p>
+        <Link to="/" className="teal-btn" style={{ textDecoration: 'none', display: 'inline-block' }}>Повернутися до магазину</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="product-page-container">
@@ -116,15 +197,9 @@ const ProductPage = () => {
                 <p>{product.description}</p>
                 <p className="feature-article"><strong>Артикул: {product.article}</strong></p>
               </div>
-              <div className="feature-grid-extra">
-                <h3 className="extra-title">Пов'язані статті</h3>
-                <div className="extra-cards-row">
-                  <div className="extra-card">
-                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Блог 1" />
-                    <p>5 ідей по організації простору</p>
-                  </div>
-                </div>
-              </div>
+              
+              <RelatedBlogs blogs={relatedBlogs} />
+
               <div className="feature-grid-media">
                 <img src={product.images?.[0] || product.image} alt={product.name} />
               </div>
@@ -136,11 +211,15 @@ const ProductPage = () => {
           </section>
 
           <section id="reviews" className="product-section">
-            <ProductReviews reviews={product.reviews} />
+            <ProductReviews reviews={product.reviews} onOpenModal={() => {
+              if (!user) return alert("Тільки для зареєстрованих користувачів!");
+              setIsModalOpen(true);
+            }} />
           </section>
         </div>
 
-        {/* СХОЖІ ТОВАРИ */}
+        <ReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleReviewSubmit} />
+
         <section id="similar" className="similar-products-section">
           <h2 className="section-title">Схожі товари</h2>
           <div className="carousel-wrapper">
@@ -154,7 +233,6 @@ const ProductPage = () => {
           </div>
         </section>
 
-        {/* ОСТАННІ ПЕРЕГЛЯНУТІ (Блок, який ми додали) */}
         {recentItems.length > 0 && (
           <section className="similar-products-section recent-items-block">
             <h2 className="section-title">Ви нещодавно переглядали</h2>

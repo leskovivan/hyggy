@@ -5,12 +5,12 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
   const { user } = useAuth();
 
   if (!user) {
-    // Якщо не залогінений — на сторінку входу
-    return <Navigate to="/login" />;
+    // Якщо треба в адмінку — на адмін-логін, інакше на звичайний
+    return <Navigate to={adminOnly ? "/admin/login" : "/login"} />;
   }
 
   if (adminOnly && user.role !== 'admin') {
-    // Якщо треба бути адміном, а ти — ні — на головну
+    // Якщо ти не адмін — на головну
     return <Navigate to="/" />;
   }
 
