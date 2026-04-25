@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminBlogList.css';
 
+import AdminToolbar from '../components/AdminToolbar';
+
 const AdminBlogList = () => {
     const [blogs, setBlogs] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -30,29 +32,13 @@ const AdminBlogList = () => {
 
     return (
         <div className="admin-blog-list-container">
-            {/* Верхня панель: Заголовок, лічильник та кнопка Додати */}
-            <div className="admin-blog-header">
-                <div className="title-area">
-                    <h2>Блоги</h2>
-                    <span className="blog-count">{blogs.length}</span>
-                </div>
-                <button className="add-blog-btn" onClick={() => navigate('/admin/blogs/new')}>
-                    Додати
-                </button>
-            </div>
-
-            {/* Панель пошуку */}
-            <div className="admin-search-bar">
-                <div className="search-input-wrapper">
-                    <span className="search-icon">🔍</span>
-                    <input 
-                        type="text" 
-                        placeholder="Швидкий пошук" 
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-            </div>
+            <AdminToolbar
+                title="Блоги"
+                count={filteredBlogs.length}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                onAdd={() => navigate('/admin/blogs/new')}
+            />
 
             {/* Таблиця блогів */}
             <div className="admin-table-wrapper">

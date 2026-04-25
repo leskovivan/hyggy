@@ -1,4 +1,4 @@
-.admin-mini-select {
+﻿.admin-mini-select {
     padding: 8px 15px;
     background: #e5e5e5;
     border: none;
@@ -13,3 +13,113 @@
     font-weight: 600;
     cursor: pointer;
 }
+
+.admin-product-list-container {
+    padding: 0;
+    width: 100%;
+}
+
+.admin-product-table-wrapper {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.admin-product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-product-table thead th {
+    font-weight: 300; /* Light */
+    font-size: 20px;
+    color: #231F20;
+    text-align: left;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5); /* As seen in Figma */
+}
+
+/* Adjust column widths to match Figma proportions */
+.admin-product-table thead th:nth-child(1) { width: 5%; padding-left: 0; }   /* ID */
+.admin-product-table thead th:nth-child(2) { width: 33%; }                   /* Назва */
+.admin-product-table thead th:nth-child(3) { width: 15%; }                   /* Виробник */
+.admin-product-table thead th:nth-child(4) { width: 12%; }                   /* Ціна */
+.admin-product-table thead th:nth-child(5) { width: 15%; }                   /* Рейтинг */
+.admin-product-table thead th:nth-child(6) { width: 15%; }                   /* Доставка */
+.admin-product-table thead th:nth-child(7) { width: 5%; text-align: center; }/* Actions */
+
+.admin-product-table tbody tr {
+    /* The line separating rows */
+    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5); 
+}
+
+.admin-product-table tbody td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 500; /* Medium */
+    font-size: 20px;
+    color: #231F20;
+    vertical-align: middle;
+}
+
+.admin-product-table tbody td:nth-child(1) {
+    padding-left: 0;
+}
+
+.product-name-cell {
+    /* if long names should wrap nicely */
+    word-break: break-word;
+}
+
+.stars-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.delivery-icon, .delivery-icon-not {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-product-table-actions {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.action-dots {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #A0A0A0; /* Match Figma grayish */
+    border-radius: 50%;
+}
+
+.sort-icon {
+    display: inline-flex;
+    margin-left: 10px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.sort-icon svg {
+    width: 13px;
+    height: 8px;
+    fill: #231F20;
+    opacity: 0.5;
+}
+

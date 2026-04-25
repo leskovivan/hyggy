@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import AdminToolbar from '../components/AdminToolbar';
-import './AdminBlogEdit.css';
+import './AdminClients.css';
 
 const AdminClients = () => {
     const [clients, setClients] = useState([]);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedGroup, setSelectedGroup] = useState('');
 
     useEffect(() => {
         // Завантажуємо дані паралельно
@@ -38,31 +39,54 @@ const AdminClients = () => {
         };
     };
 
+    const groups = useMemo(
+        () => [...new Set(clients.map(client => client.group).filter(Boolean))],
+        [clients]
+    );
+
     const filteredClients = useMemo(() => {
         return clients.filter(client => 
-            client.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            client.surname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            client.email?.toLowerCase().includes(searchTerm.toLowerCase())
+            (
+                client.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                client.surname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                client.email?.toLowerCase().includes(searchTerm.toLowerCase())
+            ) &&
+            (selectedGroup ? String(client.group) === String(selectedGroup) : true)
         );
-    }, [clients, searchTerm]);
+    }, [clients, searchTerm, selectedGroup]);
 
     if (loading) return <div className="admin-loading">Завантаження...</div>;
 
     return (
-        <div className="admin-layout">
-            <main className="admin-main-content">
-                <AdminToolbar 
-                    title="Клієнти" 
-                    count={filteredClients.length}
-                    searchTerm={searchTerm}
-                    onSearchChange={setSearchTerm}
-                />
+        <div className="admin-clients-container">
+            <AdminToolbar 
+                title="Клієнти" 
+                count={filteredClients.length}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+                filters={[
+                    {
+                        key: 'group',
+                        label: 'Група',
+                        value: selectedGroup,
+                        onChange: setSelectedGroup,
+                        options: groups,
+                    },
+                ]}
+            />
 
-                <div className="table-wrapper">
-                    <table className="admin-order-table">
+            <div className="admin-clients-table-wrapper">
+                <table className="admin-clients-table">
                         <thead>
                             <tr>
-                                <th>Ім'я ⌄</th>
+                                <th>
+                                    Ім'я
+                                    <span className="sort-icon" aria-hidden="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8">
+                                            <path fill="#231F20" fillOpacity="0.5" d="M1.41 0.589844L6 5.16984L10.59 0.589844L12 1.99984L6 7.99984L0 1.99984L1.41 0.589844Z"/>
+                                        </svg>
+                                    </span>
+                                </th>
                                 <th>Прізвище</th>
                                 <th>Пошта</th>
                                 <th>Телефон</th>
@@ -73,20 +97,26 @@ const AdminClients = () => {
                         </thead>
                         <tbody>
                             {filteredClients.map(client => {
-                                // Отримуємо реальні цифри для кожного клієнта
                                 const stats = getClientStats(client.id);
 
                                 return (
                                     <tr key={client.id}>
                                         <td>{client.name || '—'}</td>
                                         <td>{client.surname || '—'}</td>
-                                        <td>{client.email}</td>
+                                        <td>{client.email || '—'}</td>
                                         <td>{client.phone || '—'}</td>
-                                        {/* Виводимо розраховані дані */}
-                                        <td style={{ fontWeight: '600' }}>{stats.total} ₴</td>
+                                        <td>{stats.total} ₴</td>
                                         <td>{stats.average} ₴</td>
-                                        <td>
-                                            <button className="delete-action-btn" title="Видалити">🗑</button>
+                                        <td className="admin-clients-actions-cell">
+                                            <button className="delete-action-btn" title="Видалити" type="button" aria-label="Видалити клієнта">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                                    <path d="M4 7H20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                                    <path d="M9.5 3H14.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                                    <path d="M18.5 7L17.8 18.2C17.74 19.24 16.88 20.05 15.84 20.05H8.16C7.12 20.05 6.26 19.24 6.2 18.2L5.5 7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                                    <path d="M10 11V16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                                    <path d="M14 11V16" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                 );
@@ -94,7 +124,6 @@ const AdminClients = () => {
                         </tbody>
                     </table>
                 </div>
-            </main>
         </div>
     );
 };

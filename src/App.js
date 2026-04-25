@@ -49,6 +49,8 @@ import AdminStock from './pages/AdminStock';
 import AdminTransfers from './pages/AdminTransfers';
 import AdminSupplies from './pages/AdminSupplies';
 import AdminWriteOffs from './pages/AdminWriteOffs';
+import AdminWriteOffAdd from './pages/AdminWriteOffAdd';
+import AdminSuppliesAdd from './pages/AdminSuppliesAdd';
 
 function AppContent() {
   const location = useLocation();
@@ -98,7 +100,9 @@ function AppContent() {
               <Route path="/admin/stock" element={<AdminStock />} />
               <Route path="/admin/transfers" element={<AdminTransfers />} />
               <Route path="/admin/supplies" element={<AdminSupplies />} />
+              <Route path="/admin/supplies/add" element={<AdminSuppliesAdd />} />
               <Route path="/admin/write-offs" element={<AdminWriteOffs />} />
+              <Route path="/admin/write-offs/add" element={<AdminWriteOffAdd />} />
 
         </Route>
         <Route path="/" element={<HomePage />} />

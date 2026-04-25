@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+/* ===== BASE ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== PAGE WRAPPER ===== */
+.admin-blog-edit {
+    font-family: 'Raleway', sans-serif;
+    padding: 36px 40px;
+    min-height: 100vh;
+    
+}
+
+/* ===== HEADER ROW ===== */
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.2px;
+}
+
+.section-title span {
+    color: #888;
+    font-size: 18px;
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+/* ===== TEAL BUTTON ===== */
+.teal-btn {
+    background-color: #2BBCB8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.teal-btn:hover {
+    background-color: #25a8a4;
+}
+
+.teal-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===== SEARCH ===== */
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.admin-input {
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    color: #333;
+    
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 11px 16px 11px 44px;
+    width: 300px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.admin-input::placeholder {
+    color: #aaa;
+}
+
+.admin-input:focus {
+    border-color: #2BBCB8;
+}
+
+/* ===== TABLE ===== */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    
+    border-radius: 12px;
+    overflow: hidden;
+    
+}
+
+.admin-table thead tr {
+    border-bottom: 1px solid #000000;
+}
+
+.admin-table thead th {
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    text-align: left;
+}
+
+/* "Назва" header has sort arrow */
+.admin-table thead th:first-child::after {
+    content: ' ∨';
+    font-size: 11px;
+}
+
+.admin-table tbody tr {
+    border-bottom: 1px solid #f5f5f5;
+    transition: background-color 0.15s ease;
+}
+
+.admin-table tbody tr:last-child {
+    border-bottom: black 1px solid;
+}
+
+.admin-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+.admin-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #222;
+    vertical-align: middle;
+}
+
+/* Product image in table */
+.admin-table tbody td img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #f0f0f0;
+}
+
+/* Stars */
+.admin-table tbody td .stars {
+    display: flex;
+    gap: 2px;
+    color: #333;
+    font-size: 17px;
+}
+
+/* Delete button */
+.admin-table tbody td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    padding: 4px;
+}
+
+.admin-table tbody td button:hover {
+    opacity: 1;
+}
+
+/* Review text column */
+.admin-table tbody td.review-text {
+    font-size: 13px;
+    color: #555;
+    max-width: 280px;
+    line-height: 1.5;
+}

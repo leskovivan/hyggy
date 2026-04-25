@@ -1,98 +1,118 @@
 import React from 'react';
-import Header from '../components/Header';
-import Prefooter from '../components/prefooter';
-import Footer from '../components/Footer';
-import './WorkPage.css';
 import Breadcrumb from '../components/Breadcrumb';
+import './WorkPage.css';
 
-const imgImage = "https://www.figma.com/api/mcp/asset/e20f2cb5-bb7b-4ecf-9f59-9bddb1c95832";
-const imgImage1 = "https://www.figma.com/api/mcp/asset/75777ddd-84d0-4730-9b8d-5def3668eec3";
-const imgImage5 = "https://www.figma.com/api/mcp/asset/db16e59d-4952-4657-9929-63f927a7644e";
-const imgImage6 = "https://www.figma.com/api/mcp/asset/78cd3d08-0f69-4d89-b07b-825cdb001189";
-const imgImage7 = "https://www.figma.com/api/mcp/asset/092c754e-f7f2-45d5-abc8-dc8ba01dde62";
-const imgImage8 = "https://www.figma.com/api/mcp/asset/9ec25d9e-871d-40dc-8eed-8190879ac34c";
+const heroImage = '/images/main_sale.png';
+
+const introParagraphs = [
+  "Ми – сучасний і динамічний інтернет-магазин, який активно зростає та шукає талановитих і мотивованих людей. Якщо ти готовий долучитися до команди, що рухає інновації та обслуговує клієнтів на найвищому рівні, ми будемо раді вітати тебе серед нас! Ми цінуємо професійний розвиток наших співробітників, пропонуємо навчання, тренінги та можливість кар’єрного зростання.",
+  "Наш інтернет-магазин спеціалізується на продажі товарів для дому, меблів та декору. Ми прагнемо надавати клієнтам широкий вибір якісної продукції за доступними цінами. Наші головні цінності – довіра, інновації та сервіс, орієнтований на клієнта. Ми працюємо для того, щоб кожен покупець отримував найкращий досвід покупок, а кожен працівник – можливість для особистого й професійного розвитку."
+];
+
+const pillars = [
+  { type: 'globe', title: 'МІЖНАРОДНІ МОЖЛИВОСТІ' },
+  { type: 'growth', title: 'СТРІМКА КАРʼЄРА' },
+  { type: 'team', title: 'КОМАНДНИЙ ДУХ' }
+];
+
+const cards = [
+  { title: 'РІТЕЙЛ', image: '/images/bedroom.png' },
+  { title: 'КОНТАКТИ', image: '/images/Garden.png' },
+  { title: 'ГОЛОВНИЙ ОФІС', image: '/images/office.png' }
+];
+
+const vacancies = [
+  {
+    title: 'РОБОТА В РІТЕЙЛІ',
+    text: 'Ти працюватимеш у середовищі, де цінують ініціативу, швидкість рішень і живу взаємодію з клієнтами. Ми пропонуємо системне навчання, підтримку наставника та прозорі умови розвитку. Конкурентна оплата, бонуси за результат і командна підтримка допоможуть рухатися вперед.',
+    image: '/images/office.png',
+    reverse: false
+  },
+  {
+    title: 'РОБОТА В ГОЛОВНОМУ ОФІСІ',
+    text: 'У головному офісі ти впливатимеш на ключові бізнес-процеси: від логістики та аналітики до маркетингу й IT. Тут цінують відповідальність, системність та нові ідеї. Ми даємо ресурси для реалізації ініціатив і можливість бачити реальний результат своєї роботи.',
+    image: '/images/about_us.png',
+    reverse: true
+  },
+  {
+    title: 'РОБОТА У ВІДДІЛІ ПО РОБОТІ З КЛІЄНТАМИ',
+    text: 'Це напрям для тих, хто любить допомагати людям та будувати якісний сервіс. Ти вирішуватимеш запити клієнтів, покращуватимеш їхній досвід та впливатимеш на лояльність до бренду. Ми забезпечуємо зрозумілі процеси, сучасні інструменти й дружню команду.',
+    image: '/images/HERO_IMAGE.png',
+    reverse: false
+  }
+];
 
 function WorkPage() {
   return (
+    <main className="work-page">
+      <section className="work-page__container work-page__breadcrumbs">
+        <Breadcrumb />
+      </section>
 
-      
-        <main className="qa-page">
-          
-          <div className="work-page__breadcrumbs">
-          <Breadcrumb />
+      <section className="work-page__container work-page__hero">
+        <img src={heroImage} alt="Працюй з нами" className="work-page__hero-img" />
+        <h1 className="work-page__title">Працюй з нами</h1>
+      </section>
+
+      <section className="work-page__container work-page__intro">
+        {introParagraphs.map((paragraph, index) => (
+          <p className="work-page__intro-text" key={index}>{paragraph}</p>
+        ))}
+      </section>
+
+      <section className="work-page__pillars">
+        <div className="work-page__container work-page__pillars-grid">
+          {pillars.map((pillar) => (
+            <article className="work-page__pillar" key={pillar.title}>
+              <div className={`work-page__icon work-page__icon--${pillar.type}`} aria-hidden="true" />
+              <h2 className="work-page__pillar-title">{pillar.title}</h2>
+            </article>
+          ))}
         </div>
+      </section>
 
-        <div className="work-page__hero">
-          <img src={imgImage} alt="Work hero" className="work-page__hero-img" />
-          <h1 className="work-page__hero-title">Працюй з нами</h1>
-        </div>
+      <section className="work-page__container work-page__cards" aria-label="Напрями роботи">
+        {cards.map((card) => (
+          <article className="work-page__card" key={card.title}>
+            <img src={card.image} alt={card.title} className="work-page__card-image" />
+            <div className="work-page__card-mask" />
+            <h3 className="work-page__card-title">{card.title}</h3>
+          </article>
+        ))}
+      </section>
 
-        <div className="work-page__intro">
-          <p className="work-page__intro-text">
-            Ми – сучасний і динамічний інтернет-магазин, який активно зростає та шукає талановитих і мотивованих людей. Якщо ти готовий долучитися до команди, що рухає інновації та обслуговує клієнтів на найвищому рівні, ми будемо раді вітати тебе серед нас! Ми цінуємо професійний розвиток наших співробітників. Пропонуємо навчання, тренінги та можливість кар'єрного зростання у різних напрямках – від обслуговування клієнтів до IT і маркетингу. Ми цінуємо внесок кожного члена нашої команди, тому пропонуємо конкурентну оплату праці та систему бонусів за результативну роботу.
-          </p>
-          <p className="work-page__intro-text">
-            Наш інтернет-магазин спеціалізується на продажі товарів для дому, меблів та декору. Ми прагнемо надавати нашим клієнтам широкий вибір високоякісної продукції за доступними цінами. Завдяки постійній орієнтації на потреби споживачів та впровадженню новітніх технологій, ми стали одним із лідерів ринку. Наші головні цінності – це довіра, інновації та сервіс, орієнтований на клієнта. Ми працюємо для того, щоб кожен покупець отримував найкращий досвід покупок, а кожен працівник – можливість для особистого та професійного розвитку.
-          </p>
-        </div>
+      <section className="work-page__container work-page__banner">
+        <h2 className="work-page__banner-title">ЗНАЙДИ РОБОТУ, ЯКУ ТИ ШУКАЄШ</h2>
+        <p className="work-page__banner-text">
+          Ми віримо в потенціал кожного члена нашої команди. У нас ти зможеш постійно вдосконалювати свої навички,
+          брати участь у внутрішніх програмах навчання та розвивати кар’єру. Ми підтримуємо ініціативи, заохочуємо
+          досягнення та дбаємо про баланс між роботою й особистим життям.
+        </p>
+      </section>
 
-        <div className="work-page__opportunities">
-          <div className="work-page__opportunities-item">
-            <img src={imgImage1} alt="Opportunity 1" className="work-page__opportunities-img" />
-          </div>
-          <div className="work-page__opportunities-item">
-            <img src={imgImage5} alt="Opportunity 2" className="work-page__opportunities-img" />
-          </div>
-          <div className="work-page__opportunities-item">
-            <img src={imgImage6} alt="Opportunity 3" className="work-page__opportunities-img" />
-          </div>
-        </div>
+      <section className="work-page__container work-page__vacancies" aria-label="Вакансії">
+        {vacancies.map((vacancy) => (
+          <article
+            key={vacancy.title}
+            className={`work-page__vacancy${vacancy.reverse ? ' work-page__vacancy--reverse' : ''}`}
+          >
+            <div className="work-page__vacancy-content">
+              <h3 className="work-page__vacancy-title">{vacancy.title}</h3>
+              <p className="work-page__vacancy-text">{vacancy.text}</p>
+            </div>
+            <img src={vacancy.image} alt={vacancy.title} className="work-page__vacancy-image" />
+          </article>
+        ))}
+      </section>
 
-        <div className="work-page__join-banner">
-          <h2 className="work-page__join-title">ЗНАЙДИ РОБОТУ, ЯКУ ТИ ШУКАЄШ</h2>
-          <p className="work-page__join-text">
-            Ми віримо в потенціал кожного члена нашої команди. У нас ти зможеш постійно вдосконалювати свої навички, відвідувати тренінги, брати участь у внутрішніх програмах навчання та розвивати свою кар’єру. Ми підтримуємо ініціативи та заохочуємо досягнення. Розвивайся в напрямках, які тобі цікаві – від клієнтського сервісу до логістики, від маркетингу до IT-рішень. Ми розуміємо, наскільки важливо підтримувати баланс між роботою та особистим життям. Тому пропонуємо гнучкий графік роботи, що дозволяє поєднувати роботу з іншими важливими справами. Окрім того, ти зможеш працювати віддалено з будь-якої точки світу, використовуючи сучасні технології для ефективної комунікації з командою.
-          </p>
-        </div>
-
-        <div className="work-page__section">
-          <div className="work-page__section-content">
-            <h3 className="work-page__section-title">РОБОТА В РІТЕЙЛІ</h3>
-            <p className="work-page__section-text">
-              Ми цінуємо талант і наполегливість наших співробітників, тому пропонуємо гідну оплату праці та систему бонусів, яка мотивує досягати нових висот. Твоя праця буде винагороджена відповідно до твоїх зусиль і результатів. Наш інтернет-магазин постійно впроваджує новітні технології, щоб залишатися на піку ринку електронної комерції. В нашій компанії ти знайдеш колектив однодумців, які підтримують одне одного та прагнуть досягати спільних цілей.
-            </p>
-          </div>
-          <img src={imgImage7} alt="Retail" className="work-page__section-img" />
-        </div>
-
-        <div className="work-page__section work-page__section--reverse">
-          <div className="work-page__section-content">
-            <h3 className="work-page__section-title">РОБОТА В ГОЛОВНОМУ ОФІСІ</h3>
-            <p className="work-page__section-text">
-              Ми віримо, що успіх – це результат командної роботи, де кожен співробітник відіграє важливу роль. У нас ти знайдеш не тільки колег, але й друзів, які завжди готові допомогти та підтримати. У нас кожен співробітник може впливати на майбутнє компанії. Твої ідеї, ініціативи та пропозиції не залишаться непоміченими. Ми заохочуємо творчий підхід до роботи та надаємо можливість втілювати нові ідеї в життя. Ти зможеш робити реальний внесок у розвиток бізнесу, бачивши результати своєї праці. Ми віримо в чесність, відповідальність та взаємодопомогу.
-            </p>
-          </div>
-          <img src={imgImage8} alt="Office" className="work-page__section-img" />
-        </div>
-
-        <div className="work-page__section">
-          <div className="work-page__section-content">
-             <h3 className="work-page__section-title">РОБОТА В ВІДДІЛІ ПО РОБОТІ З КЛІЄНТАМИ</h3>
-            <p className="work-page__section-text">
-              Ми постійно вдосконалюємо сервіс та якість обслуговування... ти зможеш працювати віддалено з будь-якої точки світу, використовуючи сучасні технології для ефективної комунікації з командою. Ми цінуємо талант і наполегливість наших співробітників, тому пропонуємо гідну оплату праці та систему бонусів, яка мотивує досягати нових висот. Твоя праця буде винагороджена відповідно до твоїх зусиль і результатів.
-            </p>
-          </div>
-          <img src={imgImage7} alt="Customer Service" className="work-page__section-img" />
-        </div>
-
-        <div className="work-page__join-banner">
-          <h2 className="work-page__join-title">ПРИЄДНУЙСЯ ДО НАШОЇ КОМАНДИ І ПРАЦЮЙ З НАМИ</h2>
-          <p className="work-page__join-text">
-            Ми віримо в потенціал кожного члена нашої команди. У нас ти зможеш постійно вдосконалювати свої навички, відвідувати тренінги, брати участь у внутрішніх програмах навчання та розвивати свою кар’єру. Ми підтримуємо ініціативи та заохочуємо досягнення. Розвивайся в напрямках, які тобі цікаві – від клієнтського сервісу до логістики, від маркетингу до IT-рішень. Ми розуміємо, наскільки важливо підтримувати баланс між роботою та особистим життям. Тому пропонуємо гнучкий графік роботи, що дозволяє поєднувати роботу з іншими важливими справами.
-          </p>
-          </div>
-        </main>
-
+      <section className="work-page__container work-page__banner work-page__banner--last">
+        <h2 className="work-page__banner-title">ПРИЄДНУЙСЯ ДО НАШОЇ КОМАНДИ І ПРАЦЮЙ З НАМИ</h2>
+        <p className="work-page__banner-text">
+          Розвивайся в напрямах, які тобі цікаві: від клієнтського сервісу до логістики, від маркетингу до IT-рішень.
+          Ми цінуємо людей, які підтримують команду й хочуть рости разом із компанією.
+        </p>
+      </section>
+    </main>
   );
 }
 

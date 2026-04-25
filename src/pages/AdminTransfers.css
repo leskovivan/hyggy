@@ -1,0 +1,50 @@
+.admin-transfers-container {
+    padding: 0;
+    width: 100%;
+}
+
+.admin-transfers-table-wrapper {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.admin-transfers-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-transfers-table thead th {
+    font-weight: 300;
+    font-size: 20px;
+    color: #231F20;
+    text-align: left;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+}
+
+/* 6 колонок для Переміщень */
+.admin-transfers-table thead th:nth-child(1) { width: 15%; padding-left: 0; } /* Дата */
+.admin-transfers-table thead th:nth-child(2) { width: 35%; }                  /* Найменування */
+.admin-transfers-table thead th:nth-child(3) { width: 10%; }                  /* Сума */
+.admin-transfers-table thead th:nth-child(4) { width: 15%; }                  /* Працівник */
+.admin-transfers-table thead th:nth-child(5) { width: 20%; }                  /* Склади */
+.admin-transfers-table thead th:nth-child(6) { width: 5%; text-align: center; } /* Дії */
+
+.admin-transfers-table tbody tr {
+    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+}
+
+.admin-transfers-table tbody td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #231F20;
+    vertical-align: middle;
+}
+
+.admin-transfers-table tbody td:nth-child(1) {
+    padding-left: 0;
+}

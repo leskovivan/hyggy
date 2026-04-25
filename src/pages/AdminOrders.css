@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+.admin-orders {
+    font-family: 'Raleway', sans-serif;
+    padding: 36px 40px;
+}
+
+/* ===== TABLE ===== */
+.admin-orders .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.admin-orders .admin-table thead tr {
+    border-bottom: 1px solid #eee;
+}
+
+.admin-orders .admin-table thead th {
+    padding: 14px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.admin-orders .admin-table tbody tr {
+    border-bottom: 1px solid #f5f5f5;
+    transition: background-color 0.15s ease;
+}
+
+.admin-orders .admin-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.admin-orders .admin-table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+.admin-orders .admin-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #222;
+    vertical-align: middle;
+}
+
+/* Номер замовлення під назвою */
+.admin-orders .order-id {
+    display: block;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 2px;
+}
+
+/* Кнопка Постачання */
+.admin-orders .supply-link {
+    background: none;
+    border: none;
+    color: #2BBCB8;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.admin-orders .supply-link:hover {
+    color: #1da5a1;
+}
+
+/* Порожній стан */
+.admin-orders .empty-row {
+    text-align: center;
+    padding: 40px !important;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.admin-loading {
+    padding: 40px;
+    text-align: center;
+    color: #aaa;
+    font-family: 'Raleway', sans-serif;
+}

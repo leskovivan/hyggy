@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './AdminBlogEdit.css'; // Використовуємо твої існуючі стилі адмінки
+import AdminToolbar from '../components/AdminToolbar';
+import './AdminReviews.css'; // Використовуємо твої існуючі стилі адмінки
 
 const AdminReviews = () => {
     const [reviewsList, setReviewsList] = useState([]);
@@ -62,24 +63,14 @@ const AdminReviews = () => {
 
     return (
         <div className="admin-blog-edit">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-                <h2 className="section-title">Відгуки <span style={{ color: '#666', fontSize: '18px' }}>{filteredReviews.length}</span></h2>
-                <button className="teal-btn">Додати</button>
-            </div>
+            <AdminToolbar
+                title="Відгуки"
+                count={filteredReviews.length}
+                searchTerm={searchTerm}
+                onSearchChange={setSearchTerm}
+            />
 
-            <div className="search-container" style={{ marginBottom: '20px', position: 'relative' }}>
-                <input 
-                    type="text" 
-                    className="admin-input" 
-                    placeholder="Швидкий пошук" 
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ paddingLeft: '40px' }}
-                />
-                <span style={{ position: 'absolute', left: '15px', top: '12px', color: '#666' }}>🔍</span>
-            </div>
-
-            <table className="admin-table" style={{ width: '100%', borderCollapse: 'collapse', background: '#fff' }}>
+            <table className="admin-table" >
                 <thead>
                     <tr style={{ textAlign: 'left', borderBottom: '1px solid #eee', fontSize: '14px', color: '#666' }}>
                         <th style={{ padding: '15px' }}>Назва</th>
@@ -92,7 +83,7 @@ const AdminReviews = () => {
                 <tbody>
                     {filteredReviews.map((review) => (
                         <tr key={`${review.productId}-${review.id}`} style={{ borderBottom: '1px solid #f9f9f9' }}>
-                            <td style={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                            <td className="review-text"  style={{ padding: '15px', display: 'flex', alignItems: 'center', gap: '15px' }}>
                                 <img src={review.productImage} alt="" style={{ width: '40px', height: '40px', objectFit: 'cover' }} />
                                 {/* Перехід на сторінку товару */}
                                 <Link 

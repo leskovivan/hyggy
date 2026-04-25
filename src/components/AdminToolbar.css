@@ -1,0 +1,153 @@
+﻿
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
+
+.admin-toolbar {
+    font-family: "Raleway", sans-serif;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* HEADER ROW */
+.admin-toolbar .toolbar-header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 50px; /* Spacer to search visually */
+}
+
+.admin-toolbar .toolbar-title {
+    font-size: 30px !important;
+    font-weight: 700 !important;
+    color: #231F20 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: normal !important;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.admin-toolbar .toolbar-count {
+    color: rgba(35, 31, 32, 0.5) !important;
+    font-size: 30px !important;
+    font-weight: 500 !important;
+}
+
+/* ADD BUTTON */
+.admin-toolbar .add-button {
+    background-color: #00AAAD !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    width: 140px !important;
+    height: 51px !important;
+    font-family: "Raleway", sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+}
+.admin-toolbar .add-button:hover {
+    opacity: 0.9 !important;
+}
+
+/* ACTIONS ROW (Search + Filters side by side) */
+.admin-toolbar .toolbar-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 150px !important;
+    margin-bottom: 20px;
+}
+
+/* SEARCH */
+.admin-toolbar .search-container {
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.admin-toolbar .search-label {
+    position: absolute !important;
+    top: -30px !important;
+    left: 10px !important;
+    font-size: 24px !important;
+    color: rgba(35, 31, 32, 0.75) !important;
+    font-weight: 400 !important;
+    pointer-events: none !important;
+    white-space: nowrap !important;
+}
+
+.admin-toolbar .search-input {
+    font-family: "Raleway", sans-serif !important;
+    font-size: 20px !important;
+    color: #231F20 !important;
+    background: #E0E0E0 !important;
+    border: 1px solid rgba(35, 31, 32, 0.5) !important;
+    border-radius: 10px !important;
+    padding: 0 15px !important;
+    width: 390px !important;
+    height: 60px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+}
+
+/* FILTERS GROUP */
+.admin-toolbar .filter-group {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 50px !important;
+    margin-top: 15px; /* Alignment tweak against the input height */
+}
+
+/* INDIVIDUAL FILTER SELECT */
+.admin-toolbar .filter-select {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background: transparent !important;
+    border: none !important;
+    font-family: "Raleway", sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #231F20 !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    padding-right: 30px !important;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='11' viewBox='0 0 16 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 11.25L0 0H16L8 11.25Z' fill='black'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right center !important;
+    background-size: 14px !important;
+    min-width: max-content;
+}
+
+/* FILTER PLUS BUTTON */
+.admin-toolbar .filter-plus {
+    background: transparent !important;
+    border: none !important;
+    font-family: "Raleway", sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    color: #231F20 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+}
+
+.admin-toolbar .filter-plus-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+}
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 import AdminToolbar from '../components/AdminToolbar';
-import './AdminBlogEdit.css';
+import './AdminTransfers.css';
 
 const AdminTransfers = () => {
     const [transfers, setTransfers] = useState([]);
@@ -30,7 +30,7 @@ const AdminTransfers = () => {
     if (loading) return <div className="admin-loading">Завантаження...</div>;
 
     return (
-        <div className="admin-layout">
+        <div className="admin-transfers-container">
 
 
             <main className="admin-main-content">
@@ -45,8 +45,8 @@ const AdminTransfers = () => {
                     <div className="filter-item">Склади ⌄</div>
                 </AdminToolbar>
 
-                <div className="table-wrapper">
-                    <table className="admin-order-table">
+                <div className="admin-transfers-table-wrapper">
+                    <table className="admin-transfers-table">
                         <thead>
                             <tr>
                                 <th>Дата ⌄</th>

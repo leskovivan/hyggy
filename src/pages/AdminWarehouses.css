@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
+
+.admin-warehouses-container {
+    padding: 0;
+    width: 100%;
+}
+
+.admin-warehouses-table-wrapper {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.admin-warehouses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-warehouses-table thead th {
+    font-weight: 300; /* Light */
+    font-size: 20px;
+    color: #231F20;
+    text-align: left;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid #231f2080; /* rgba(35,31,32,0.5) */
+}
+
+/* Adjust column widths to match Figma proportions somewhat */
+.admin-warehouses-table thead th:nth-child(1) {
+    width: 6%; /* # */
+    padding-left: 0;
+}
+.admin-warehouses-table thead th:nth-child(2) {
+    width: 32%; /* Назва */
+}
+.admin-warehouses-table thead th:nth-child(3) {
+    width: 47%; /* Адреса */
+}
+.admin-warehouses-table thead th:nth-child(4) {
+    width: 10%; /* Сума */
+}
+.admin-warehouses-table thead th:nth-child(5) {
+    width: 5%; /* Actions */
+    text-align: center;
+}
+
+.admin-warehouses-table tbody tr {
+    /* The line separating rows */
+    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5); 
+}
+
+.admin-warehouses-table tbody td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 500; /* Medium */
+    font-size: 20px;
+    color: #231F20;
+    vertical-align: middle;
+}
+
+.admin-warehouses-table tbody td:nth-child(1) {
+    padding-left: 0;
+}
+
+.admin-warehouses-table-actions {
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* 3 dots icon for actions */
+.action-dots {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    background-color: #A0A0A0; /* Match Figma grayish color */
+    border-radius: 50%;
+}
+
+.sort-icon {
+    display: inline-flex;
+    margin-left: 10px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.sort-icon svg {
+    width: 13px;
+    height: 8px;
+    fill: #231F20;
+    opacity: 0.5;
+}

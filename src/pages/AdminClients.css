@@ -1,0 +1,115 @@
+.admin-clients-container {
+    width: 100%;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-clients-table-wrapper {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.admin-clients-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.admin-clients-table thead th {
+    text-align: left;
+    font-weight: 300;
+    font-size: 20px;
+    color: #231f20;
+    padding: 14px 0 22px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+}
+
+.admin-clients-table tbody td {
+    font-weight: 500;
+    font-size: 20px;
+    color: #231f20;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+    vertical-align: middle;
+}
+
+.admin-clients-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.admin-clients-table th:nth-child(1),
+.admin-clients-table td:nth-child(1) {
+    width: 14%;
+}
+
+.admin-clients-table th:nth-child(2),
+.admin-clients-table td:nth-child(2) {
+    width: 16%;
+}
+
+.admin-clients-table th:nth-child(3),
+.admin-clients-table td:nth-child(3) {
+    width: 20%;
+}
+
+.admin-clients-table th:nth-child(4),
+.admin-clients-table td:nth-child(4) {
+    width: 14%;
+}
+
+.admin-clients-table th:nth-child(5),
+.admin-clients-table td:nth-child(5) {
+    width: 14%;
+}
+
+.admin-clients-table th:nth-child(6),
+.admin-clients-table td:nth-child(6) {
+    width: 14%;
+}
+
+.admin-clients-table th:nth-child(7),
+.admin-clients-table td:nth-child(7) {
+    width: 8%;
+    text-align: center;
+}
+
+.sort-icon {
+    display: inline-flex;
+    margin-left: 10px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+}
+
+.sort-icon svg {
+    width: 13px;
+    height: 8px;
+}
+
+.admin-clients-actions-cell {
+    text-align: center;
+}
+
+.delete-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: transparent;
+    color: #231f20;
+    cursor: pointer;
+    padding: 0;
+}
+
+.delete-action-btn:hover {
+    color: #00aaad;
+}
+
+@media (max-width: 1440px) {
+    .admin-clients-table thead th,
+    .admin-clients-table tbody td {
+        font-size: 18px;
+    }
+}

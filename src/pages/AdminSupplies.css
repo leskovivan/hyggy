@@ -1,0 +1,60 @@
+/* Унікальний контейнер для цієї сторінки */
+.admin-supplies-page {
+
+    font-family: 'Raleway', sans-serif;
+}
+
+.supplies-table-wrapper {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.supplies-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Стиль заголовків як у твоєму "ідеалі" */
+.supplies-table thead th {
+    font-weight: 300; /* Light */
+    font-size: 20px;
+    color: #231F20;
+    text-align: left;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+}
+
+/* Розподіл ширини колонок */
+.supplies-table thead th:nth-child(1) { width: 5%; }  /* № */
+.supplies-table thead th:nth-child(2) { width: 12%; } /* Дата */
+.supplies-table thead th:nth-child(3) { width: 15%; } /* Постачальник */
+.supplies-table thead th:nth-child(4) { width: 13%; } /* Склад */
+.supplies-table thead th:nth-child(5) { width: 25%; } /* Товари */
+.supplies-table thead th:nth-child(6) { width: 10%; } /* Статус */
+.supplies-table thead th:nth-child(7) { width: 15%; } /* Сума */
+.supplies-table thead th:nth-child(8) { width: 5%; text-align: center; }
+
+.supplies-table tbody tr {
+    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+}
+
+.supplies-table tbody td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #231F20;
+    vertical-align: middle;
+}
+
+/* Статуси */
+.status-badge {
+    color: #00AAAD;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.status-badge.unpaid {
+    color: #E74C3C; /* Червоний для неоплачених */
+}

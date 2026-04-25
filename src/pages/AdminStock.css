@@ -1,0 +1,51 @@
+.admin-stock-container {
+    padding: 0;
+    width: 100%;
+}
+
+.admin-stock-table-wrapper {
+    margin-top: 40px;
+    width: 100%;
+}
+
+.admin-stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-stock-table thead th {
+    font-weight: 300;
+    font-size: 20px;
+    color: #231F20;
+    text-align: left;
+    padding-bottom: 25px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+}
+
+/* 7 колонок для Залишків */
+.admin-stock-table thead th:nth-child(1) { width: 30%; padding-left: 0; } /* Назва */
+.admin-stock-table thead th:nth-child(2) { width: 15%; }                  /* Категорія */
+.admin-stock-table thead th:nth-child(3) { width: 12%; }                  /* Залишки */
+.admin-stock-table thead th:nth-child(4) { width: 13%; }                  /* Собівартість */
+.admin-stock-table thead th:nth-child(5) { width: 12%; }                  /* Сума */
+.admin-stock-table thead th:nth-child(6) { width: 13%; }                  /* Ліміт */
+.admin-stock-table thead th:nth-child(7) { width: 5%; text-align: center; } /* Дії */
+
+.admin-stock-table tbody tr {
+    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+}
+
+.admin-stock-table tbody td {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-weight: 500;
+    font-size: 20px;
+    color: #231F20;
+    vertical-align: middle;
+}
+
+.admin-stock-table tbody td:nth-child(1) {
+    padding-left: 0;
+}

@@ -390,7 +390,11 @@
       "id": "1",
       "email": "admin@hyggy.com",
       "password": "123",
-      "role": "admin"
+      "role": "admin",
+      "favorites": [
+        "1",
+        "2"
+      ]
     },
     {
       "name": "Vanya",
@@ -894,18 +898,69 @@
       "position": "іфв",
       "id": "AVDopDhzrp8"
     }
-  ],"warehouses": [
-    { "id": 1, "name": "Загальний склад", "address": "Загальний склад", "totalSum": 1650 }
+  ],
+  "warehouses": [
+    {
+      "id": "1",
+      "name": "Загальний склад",
+      "address": "Загальний склад",
+      "totalSum": 1650
+    }
   ],
   "stock": [
-    { "id": 1, "name": "Стілець обідній BISTRUP", "category": "Обідні столи", "quantity": 1, "costPrice": 1650, "totalValue": 1650, "limit": 0 }
+    {
+      "id": "1",
+      "name": "Стілець обідній BISTRUP",
+      "category": "Обідні столи",
+      "quantity": 1,
+      "costPrice": 1650,
+      "totalValue": 1650,
+      "limit": 0
+    }
   ],
   "supplies": [
-    { "id": 123, "date": "30 серпня, 15:25", "supplier": "BISTRUP", "warehouse": "Загальний склад", "productName": "Стілець обідній...", "status": "Неоплачено", "amount": 1650 }
+    {
+      "id": "123",
+      "date": "30 серпня, 15:25",
+      "supplier": "BISTRUP",
+      "warehouse": "Загальний склад",
+      "productName": "Стілець обідній...",
+      "status": "Неоплачено",
+      "amount": 1650
+    }
   ],
-  "write-offs": [],
+  "write-offs": [
+    {
+      "id": "uLZ9cH9Cdjg",
+      "date": "2026-04-25T22:37:00",
+      "warehouse": "Загальний склад",
+      "reason": "Брак",
+      "comment": "афяіаф",
+      "employee": "Іван",
+      "amount": 7380,
+      "productName": "Стілець обідній BISTRUP оливковий/дуб",
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Стілець обідній BISTRUP оливковий/дуб",
+          "packing": "шт",
+          "quantity": 123,
+          "details": "132213123",
+          "unitPrice": 60,
+          "lineAmount": 7380
+        }
+      ],
+      "products": [
+        {
+          "id": "1",
+          "name": "Стілець обідній BISTRUP оливковий/дуб",
+          "quantity": 123,
+          "packing": "шт",
+          "details": "132213123"
+        }
+      ]
+    }
+  ],
   "transfers": [],
-
-  
   "$schema": "./node_modules/json-server/schema.json"
 }

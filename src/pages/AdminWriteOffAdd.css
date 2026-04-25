@@ -1,0 +1,221 @@
+.admin-writeoff-add-container {
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    color: #231f20;
+    padding-bottom: 48px;
+}
+
+.admin-writeoff-add-header {
+    border-bottom: 1px solid rgba(35, 31, 32, 0.35);
+    padding: 4px 0 16px;
+    margin-bottom: 24px;
+}
+
+.admin-writeoff-add-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    color: #231f20;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.admin-writeoff-add-back-icon {
+    font-size: 34px;
+    transform: translateY(-1px);
+}
+
+.admin-writeoff-add-back span:last-child {
+    font-size: 42px;
+    line-height: 1.1;
+}
+
+.admin-writeoff-add-main-form {
+    max-width: 1420px;
+    margin-bottom: 34px;
+}
+
+.admin-writeoff-add-row {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    align-items: center;
+    column-gap: 18px;
+    margin-bottom: 18px;
+}
+
+.admin-writeoff-add-row-top {
+    align-items: start;
+}
+
+.admin-writeoff-add-label {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.admin-writeoff-add-date-time {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-writeoff-time-separator {
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.admin-writeoff-input {
+    height: 47px;
+    border: 1px solid rgba(35, 31, 32, 0.35);
+    border-radius: 10px;
+    background: #e0e0e0;
+    color: #231f20;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0 18px;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    outline: none;
+}
+
+.admin-writeoff-input:focus {
+    border-color: #00aaad;
+}
+
+.admin-writeoff-input-date {
+    width: 170px;
+}
+
+.admin-writeoff-input-time {
+    width: 79px;
+    text-align: center;
+    padding: 0 8px;
+}
+
+.admin-writeoff-select {
+    width: 700px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='11' viewBox='0 0 16 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 11.25L0 0H16L8 11.25Z' fill='%23666666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 12px;
+    padding-right: 40px;
+}
+
+.admin-writeoff-textarea {
+    height: 268px;
+    padding: 14px 18px;
+    resize: none;
+    width: 700px;
+}
+
+.admin-writeoff-add-items {
+    margin-top: 38px;
+}
+
+.admin-writeoff-add-items-head {
+    display: grid;
+    grid-template-columns: 353px 280px 198px 280px 40px;
+    gap: 30px;
+    align-items: center;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.35);
+    padding: 0 0 10px;
+    margin-bottom: 14px;
+}
+
+.admin-writeoff-add-items-head span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.admin-writeoff-add-item-row {
+    display: grid;
+    grid-template-columns: 353px 280px 198px 280px 40px;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.admin-writeoff-remove-row {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #231f20;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.admin-writeoff-remove-row:hover {
+    color: #00aaad;
+}
+
+.admin-writeoff-add-more {
+    margin-top: 14px;
+    border: none;
+    background: transparent;
+    color: #00aaad;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.admin-writeoff-add-more span:first-child {
+    font-size: 30px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.admin-writeoff-add-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 88px;
+}
+
+.admin-writeoff-save-btn {
+    width: 250px;
+    height: 51px;
+    border: none;
+    border-radius: 10px;
+    background: #00aaad;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 400;
+    font-family: 'Raleway', sans-serif;
+    cursor: pointer;
+}
+
+.admin-writeoff-save-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1680px) {
+    .admin-writeoff-add-row {
+        grid-template-columns: 300px 1fr;
+    }
+
+    .admin-writeoff-add-label {
+        font-size: 22px;
+    }
+
+    .admin-writeoff-add-back {
+        font-size: 28px;
+    }
+
+    .admin-writeoff-add-back span:last-child {
+        font-size: 32px;
+    }
+}

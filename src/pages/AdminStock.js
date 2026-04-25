@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import AdminToolbar from '../components/AdminToolbar';
-import './AdminBlogEdit.css';
+import './AdminStock.css';
 
 const AdminStock = () => {
     const [stock, setStock] = useState([]);
@@ -19,7 +19,7 @@ const AdminStock = () => {
     }, []);
 
     return (
-        <div className="admin-layout">
+        <div className="admin-stock-container">
 
             <main className="admin-main-content">
                 <AdminToolbar 
@@ -32,8 +32,8 @@ const AdminStock = () => {
                     <div className="filter-item">Категорія ⌄</div>
                 </AdminToolbar>
 
-                <div className="table-wrapper">
-                    <table className="admin-order-table">
+                <div className="admin-stock-table-wrapper">
+                    <table className="admin-stock-table">
                         <thead>
                             <tr>
                                 <th>Назва ⌄</th>
