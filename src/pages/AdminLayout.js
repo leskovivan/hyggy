@@ -28,6 +28,9 @@ const AdminLayout = () => {
                         <span className="nav-group-title">Склади </span>
                         <Link to="/admin/warehouses">Склади</Link>
                         <Link to="/admin/stock">Залишки</Link>
+                        <Link to="/admin/supplies">Поставки</Link>
+                        <Link to="/admin/transfers">Переміщення</Link>
+                        <Link to="/admin/write-offs">Списання</Link>
                     </div>
 
                     <Link to="/admin/stores" className={location.pathname.includes('stores') ? 'active' : ''}>Магазини</Link>

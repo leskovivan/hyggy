@@ -3,6 +3,24 @@ import React from 'react';
 const AddressStep = ({ data, updateData, onNext }) => {
     const handleChange = (field, value) => updateData({ ...data, [field]: value });
 
+    const handleNext = () => {
+        const { firstName, lastName, city, street, phone } = data;
+        
+        // Базовая проверка на заполнение
+        if (!firstName || !lastName || !city || !street || !phone) {
+            alert("Будь ласка, заповніть усі обов'язкові поля (помічені зірочкою)!");
+            return;
+        }
+
+        // Простая проверка длины телефона
+        if (phone.replace(/\D/g, '').length < 10) {
+            alert("Введіть коректний номер телефону (мінімум 10 цифр)!");
+            return;
+        }
+
+        onNext();
+    };
+
     return (
         <div className="checkout-step-container">
             <h1>Оплата</h1>
@@ -21,7 +39,8 @@ const AddressStep = ({ data, updateData, onNext }) => {
             <label className="checkbox-label">
                 <input type="checkbox" required /> Прийняти <a href="/terms">Умови та Положення</a>
             </label>
-            <button className="teal-btn-large" onClick={onNext}>Перейти до доставки</button>
+            {/* Вызываем handleNext вместо прямого onNext */}
+            <button className="teal-btn-large" onClick={handleNext}>Перейти до доставки</button>
             <button className="cancel-link" onClick={() => window.history.back()}>Скасувати</button>
         </div>
     );

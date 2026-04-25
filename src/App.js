@@ -40,6 +40,15 @@ import AdminReviews from './pages/AdminReviews';
 import AdminOrders from './pages/AdminOrders';
 import CartPage from './components/CartPage';
 import Checkout from './pages/Checkout';
+import AdminClients from './pages/AdminClients';
+import AdminEmployees from './pages/AdminEmployees';
+import AdminStores from './pages/AdminStores';
+import AdminEmployeeEdit from './pages/AdminEmployeeEdit';
+import AdminWarehouses from './pages/AdminWarehouses';
+import AdminStock from './pages/AdminStock';
+import AdminTransfers from './pages/AdminTransfers';
+import AdminSupplies from './pages/AdminSupplies';
+import AdminWriteOffs from './pages/AdminWriteOffs';
 
 function AppContent() {
   const location = useLocation();
@@ -80,6 +89,16 @@ function AppContent() {
               <Route path="products/edit/:id" element={<AdminProductEdit />} />
               <Route path="/admin/reviews" element={<AdminReviews />} />
               <Route path="/admin/orders" element={<AdminOrders />} />
+              <Route path="/admin/clients" element={<AdminClients />} />
+              <Route path="/admin/employees" element={<AdminEmployees />} />
+              <Route path="/admin/employees/add" element={<AdminEmployeeEdit />} />
+              <Route path="/admin/employees/edit/:id" element={<AdminEmployeeEdit />} />
+              <Route path="/admin/stores" element={<AdminStores />} />
+              <Route path="/admin/warehouses" element={<AdminWarehouses />} />
+              <Route path="/admin/stock" element={<AdminStock />} />
+              <Route path="/admin/transfers" element={<AdminTransfers />} />
+              <Route path="/admin/supplies" element={<AdminSupplies />} />
+              <Route path="/admin/write-offs" element={<AdminWriteOffs />} />
 
         </Route>
         <Route path="/" element={<HomePage />} />
