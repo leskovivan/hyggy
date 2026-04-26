@@ -1,146 +1,187 @@
-﻿
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap");
 
 .admin-toolbar {
-    font-family: "Raleway", sans-serif;
-    margin-bottom: 20px;
     width: 100%;
+    margin-bottom: 28px;
+    color: #231f20;
+    font-family: "Raleway", sans-serif;
 }
 
-/* HEADER ROW */
 .admin-toolbar .toolbar-header {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    margin-bottom: 50px; /* Spacer to search visually */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
 .admin-toolbar .toolbar-title {
-    font-size: 30px !important;
-    font-weight: 700 !important;
-    color: #231F20 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    line-height: normal !important;
     display: flex;
-    align-items: center;
-    gap: 30px;
+    align-items: baseline;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    color: #231f20;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .admin-toolbar .toolbar-count {
-    color: rgba(35, 31, 32, 0.5) !important;
-    font-size: 30px !important;
-    font-weight: 500 !important;
+    color: rgba(35, 31, 32, 0.5);
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
-/* ADD BUTTON */
 .admin-toolbar .add-button {
-    background-color: #00AAAD !important;
-    color: #fff !important;
-    border: none !important;
-    border-radius: 10px !important;
-    width: 140px !important;
-    height: 51px !important;
-    font-family: "Raleway", sans-serif !important;
-    font-size: 24px !important;
-    font-weight: 400 !important;
-    cursor: pointer !important;
+    width: 140px;
+    height: 51px;
+    border: 0;
+    border-radius: 8px;
+    background: #00aaad;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.admin-toolbar .add-button:hover {
+    background: #00979a;
+}
+
+.admin-toolbar .toolbar-actions {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s ease;
-}
-.admin-toolbar .add-button:hover {
-    opacity: 0.9 !important;
+    gap: 28px;
+    flex-wrap: wrap;
 }
 
-/* ACTIONS ROW (Search + Filters side by side) */
-.admin-toolbar .toolbar-actions {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 150px !important;
-    margin-bottom: 20px;
-}
-
-/* SEARCH */
 .admin-toolbar .search-container {
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
+    position: relative;
+    display: block;
+    width: 390px;
+    height: 60px;
 }
 
-.admin-toolbar .search-label {
-    position: absolute !important;
-    top: -30px !important;
-    left: 10px !important;
-    font-size: 24px !important;
-    color: rgba(35, 31, 32, 0.75) !important;
-    font-weight: 400 !important;
-    pointer-events: none !important;
-    white-space: nowrap !important;
+.admin-toolbar .search-icon {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    fill: #231f20;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .admin-toolbar .search-input {
-    font-family: "Raleway", sans-serif !important;
-    font-size: 20px !important;
-    color: #231F20 !important;
-    background: #E0E0E0 !important;
-    border: 1px solid rgba(35, 31, 32, 0.5) !important;
-    border-radius: 10px !important;
-    padding: 0 15px !important;
-    width: 390px !important;
-    height: 60px !important;
-    outline: none !important;
-    box-shadow: none !important;
-    box-sizing: border-box !important;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(35, 31, 32, 0.5);
+    border-radius: 10px;
+    background: #e0e0e0;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 0 18px 0 86px;
+    outline: none;
+    box-shadow: none;
+    box-sizing: border-box;
 }
 
-/* FILTERS GROUP */
+.admin-toolbar .search-input::placeholder {
+    color: rgba(35, 31, 32, 0.75);
+    opacity: 1;
+}
+
+.admin-toolbar .search-input:focus {
+    box-shadow: 0 0 0 2px rgba(0, 170, 173, 0.18);
+}
+
 .admin-toolbar .filter-group {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 50px !important;
-    margin-top: 15px; /* Alignment tweak against the input height */
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
 }
 
-/* INDIVIDUAL FILTER SELECT */
+.admin-toolbar .filter-select-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 22px;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.admin-toolbar .filter-select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+}
+
+.admin-toolbar .filter-select-label {
+    white-space: nowrap;
+}
+
 .admin-toolbar .filter-select {
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    background: transparent !important;
-    border: none !important;
-    font-family: "Raleway", sans-serif !important;
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    color: #231F20 !important;
-    cursor: pointer !important;
-    outline: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    padding-right: 30px !important;
-    background-image: url("data:image/svg+xml,%3Csvg width='16' height='11' viewBox='0 0 16 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 11.25L0 0H16L8 11.25Z' fill='black'/%3E%3C/svg%3E") !important;
-    background-repeat: no-repeat !important;
-    background-position: right center !important;
-    background-size: 14px !important;
-    min-width: max-content;
+    position: absolute;
+    inset: -8px 0 -8px 0;
+    width: 100%;
+    height: calc(100% + 16px);
+    border: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    outline: none;
+    opacity: 0;
 }
 
-/* FILTER PLUS BUTTON */
+.admin-toolbar .filter-select option {
+    color: #231f20;
+}
+
+.admin-toolbar .filter-item {
+    display: inline-flex;
+    align-items: center;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
 .admin-toolbar .filter-plus {
-    background: transparent !important;
-    border: none !important;
-    font-family: "Raleway", sans-serif !important;
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    color: #231F20 !important;
-    cursor: pointer !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 15px !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
 }
 
 .admin-toolbar .filter-plus-icon {
@@ -149,5 +190,39 @@
     justify-content: center;
     width: 14px;
     height: 14px;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
 }
 
+.admin-toolbar .filter-select-wrap:hover,
+.admin-toolbar .filter-item:hover,
+.admin-toolbar .filter-plus:hover {
+    color: #00aaad;
+}
+
+@media (max-width: 720px) {
+    .admin-toolbar .toolbar-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-toolbar .toolbar-title,
+    .admin-toolbar .toolbar-count {
+        font-size: 26px;
+    }
+
+    .admin-toolbar .add-button,
+    .admin-toolbar .search-container {
+        width: 100%;
+    }
+
+    .admin-toolbar .search-input {
+        font-size: 18px;
+        padding-left: 60px;
+    }
+
+    .admin-toolbar .search-icon {
+        left: 20px;
+    }
+}

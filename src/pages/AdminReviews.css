@@ -1,169 +1,169 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
-
-/* ===== BASE ===== */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* ===== PAGE WRAPPER ===== */
-.admin-blog-edit {
-    font-family: 'Raleway', sans-serif;
-    padding: 36px 40px;
-    min-height: 100vh;
-    
-}
-
-/* ===== HEADER ROW ===== */
-.section-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a1a1a;
-    letter-spacing: 0.2px;
-}
-
-.section-title span {
-    color: #888;
-    font-size: 18px;
-    font-weight: 400;
-    margin-left: 6px;
-}
-
-/* ===== TEAL BUTTON ===== */
-.teal-btn {
-    background-color: #2BBCB8;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 32px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.teal-btn:hover {
-    background-color: #25a8a4;
-}
-
-.teal-btn:active {
-    transform: scale(0.98);
-}
-
-/* ===== SEARCH ===== */
-.search-container {
-    position: relative;
-    display: inline-block;
-}
-
-.admin-input {
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
-    color: #333;
-    
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 11px 16px 11px 44px;
-    width: 300px;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.admin-input::placeholder {
-    color: #aaa;
-}
-
-.admin-input:focus {
-    border-color: #2BBCB8;
-}
-
-/* ===== TABLE ===== */
-.admin-table {
+.admin-reviews-page {
     width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-reviews-table-wrapper {
+    width: 100%;
+    margin-top: 28px;
+    overflow-x: auto;
+}
+
+.admin-reviews-table {
+    width: 100%;
+    min-width: 1040px;
     border-collapse: collapse;
-    
-    border-radius: 12px;
-    overflow: hidden;
-    
+    table-layout: fixed;
 }
 
-.admin-table thead tr {
-    border-bottom: 1px solid #000000;
-}
-
-.admin-table thead th {
-    padding: 14px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #888;
+.admin-reviews-table thead th {
+    padding: 0 18px 18px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.42);
+    color: #231f20;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
     text-align: left;
 }
 
-/* "Назва" header has sort arrow */
-.admin-table thead th:first-child::after {
-    content: ' ∨';
-    font-size: 11px;
+.admin-reviews-table thead th:nth-child(1) { width: 43%; }
+.admin-reviews-table thead th:nth-child(2) { width: 13%; }
+.admin-reviews-table thead th:nth-child(3) { width: 15%; }
+.admin-reviews-table thead th:nth-child(4) { width: 24%; }
+.admin-reviews-table thead th:nth-child(5) { width: 5%; padding-right: 0; }
+
+.admin-reviews-table tbody tr {
+    border-bottom: 1px solid rgba(35, 31, 32, 0.32);
 }
 
-.admin-table tbody tr {
-    border-bottom: 1px solid #f5f5f5;
-    transition: background-color 0.15s ease;
-}
-
-.admin-table tbody tr:last-child {
-    border-bottom: black 1px solid;
-}
-
-.admin-table tbody tr:hover {
-    background-color: #fafafa;
-}
-
-.admin-table tbody td {
-    padding: 14px 16px;
-    font-size: 14px;
-    color: #222;
+.admin-reviews-table tbody td {
+    padding: 8px 18px 8px 0;
+    color: #231f20;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.25;
     vertical-align: middle;
 }
 
-/* Product image in table */
-.admin-table tbody td img {
-    width: 44px;
-    height: 44px;
-    object-fit: cover;
-    border-radius: 6px;
-    background: #f0f0f0;
+.admin-reviews-table tbody td:last-child {
+    padding-right: 0;
+    text-align: right;
 }
 
-/* Stars */
-.admin-table tbody td .stars {
-    display: flex;
-    gap: 2px;
-    color: #333;
-    font-size: 17px;
-}
-
-/* Delete button */
-.admin-table tbody td button {
-    background: none;
-    border: none;
+.admin-reviews-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
     cursor: pointer;
-    font-size: 17px;
-    opacity: 0.5;
-    transition: opacity 0.2s ease;
-    padding: 4px;
 }
 
-.admin-table tbody td button:hover {
-    opacity: 1;
+.admin-reviews-sort svg {
+    width: 12px;
+    height: 8px;
+    fill: rgba(35, 31, 32, 0.65);
 }
 
-/* Review text column */
-.admin-table tbody td.review-text {
-    font-size: 13px;
-    color: #555;
-    max-width: 280px;
-    line-height: 1.5;
+.admin-review-product {
+    display: grid;
+    grid-template-columns: 79px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+    min-height: 74px;
+}
+
+.admin-review-image-link {
+    display: block;
+    width: 79px;
+    height: 74px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.admin-review-image-link img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.admin-review-product-name {
+    color: #231f20;
+    text-decoration: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-review-product-name:hover {
+    color: #00aaad;
+}
+
+.admin-review-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-width: 128px;
+}
+
+.admin-review-star {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+}
+
+.admin-review-text {
+    max-width: 386px;
+    color: #000000;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 1.16 !important;
+    text-align: left;
+}
+
+.admin-review-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.admin-review-delete svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
+
+.admin-review-delete:hover {
+    color: #d94c4c;
+    transform: translateY(-1px);
+}
+
+.admin-reviews-empty {
+    padding: 34px 0 !important;
+    color: rgba(35, 31, 32, 0.48) !important;
+    text-align: center !important;
+}
+
+@media (max-width: 900px) {
+    .admin-reviews-table-wrapper {
+        margin-top: 22px;
+    }
 }

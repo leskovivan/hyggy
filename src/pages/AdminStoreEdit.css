@@ -1,0 +1,220 @@
+.admin-store-edit-page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 28px 48px;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-store-edit-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.admin-store-edit-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    padding: 0;
+    font-family: inherit;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.1;
+    cursor: pointer;
+}
+
+.admin-store-edit-back-icon {
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1;
+    transform: translateY(-1px);
+}
+
+.admin-store-edit-divider {
+    height: 1px;
+    background: rgba(35, 31, 32, 0.35);
+    margin-bottom: 30px;
+}
+
+.admin-store-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    max-width: 980px;
+}
+
+.admin-store-edit-field {
+    display: grid;
+    grid-template-columns: 200px minmax(360px, 700px);
+    align-items: center;
+    column-gap: 72px;
+}
+
+.admin-store-edit-label,
+.admin-store-edit-current,
+.admin-store-edit-hours h3,
+.admin-store-edit-time-label {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #231f20;
+}
+
+.admin-store-edit-current {
+    margin: -4px 0 2px;
+}
+
+.admin-store-edit-input,
+.admin-store-edit-time {
+    height: 47px;
+    border: 1px solid rgba(35, 31, 32, 0.5);
+    border-radius: 10px;
+    background: #e0e0e0;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0 24px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.admin-store-edit-input {
+    width: 100%;
+}
+
+.admin-store-edit-input::placeholder {
+    color: rgba(35, 31, 32, 0.55);
+}
+
+.admin-store-edit-input:focus,
+.admin-store-edit-time:focus {
+    box-shadow: 0 0 0 2px rgba(0, 170, 173, 0.18);
+}
+
+.admin-store-edit-select {
+    appearance: auto;
+}
+
+.admin-store-edit-hours {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 4px;
+}
+
+.admin-store-edit-hours h3 {
+    margin: 0 0 2px;
+}
+
+.admin-store-edit-day {
+    display: grid;
+    grid-template-columns: 48px 82px 175px 82px 175px;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-store-edit-day-label {
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(35, 31, 32, 0.5);
+}
+
+.admin-store-edit-time-label {
+    font-size: 24px;
+}
+
+.admin-store-edit-time {
+    width: 175px;
+    height: 55px;
+    font-size: 26px;
+    text-align: center;
+    padding: 0 12px;
+}
+
+.admin-store-edit-submit-wrap {
+    display: flex;
+    padding-top: 80px;
+}
+
+.admin-store-edit-submit {
+    width: 250px;
+    height: 51px;
+    border: 0;
+    border-radius: 8px;
+    background: #00aaad;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.admin-store-edit-submit:hover:not(:disabled) {
+    background: #009295;
+}
+
+.admin-store-edit-submit:disabled {
+    opacity: 0.72;
+    cursor: progress;
+}
+
+@media (max-width: 1100px) {
+    .admin-store-edit-field {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .admin-store-edit-form {
+        max-width: none;
+    }
+}
+
+@media (max-width: 760px) {
+    .admin-store-edit-page {
+        padding-inline: 18px;
+    }
+
+    .admin-store-edit-back {
+        font-size: 24px;
+    }
+
+    .admin-store-edit-label,
+    .admin-store-edit-current,
+    .admin-store-edit-hours h3,
+    .admin-store-edit-time-label,
+    .admin-store-edit-day-label {
+        font-size: 18px;
+    }
+
+    .admin-store-edit-input {
+        min-width: 0;
+        font-size: 18px;
+    }
+
+    .admin-store-edit-day {
+        grid-template-columns: 42px 72px 1fr;
+        gap: 10px;
+    }
+
+    .admin-store-edit-day .admin-store-edit-time-label:nth-of-type(2) {
+        grid-column: 2;
+    }
+
+    .admin-store-edit-time {
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .admin-store-edit-submit-wrap {
+        padding-top: 32px;
+    }
+
+    .admin-store-edit-submit {
+        width: 100%;
+    }
+}

@@ -1,144 +1,166 @@
-/* AdminBlogList.css */
-.admin-blog-list-container {
-    padding: 0;
+.admin-blog-list-page {
+    width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231F20;
     font-family: 'Raleway', sans-serif;
 }
 
-/* Заголовок та кнопка */
-.admin-blog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.title-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.title-area h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0;
-}
-
-.blog-count {
-    font-size: 20px;
-    color: #888;
-}
-
-.add-blog-btn {
-    background-color: #00aaad;
-    color: white;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-/* Рядок пошуку */
-.admin-search-bar {
-    margin-bottom: 30px;
-}
-
-.search-input-wrapper {
-    position: relative;
-    max-width: 400px;
-}
-
-.search-input-wrapper input {
+.admin-blogs-table-wrapper {
     width: 100%;
-    padding: 12px 15px 12px 40px;
-    background-color: #e5e5e5;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-}
-
-.search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #333;
-}
-
-/* Таблиця */
-.admin-table-wrapper {
-    background: transparent;
+    margin-top: 28px;
+    overflow-x: auto;
 }
 
 .admin-blogs-table {
     width: 100%;
+    min-width: 980px;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
-.admin-blogs-table th {
+.admin-blogs-table thead th {
+    padding: 0 16px 13px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.46);
+    color: #231F20;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
     text-align: left;
-    color: #888;
-    font-weight: 500;
-    padding: 15px 10px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-}
-
-.admin-blogs-table td {
-    padding: 20px 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 15px;
-    color: #333;
-    vertical-align: middle;
-}
-
-.blog-main-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.blog-thumb {
-    width: 100px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-.blog-title-text {
-    max-width: 400px;
-    line-height: 1.4;
-}
-
-.sort-arrow {
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-/* Кнопки дій */
-.action-buttons {
-    text-align: right;
     white-space: nowrap;
 }
 
-.action-buttons button {
-    background: none;
-    border: none;
-    font-size: 18px;
+.admin-blogs-table thead th:nth-child(1) {
+    width: 64%;
+}
+
+.admin-blogs-table thead th:nth-child(2) {
+    width: 16%;
+}
+
+.admin-blogs-table thead th:nth-child(3) {
+    width: 16%;
+}
+
+.admin-blogs-table thead th:nth-child(4) {
+    width: 4%;
+    padding-right: 0;
+    text-align: right;
+}
+
+.admin-blogs-table tbody td {
+    height: 84px;
+    box-sizing: border-box;
+    padding: 9px 16px 9px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.34);
+    color: #231F20;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.25;
+    vertical-align: middle;
+}
+
+.admin-blogs-table tbody td:last-child {
+    padding-right: 0;
+}
+
+.admin-blogs-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
     cursor: pointer;
-    margin-left: 15px;
-    opacity: 0.7;
-    transition: opacity 0.2s;
 }
 
-.action-buttons button:hover {
-    opacity: 1;
+.admin-blogs-sort span {
+    display: inline-flex;
+    transform: translateY(-1px);
+    font-size: 18px;
 }
 
-/* Ширина колонок */
-.col-title { width: 50%; }
-.col-cat { width: 15%; }
-.col-tags { width: 25%; }
-.col-actions { width: 10%; }
+.admin-blog-main-info {
+    display: grid;
+    grid-template-columns: 79px minmax(0, 374px);
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.admin-blog-thumb {
+    display: block;
+    width: 79px;
+    height: 74px;
+    object-fit: cover;
+}
+
+.admin-blog-main-info span {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.admin-blog-actions {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+}
+
+.admin-blog-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #231F20;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-blog-action:hover {
+    background: rgba(0, 170, 173, 0.12);
+    color: #00AAAD;
+}
+
+.admin-blog-action-danger:hover {
+    background: rgba(217, 63, 63, 0.12);
+    color: #D93F3F;
+}
+
+.admin-blog-action svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.admin-blogs-empty {
+    padding: 42px 0 !important;
+    color: rgba(35, 31, 32, 0.58) !important;
+    font-size: 18px !important;
+    text-align: center !important;
+}
+
+@media (max-width: 900px) {
+    .admin-blog-list-page {
+        padding-bottom: 32px;
+    }
+
+    .admin-blogs-table-wrapper {
+        margin-top: 22px;
+    }
+}

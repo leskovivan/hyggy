@@ -1,161 +1,232 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 
-/* ===== LAYOUT ===== */
 .admin-layout {
     display: flex;
     min-height: 100vh;
+    background: #f3f3f3;
+    color: #231f20;
     font-family: 'Raleway', sans-serif;
 }
 
-/* ===== SIDEBAR ===== */
 .admin-sidebar {
-    width: 260px;
-    min-width: 260px;
-    background-color: #2BBCB8;
+    position: sticky;
+    top: 0;
     display: flex;
+    flex: 0 0 clamp(260px, 21.6vw, 415px);
     flex-direction: column;
-    padding: 0;
-    position: relative;
+    width: clamp(260px, 21.6vw, 415px);
     min-height: 100vh;
+    background: #00aaad;
+    color: #ffffff;
+    overflow-y: auto;
 }
 
-/* ===== LOGO AREA ===== */
-.admin-logo-area {
-    padding: 0;
-    margin-bottom: 32px;
-}
-
-.to-site-btn {
-    display: flex;
+.admin-site-card {
+    display: grid;
+    grid-template-columns: 78px 1fr;
     align-items: center;
-    gap: 12px;
-    background-color: #F9D9D0;
-    color: #2BBCB8;
+    gap: 16px;
+    width: min(250px, calc(100% - 56px));
+    min-height: 80px;
+    margin: 59px auto 52px;
+    padding: 15px 20px;
+    background: #ffffff;
+    color: #000000;
     text-decoration: none;
+    box-sizing: border-box;
+}
+
+.admin-site-logo {
+    width: 78px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.admin-site-card span {
+    color: #000000;
+    font-size: 16px;
     font-weight: 700;
-    font-size: 14px;
-    padding: 20px 24px;
-    letter-spacing: 0.5px;
-    transition: background-color 0.2s ease;
+    line-height: 1.2;
+    text-align: center;
 }
 
-.to-site-btn::before {
-    content: '';
-    display: inline-block;
-    width: 40px;
-    height: 28px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30' fill='none'%3E%3Cellipse cx='30' cy='10' rx='22' ry='7' stroke='%232BBCB8' stroke-width='2'/%3E%3Cpath d='M10 10 Q30 24 50 10' stroke='%232BBCB8' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.to-site-btn:hover {
-    background-color: #f5c8bc;
-}
-
-/* ===== NAVIGATION ===== */
 .admin-nav {
     display: flex;
-    flex-direction: column;
-    padding: 0 0 0 32px;
     flex: 1;
+    flex-direction: column;
     gap: 0;
+    padding: 0 32px 30px clamp(58px, 7.05vw, 135px);
 }
 
-.admin-nav > a,
-.admin-nav > .nav-group {
-    margin-bottom: 4px;
-}
-
-.admin-nav a {
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-    padding: 10px 0;
-    display: block;
-    transition: color 0.2s ease, opacity 0.2s ease;
-    position: relative;
-}
-
-.admin-nav a:hover {
-    color: #ffffff;
-    opacity: 1;
-}
-
-.admin-nav a.active {
-    color: #ffffff;
-    font-weight: 600;
-}
-
-/* ===== NAV GROUP (Склади) ===== */
-.nav-group {
-    margin-bottom: 4px;
-}
-
-.nav-group-title {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 10px 0;
+.admin-nav-link,
+.admin-nav-group-title {
     display: flex;
     align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-}
-
-.nav-group-title::after {
-    content: '∨';
-    font-size: 12px;
-    font-weight: 400;
-    margin-left: 2px;
-}
-
-.nav-group a {
-    padding-left: 16px;
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.85);
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-.nav-group a:hover {
+    min-height: 58px;
     color: #ffffff;
+    font-size: clamp(18px, 1.56vw, 30px);
+    font-weight: 400;
+    line-height: 1.15;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-/* Bold active nav items (Блоги example from mockup) */
-.admin-nav a[href*="blogs"].active,
-.admin-nav a[href*="blogs"]:hover {
+.admin-nav-link {
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.admin-nav-link:hover {
+    opacity: 0.86;
+    transform: translateX(2px);
+}
+
+.admin-nav-link.active,
+.admin-nav-group-title.active {
     font-weight: 700;
-    color: #ffffff;
 }
 
-/* ===== LOGOUT ===== */
-.logout-btn {
-    margin: auto 32px 36px;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.85);
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
+.admin-nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-nav-group-title {
+    gap: 8px;
+}
+
+.admin-nav-chevron {
+    font-size: 20px;
     font-weight: 400;
-    letter-spacing: 0.3px;
-    padding: 10px 0;
-    cursor: pointer;
-    text-align: left;
-    transition: color 0.2s ease;
+    line-height: 1;
+    transform: translateY(-2px);
 }
 
-.logout-btn:hover {
+.admin-nav-submenu {
+    display: flex;
+    flex-direction: column;
+    padding-left: clamp(26px, 2.5vw, 48px);
+}
+
+.admin-nav-sublink {
+    min-height: 63px;
+    font-size: clamp(18px, 1.56vw, 30px);
+}
+
+.admin-logout-btn {
+    margin: auto 32px 36px clamp(58px, 7.05vw, 135px);
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.88);
+    font-family: inherit;
+    font-size: clamp(18px, 1.3vw, 24px);
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.admin-logout-btn:hover {
     color: #ffffff;
 }
 
-/* ===== MAIN CONTENT ===== */
 .admin-content-area {
     flex: 1;
-    background-color: #f5f5f5;
-    padding: 32px;
-    overflow-y: auto;
+    min-width: 0;
+    min-height: 100vh;
+    padding: clamp(54px, 5.05vw, 97px) clamp(36px, 4.7vw, 90px) 64px clamp(42px, 5.72vw, 110px);
+    background: #f3f3f3;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+@media (max-width: 1100px) {
+    .admin-sidebar {
+        flex-basis: 248px;
+        width: 248px;
+    }
+
+    .admin-site-card {
+        grid-template-columns: 64px 1fr;
+        gap: 10px;
+        width: calc(100% - 36px);
+        min-height: 68px;
+        margin-top: 32px;
+        margin-bottom: 34px;
+        padding: 12px 14px;
+    }
+
+    .admin-site-logo {
+        width: 64px;
+        height: 42px;
+    }
+
+    .admin-site-card span {
+        font-size: 13px;
+    }
+
+    .admin-nav {
+        padding-left: 38px;
+    }
+
+    .admin-nav-link,
+    .admin-nav-group-title,
+    .admin-nav-sublink {
+        min-height: 46px;
+        font-size: 20px;
+    }
+
+    .admin-nav-submenu {
+        padding-left: 26px;
+    }
+
+    .admin-content-area {
+        padding: 42px 28px 48px;
+    }
+}
+
+@media (max-width: 760px) {
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        position: relative;
+        width: 100%;
+        min-height: auto;
+        flex-basis: auto;
+        padding-bottom: 16px;
+    }
+
+    .admin-site-card {
+        margin: 18px auto;
+    }
+
+    .admin-nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 20px;
+        padding: 0 20px;
+    }
+
+    .admin-nav-group {
+        grid-column: 1 / -1;
+    }
+
+    .admin-nav-submenu {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding-left: 18px;
+    }
+
+    .admin-nav-link,
+    .admin-nav-group-title,
+    .admin-nav-sublink {
+        min-height: 36px;
+        font-size: 17px;
+    }
+
+    .admin-logout-btn {
+        margin: 12px 20px 0;
+        font-size: 17px;
+    }
 }

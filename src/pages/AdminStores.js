@@ -1,37 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
-// Додаємо імпорт Sidebar, який ти виніс раніше
+import { useNavigate } from 'react-router-dom';
 
-import AdminToolbar from '../components/AdminToolbar';
-import './AdminBlogEdit.css';
+import './AdminStores.css';
 
 const AdminStores = () => {
+    const navigate = useNavigate();
     const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
-    
-    // Дефолтний об'єкт графіка, щоб уникнути помилок в Header
-    const defaultSchedule = {
-        mon: { start: "10:00", end: "19:00" },
-        tue: { start: "10:00", end: "19:00" },
-        wed: { start: "10:00", end: "19:00" },
-        thu: { start: "10:00", end: "19:00" },
-        fri: { start: "10:00", end: "19:00" },
-        sat: { start: "10:00", end: "19:00" },
-        sun: { start: "10:00", end: "19:00" }
-    };
-
-    const [currentStore, setCurrentStore] = useState({
-        name: '',
-        city: '',
-        address: '',
-        warehouse: 'Загальний склад',
-        image: '',
-        schedule: defaultSchedule,
-        totalProductsSum: 1650 
-    });
 
     useEffect(() => {
         fetch('http://localhost:3001/stores')
@@ -45,135 +21,111 @@ const AdminStores = () => {
 
     const parseAddress = (fullAddress) => {
         if (!fullAddress) return { street: '—', building: '—' };
-        const parts = fullAddress.split(' ');
-        const building = parts.pop(); 
-        const street = parts.join(' '); 
+        const normalized = fullAddress.replace(',', '').trim();
+        const parts = normalized.split(/\s+/);
+        const building = parts.length > 1 ? parts.pop() : '—';
+        const street = parts.length ? parts.join(' ') : normalized;
         return { street, building };
     };
 
-    const handleEditClick = (store) => {
-        // Перевіряємо, чи є в магазині графік, якщо ні — ставимо дефолтний
-        setCurrentStore({
-            ...store,
-            schedule: store.schedule && Object.keys(store.schedule).length > 0 
-                      ? store.schedule 
-                      : defaultSchedule
-        });
-        setIsEditing(true);
-        setIsModalOpen(true);
-    };
-
-    const handleSave = async () => {
-        const method = isEditing ? 'PATCH' : 'POST';
-        const url = isEditing 
-            ? `http://localhost:3001/stores/${currentStore.id}` 
-            : 'http://localhost:3001/stores';
-
-        const res = await fetch(url, {
-            method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(currentStore) 
-        });
-
-        if (res.ok) {
-            const saved = await res.json();
-            setStores(prev => isEditing ? prev.map(s => s.id === saved.id ? saved : s) : [...prev, saved]);
-            setIsModalOpen(false);
-        }
-    };
-
     const filteredStores = useMemo(() => {
-        return stores.filter(s => s.name?.toLowerCase().includes(searchTerm.toLowerCase()));
+        const query = searchTerm.trim().toLowerCase();
+
+        if (!query) return stores;
+
+        return stores.filter(store => {
+            const searchText = [
+                store.name,
+                store.city,
+                store.address,
+                store.warehouse,
+            ].filter(Boolean).join(' ').toLowerCase();
+
+            return searchText.includes(query);
+        });
     }, [stores, searchTerm]);
 
     if (loading) return <div className="admin-loading">Завантаження...</div>;
 
     return (
-        <div className="admin-layout">
-
-
-            <main className="admin-main-content">
-                <AdminToolbar 
-                    title="Магазини" 
-                    count={filteredStores.length}
-                    searchTerm={searchTerm}
-                    onSearchChange={setSearchTerm}
-                    onAdd={() => {
-                        setIsEditing(false);
-                        setCurrentStore({ 
-                            name: '', 
-                            city: '', 
-                            address: '', 
-                            warehouse: 'Загальний склад', 
-                            image: '',
-                            schedule: defaultSchedule
-                        });
-                        setIsModalOpen(true);
-                    }} 
-                />
-
-                <div className="table-wrapper">
-                    <table className="admin-order-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Назва ⌄</th>
-                                <th>Вулиця</th>
-                                <th>№ будинку</th>
-                                <th>Заг. сума товарів</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {filteredStores.map((store, idx) => {
-                                const { street, building } = parseAddress(store.address);
-                                return (
-                                    <tr key={store.id}>
-                                        <td>{idx + 1}</td>
-                                        <td>{store.name}</td>
-                                        <td>{street}</td>
-                                        <td>{building}</td>
-                                        <td>{store.totalProductsSum || '1650'}₴</td>
-                                        <td className="table-actions">
-                                            <button className="edit-action-btn" onClick={() => handleEditClick(store)}>📝</button>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+        <section className="admin-stores-page">
+            <header className="admin-stores-header">
+                <div className="admin-stores-title-row">
+                    <h1>Магазини</h1>
+                    <span>{filteredStores.length}</span>
                 </div>
-            </main>
 
-            {isModalOpen && (
-                <div className="modal-overlay">
-                    <div className="admin-modal">
-                        <h3>{isEditing ? 'Редагувати' : 'Додати'}</h3>
-                        <div className="modal-form">
-                            <input 
-                                placeholder="Назва ТЦ" 
-                                value={currentStore.name} 
-                                onChange={e => setCurrentStore({...currentStore, name: e.target.value})} 
-                            />
-                            <input 
-                                placeholder="Місто" 
-                                value={currentStore.city} 
-                                onChange={e => setCurrentStore({...currentStore, city: e.target.value})} 
-                            />
-                            <input 
-                                placeholder="Вулиця та номер (через пробіл)" 
-                                value={currentStore.address} 
-                                onChange={e => setCurrentStore({...currentStore, address: e.target.value})} 
-                            />
-                        </div>
-                        <div className="modal-buttons">
-                            <button className="teal-btn" onClick={handleSave}>Зберегти</button>
-                            <button className="cancel-btn" onClick={() => setIsModalOpen(false)}>Скасувати</button>
-                        </div>
-                    </div>
-                </div>
-            )}
-        </div>
+                <button
+                    type="button"
+                    className="admin-stores-add"
+                    onClick={() => navigate('/admin/stores/add')}
+                >
+                    Додати
+                </button>
+            </header>
+
+            <div className="admin-stores-tools">
+                <label className="admin-stores-search">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                        <path d="M10.75 5.5a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5ZM4 10.75a6.75 6.75 0 1 1 12.05 4.18l3.51 3.51-1.06 1.06-3.51-3.51A6.75 6.75 0 0 1 4 10.75Z" />
+                    </svg>
+                    <input
+                        type="text"
+                        placeholder="Швидкий пошук"
+                        value={searchTerm}
+                        onChange={event => setSearchTerm(event.target.value)}
+                    />
+                </label>
+
+                <button type="button" className="admin-stores-filter">
+                    <span>Фільтр</span>
+                    <span aria-hidden="true">+</span>
+                </button>
+            </div>
+
+            <div className="admin-stores-table-wrap">
+                <table className="admin-stores-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>
+                                <span className="admin-stores-sort">Назва</span>
+                            </th>
+                            <th>Вулиця</th>
+                            <th>№ будинку</th>
+                            <th>Заг. сума товарів</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredStores.map((store, idx) => {
+                            const { street, building } = parseAddress(store.address);
+                            return (
+                                <tr key={store.id}>
+                                    <td>{idx + 1}</td>
+                                    <td>{store.name}</td>
+                                    <td>{street}</td>
+                                    <td>{building}</td>
+                                    <td>{store.totalProductsSum || '1650'}₴</td>
+                                    <td className="admin-stores-actions">
+                                        <button
+                                            type="button"
+                                            className="admin-stores-edit"
+                                            onClick={() => navigate(`/admin/stores/edit/${store.id}`)}
+                                            aria-label="Редагувати магазин"
+                                        >
+                                            <svg aria-hidden="true" viewBox="0 0 24 24">
+                                                <path d="M5 19h1.42l9.27-9.27-1.42-1.42L5 17.58V19Zm-2 2v-4.25L15.69 4.06a2 2 0 0 1 2.83 0l1.42 1.42a2 2 0 0 1 0 2.83L7.25 21H3Zm12.35-11.35-1-1 1.42 1.42-.42-.42Z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </section>
     );
 };
 

@@ -1,59 +1,69 @@
 .product-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Дві рівні колонки */
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 30px;
   width: 100%;
 }
 
-/* --- ЛІВА КОЛОНКА --- */
 .gallery-main {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 32px;
 }
 
-.main-image-container {
+.main-image-container,
+.gallery-secondary {
+  display: block;
   width: 100%;
-  aspect-ratio: 1 / 1; /* Квадратне співвідношення */
-  background-color: #f9f9f9;
-  border-radius: 4px;
+  aspect-ratio: 527 / 536;
+  padding: 0;
+  border: 0;
+  background: #FFFFFF;
   overflow: hidden;
 }
 
-.main-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Заповнює контейнер без деформації */
-  transition: opacity 0.3s ease;
-}
-
-/* Мініатюри під головним фото */
-.thumbnails-row {
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding-bottom: 5px;
-}
-
-.thumb-wrapper {
-  width: 80px;
-  height: 80px;
-  cursor: pointer;
-  border: 2px solid transparent;
-  border-radius: 4px;
-  overflow: hidden;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.thumb-wrapper img {
+.main-image,
+.secondary-image {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.6;
 }
 
-.thumb-wrapper:hover img {
+.thumbnails-row {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.thumbnails-row::-webkit-scrollbar {
+  display: none;
+}
+
+.thumb-wrapper {
+  flex: 0 0 120px;
+  width: 120px;
+  aspect-ratio: 250 / 218;
+  padding: 0;
+  border: 2px solid transparent;
+  background: #FFFFFF;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.thumb-wrapper img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.72;
+  transition: opacity 0.2s ease;
+}
+
+.thumb-wrapper:hover img,
+.thumb-wrapper.active img {
   opacity: 1;
 }
 
@@ -61,45 +71,23 @@
   border-color: #00AAAD;
 }
 
-.thumb-wrapper.active img {
-  opacity: 1;
-}
-
-/* --- ПРАВА КОЛОНКА --- */
-.gallery-secondary {
-  width: 100%;
-  aspect-ratio: 1 / 1.2; /* Трохи витягнуте по вертикалі, як у преміум брендах */
-  border-radius: 4px;
-  overflow: hidden;
-  background-color: #f3f3f3;
-}
-
-.secondary-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.secondary-placeholder {
-  width: 100%;
-  height: 100%;
+.gallery-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #e0e0e0;
-  color: #fff;
+  min-height: 420px;
+  background: #FFFFFF;
+  color: rgba(0, 0, 0, 0.55);
   font-family: 'Raleway', sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-size: 20px;
 }
 
-/* Адаптив для мобільних */
-@media (max-width: 768px) {
+@media (max-width: 1080px) {
   .product-gallery {
-    grid-template-columns: 1fr; /* Одна колонка на телефонах */
+    grid-template-columns: 1fr;
   }
+
   .gallery-secondary {
-    display: none; /* Ховаємо праву частину на малих екранах для економії місця */
+    display: none;
   }
 }

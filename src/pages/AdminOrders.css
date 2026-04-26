@@ -1,86 +1,267 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap');
 
-.admin-orders {
-    font-family: 'Raleway', sans-serif;
-    padding: 36px 40px;
-}
-
-/* ===== TABLE ===== */
-.admin-orders .admin-table {
+.admin-orders-page {
     width: 100%;
-    border-collapse: collapse;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 18px 0 48px;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
 }
 
-.admin-orders .admin-table thead tr {
-    border-bottom: 1px solid #eee;
+.admin-orders-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
 }
 
-.admin-orders .admin-table thead th {
-    padding: 14px 16px;
-    font-size: 13px;
+.admin-orders-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+}
+
+.admin-orders-title-row h1 {
+    margin: 0;
+    color: #231f20;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.admin-orders-title-row span {
+    color: rgba(35, 31, 32, 0.5);
+    font-size: 30px;
     font-weight: 500;
-    color: #888;
+    line-height: 1.2;
+}
+
+.admin-orders-tools {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.admin-orders-search {
+    position: relative;
+    display: block;
+    width: 390px;
+    height: 60px;
+}
+
+.admin-orders-search svg {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    fill: #231f20;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.admin-orders-search input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(35, 31, 32, 0.5);
+    border-radius: 10px;
+    background: #e0e0e0;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 0 18px 0 86px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.admin-orders-search input::placeholder {
+    color: rgba(35, 31, 32, 0.75);
+    opacity: 1;
+}
+
+.admin-orders-search input:focus {
+    box-shadow: 0 0 0 2px rgba(0, 170, 173, 0.18);
+}
+
+.admin-orders-filter {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-right: 22px;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.admin-orders-filter::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-70%) rotate(45deg);
+    pointer-events: none;
+}
+
+.admin-orders-filter select {
+    position: absolute;
+    inset: -8px 0 -8px 0;
+    width: 100%;
+    height: calc(100% + 16px);
+    border: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    outline: none;
+    opacity: 0;
+}
+
+.admin-orders-filter select option {
+    color: #231f20;
+}
+
+.admin-orders-filter-plus {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+}
+
+.admin-orders-filter-plus:hover,
+.admin-orders-filter:hover {
+    color: #00aaad;
+}
+
+.admin-orders-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-orders-table {
+    width: 100%;
+    min-width: 1040px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.admin-orders-table th,
+.admin-orders-table td {
     text-align: left;
-    white-space: nowrap;
-}
-
-.admin-orders .admin-table tbody tr {
-    border-bottom: 1px solid #f5f5f5;
-    transition: background-color 0.15s ease;
-}
-
-.admin-orders .admin-table tbody tr:last-child {
-    border-bottom: none;
-}
-
-.admin-orders .admin-table tbody tr:hover {
-    background-color: #fafafa;
-}
-
-.admin-orders .admin-table tbody td {
-    padding: 14px 16px;
-    font-size: 14px;
-    color: #222;
+    color: #231f20;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.35);
     vertical-align: middle;
 }
 
-/* Номер замовлення під назвою */
-.admin-orders .order-id {
-    display: block;
-    font-size: 12px;
-    color: #aaa;
-    margin-top: 2px;
+.admin-orders-table th {
+    padding: 0 0 18px;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
 }
 
-/* Кнопка Постачання */
-.admin-orders .supply-link {
-    background: none;
-    border: none;
-    color: #2BBCB8;
-    font-family: 'Raleway', sans-serif;
-    font-size: 14px;
+.admin-orders-table td {
+    padding: 25px 0 26px;
+    font-size: 20px;
     font-weight: 500;
-    cursor: pointer;
+    line-height: 1.2;
+}
+
+.admin-orders-table th:nth-child(1),
+.admin-orders-table td:nth-child(1) {
+    width: 34%;
+}
+
+.admin-orders-table th:nth-child(2),
+.admin-orders-table td:nth-child(2) {
+    width: 15%;
+}
+
+.admin-orders-table th:nth-child(3),
+.admin-orders-table td:nth-child(3) {
+    width: 10%;
+    text-align: center;
+}
+
+.admin-orders-table th:nth-child(4),
+.admin-orders-table td:nth-child(4) {
+    width: 13%;
+    text-align: center;
+}
+
+.admin-orders-table th:nth-child(5),
+.admin-orders-table td:nth-child(5) {
+    width: 10%;
+    text-align: center;
+}
+
+.admin-orders-table th:nth-child(6),
+.admin-orders-table td:nth-child(6) {
+    width: 10%;
+    text-align: center;
+}
+
+.admin-orders-table th:nth-child(7),
+.admin-orders-table td:nth-child(7) {
+    width: 8%;
+    text-align: right;
+}
+
+.admin-orders-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-orders-sort::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid #231f20;
+    border-bottom: 1.5px solid #231f20;
+    transform: translateY(-2px) rotate(45deg);
+}
+
+.admin-orders-supply-link {
+    border: 0;
+    background: transparent;
+    color: #00aaad;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 500;
     padding: 0;
+    cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 3px;
-    transition: color 0.2s ease;
 }
 
-.admin-orders .supply-link:hover {
-    color: #1da5a1;
+.admin-orders-supply-link:hover {
+    color: #008f92;
 }
 
-/* Порожній стан */
-.admin-orders .empty-row {
-    text-align: center;
-    padding: 40px !important;
-    color: #aaa;
-    font-size: 14px;
+.admin-orders-empty {
+    text-align: center !important;
+    padding: 40px 0 !important;
+    color: rgba(35, 31, 32, 0.6) !important;
 }
 
 .admin-loading {
@@ -88,4 +269,24 @@
     text-align: center;
     color: #aaa;
     font-family: 'Raleway', sans-serif;
+}
+
+@media (max-width: 720px) {
+    .admin-orders-title-row h1,
+    .admin-orders-title-row span {
+        font-size: 26px;
+    }
+
+    .admin-orders-search {
+        width: 100%;
+    }
+
+    .admin-orders-search input {
+        font-size: 18px;
+        padding-left: 60px;
+    }
+
+    .admin-orders-search svg {
+        left: 20px;
+    }
 }

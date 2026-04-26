@@ -1,136 +1,128 @@
 .admin-writeoffs-container {
     width: 100%;
-    padding: 0;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231f20;
     font-family: 'Raleway', sans-serif;
 }
 
 .admin-writeoffs-table-wrapper {
     width: 100%;
-    margin-top: 10px;
+    margin-top: 28px;
+    overflow-x: auto;
 }
 
 .admin-writeoffs-table {
     width: 100%;
+    min-width: 1120px;
     border-collapse: collapse;
     table-layout: fixed;
 }
 
 .admin-writeoffs-table thead th {
-    text-align: left;
-    font-weight: 300;
-    font-size: 20px;
+    padding: 0 16px 17px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.42);
     color: #231f20;
-    padding: 14px 0 22px;
-    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.admin-writeoffs-table thead th:nth-child(1) { width: 6%; }
+.admin-writeoffs-table thead th:nth-child(2) { width: 17%; }
+.admin-writeoffs-table thead th:nth-child(3) { width: 14%; }
+.admin-writeoffs-table thead th:nth-child(4) { width: 17%; }
+.admin-writeoffs-table thead th:nth-child(5) { width: 19%; }
+.admin-writeoffs-table thead th:nth-child(6) { width: 12%; }
+.admin-writeoffs-table thead th:nth-child(7) { width: 10%; }
+.admin-writeoffs-table thead th:nth-child(8) { width: 5%; padding-right: 0; }
+
+.admin-writeoffs-table tbody tr {
+    border-bottom: 1px solid rgba(35, 31, 32, 0.32);
 }
 
 .admin-writeoffs-table tbody td {
-    font-weight: 500;
-    font-size: 20px;
+    padding: 20px 16px 20px 0;
     color: #231f20;
-    padding: 20px 0;
-    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.25;
     vertical-align: middle;
 }
 
-.admin-writeoffs-table th:nth-child(1),
-.admin-writeoffs-table td:nth-child(1) {
-    width: 17%;
+.admin-writeoffs-table tbody td:nth-child(4),
+.admin-writeoffs-table tbody td:nth-child(5),
+.admin-writeoffs-table tbody td:nth-child(6) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.admin-writeoffs-table th:nth-child(2),
-.admin-writeoffs-table td:nth-child(2) {
-    width: 38%;
-}
-
-.admin-writeoffs-table th:nth-child(3),
-.admin-writeoffs-table td:nth-child(3) {
-    width: 11%;
-}
-
-.admin-writeoffs-table th:nth-child(4),
-.admin-writeoffs-table td:nth-child(4) {
-    width: 13%;
-}
-
-.admin-writeoffs-table th:nth-child(5),
-.admin-writeoffs-table td:nth-child(5) {
-    width: 15%;
-}
-
-.admin-writeoffs-table tbody td:nth-child(5) {
-    font-size: 16px;
-}
-
-.admin-writeoffs-table th:nth-child(6),
-.admin-writeoffs-table td:nth-child(6) {
-    width: 6%;
-    text-align: center;
+.admin-writeoffs-table tbody td:last-child {
+    padding-right: 0;
+    text-align: right;
 }
 
 .writeoffs-sort-button {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    border: none;
+    border: 0;
     background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
     padding: 0;
-    margin: 0;
-    color: #231f20;
-    font: inherit;
-    font-weight: 300;
-    font-size: 20px;
     cursor: pointer;
 }
 
-.sort-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
-
-.sort-icon svg {
-    width: 13px;
+.writeoffs-sort-button svg {
+    width: 12px;
     height: 8px;
+    fill: rgba(35, 31, 32, 0.5);
 }
 
 .admin-writeoffs-actions-cell {
-    text-align: center;
+    text-align: right;
 }
 
 .edit-action-btn {
-    border: none;
-    background: transparent;
-    color: #231f20;
-    width: 28px;
-    height: 28px;
-    padding: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    padding: 0;
     cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.edit-action-btn svg {
+    width: 22px;
+    height: 22px;
 }
 
 .edit-action-btn:hover {
     color: #00aaad;
+    transform: translateY(-1px);
 }
 
 .writeoffs-empty-state {
-    text-align: center;
-    color: rgba(35, 31, 32, 0.7);
-    font-weight: 400;
-    padding: 36px 0;
+    padding: 34px 0 !important;
+    color: rgba(35, 31, 32, 0.48) !important;
+    text-align: center !important;
+    font-weight: 400 !important;
 }
 
 @media (max-width: 1440px) {
     .admin-writeoffs-table thead th,
-    .admin-writeoffs-table tbody td,
-    .writeoffs-sort-button {
+    .admin-writeoffs-table tbody td {
         font-size: 18px;
-    }
-
-    .admin-writeoffs-table tbody td:nth-child(5) {
-        font-size: 15px;
     }
 }

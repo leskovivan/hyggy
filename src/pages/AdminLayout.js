@@ -1,53 +1,101 @@
 import React from 'react';
-import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; // Используем твой контекст
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../context/AuthContext';
+import logo from '../images/logo.svg';
 import './AdminLayout.css';
 
+const warehouseRoutes = [
+    '/admin/warehouses',
+    '/admin/stock',
+    '/admin/supplies',
+    '/admin/transfers',
+    '/admin/write-offs',
+];
+
+const mainLinks = [
+    { to: '/admin/products', label: 'Товари', match: 'products' },
+    { to: '/admin/stores', label: 'Магазини', match: 'stores' },
+    { to: '/admin/employees', label: 'Співробітники', match: 'employees' },
+    { to: '/admin/clients', label: 'Клієнти', match: 'clients' },
+    { to: '/admin/orders', label: 'Замовлення', match: 'orders' },
+    { to: '/admin/blogs', label: 'Блоги', match: 'blogs' },
+    { to: '/admin/reviews', label: 'Відгуки', match: 'reviews' },
+];
+
+const warehouseLinks = [
+    { to: '/admin/warehouses', label: 'Склади' },
+    { to: '/admin/stock', label: 'Залишки' },
+    { to: '/admin/supplies', label: 'Поставки' },
+    { to: '/admin/transfers', label: 'Переміщення' },
+    { to: '/admin/write-offs', label: 'Списання' },
+];
+
 const AdminLayout = () => {
-    const { logout } = useAuth(); // Берем функцию выхода
+    const { logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
+    const isWarehouseRoute = warehouseRoutes.some(route => location.pathname.startsWith(route));
+
     const handleLogout = () => {
-        logout(); // Очищаем данные юзера через твой контекст
+        logout();
         navigate('/admin/login');
     };
 
     return (
         <div className="admin-layout">
-            {/* БІЧНА ПАНЕЛЬ */}
-            <aside className="admin-sidebar">
-                <div className="admin-logo-area">
-                    <Link to="/" className="to-site-btn">← Перейти на сайт</Link>
-                </div>
+            <aside className="admin-sidebar" aria-label="Адмін-навігація">
+                <Link to="/" className="admin-site-card">
+                    <img src={logo} alt="HYGGY" className="admin-site-logo" />
+                    <span>Перейти на сайт</span>
+                </Link>
 
                 <nav className="admin-nav">
-                    <Link to="/admin/products" className={location.pathname.includes('products') ? 'active' : ''}>Товари</Link>
-                    
-                    <div className="nav-group">
-                        <span className="nav-group-title">Склади </span>
-                        <Link to="/admin/warehouses">Склади</Link>
-                        <Link to="/admin/stock">Залишки</Link>
-                        <Link to="/admin/supplies">Поставки</Link>
-                        <Link to="/admin/transfers">Переміщення</Link>
-                        <Link to="/admin/write-offs">Списання</Link>
+                    <NavLink
+                        to="/admin/products"
+                        className={({ isActive }) => (isActive || location.pathname.includes('products') ? 'admin-nav-link active' : 'admin-nav-link')}
+                    >
+                        Товари
+                    </NavLink>
+
+                    <div className="admin-nav-group">
+                        <div className={isWarehouseRoute ? 'admin-nav-group-title active' : 'admin-nav-group-title'}>
+                            <span>Склади</span>
+                            <span className="admin-nav-chevron" aria-hidden="true">⌄</span>
+                        </div>
+
+                        <div className="admin-nav-submenu">
+                            {warehouseLinks.map(link => (
+                                <NavLink
+                                    key={link.to}
+                                    to={link.to}
+                                    className={({ isActive }) => (isActive ? 'admin-nav-link admin-nav-sublink active' : 'admin-nav-link admin-nav-sublink')}
+                                >
+                                    {link.label}
+                                </NavLink>
+                            ))}
+                        </div>
                     </div>
 
-                    <Link to="/admin/stores" className={location.pathname.includes('stores') ? 'active' : ''}>Магазини</Link>
-                    <Link to="/admin/employees" className={location.pathname.includes('employees') ? 'active' : ''}>Співробітники</Link>
-                    <Link to="/admin/clients" className={location.pathname.includes('clients') ? 'active' : ''}>Клієнти</Link>
-                    <Link to="/admin/orders" className={location.pathname.includes('orders') ? 'active' : ''}>Замовлення</Link>
-                    
-                    <Link to="/admin/blogs" className={location.pathname.includes('blogs') ? 'active' : ''}>Блоги</Link>
-                    <Link to="/admin/reviews" className={location.pathname.includes('reviews') ? 'active' : ''}>Відгуки</Link>
+                    {mainLinks.slice(1).map(link => (
+                        <NavLink
+                            key={link.to}
+                            to={link.to}
+                            className={({ isActive }) => (isActive || location.pathname.includes(link.match) ? 'admin-nav-link active' : 'admin-nav-link')}
+                        >
+                            {link.label}
+                        </NavLink>
+                    ))}
                 </nav>
 
-                <button className="logout-btn" onClick={handleLogout}>Вихід</button>
+                <button type="button" className="admin-logout-btn" onClick={handleLogout}>
+                    Вихід
+                </button>
             </aside>
 
-            {/* ОСНОВНИЙ КОНТЕНТ */}
             <main className="admin-content-area">
-                <Outlet /> 
+                <Outlet />
             </main>
         </div>
     );

@@ -26,7 +26,7 @@
       "name": "Стілець обідній BISTRUP оливковий/дуб",
       "price": 60,
       "inStock": true,
-      "hasDelivery": true,
+      "hasDelivery": false,
       "shortDescription": "Стілець BISTRUP — це стильне поєднання сучасного дизайну та практичності.",
       "promoEndDate": "2026-04-30T23:59:59",
       "isAlwaysLowPrice": false,
@@ -242,7 +242,8 @@
           "value": "Чорний"
         }
       ],
-      "reviews": []
+      "reviews": [],
+      "rating": 5
     },
     {
       "article": "312213",
@@ -306,7 +307,8 @@
           "start": "10:00",
           "end": "19:00"
         }
-      }
+      },
+      "totalProductsSum": 1650
     },
     {
       "id": "2",
@@ -347,9 +349,9 @@
       }
     },
     {
-      "name": "ФВІВІФ",
-      "city": "фів",
-      "address": "фів",
+      "name": "Hyggy Одеса",
+      "city": "Одеса",
+      "address": "Приморський бульвар 28б",
       "warehouse": "Загальний склад",
       "image": "",
       "schedule": {
@@ -371,7 +373,7 @@
         },
         "fri": {
           "start": "10:00",
-          "end": "19:00"
+          "end": "21:00"
         },
         "sat": {
           "start": "10:00",
@@ -382,7 +384,8 @@
           "end": "19:00"
         }
       },
-      "id": "AaMUPgHQIL4"
+      "id": "AaMUPgHQIL4",
+      "totalProductsSum": 1650
     }
   ],
   "users": [
@@ -927,6 +930,80 @@
       "productName": "Стілець обідній...",
       "status": "Неоплачено",
       "amount": 1650
+    },
+    {
+      "id": "aNX2SDcws2w",
+      "date": "26.04.2026, 12:41",
+      "supplier": "BISTRUP",
+      "warehouse": "Загальний склад",
+      "comment": "ФІВвіф",
+      "status": "Неоплачено",
+      "amount": 129189,
+      "productName": "Стілець обідній BISTRUP оливковий/дуб, Столи, Столи",
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Стілець обідній BISTRUP оливковий/дуб",
+          "packaging": "упаковка",
+          "quantity": 12,
+          "unitPrice": 560,
+          "amountWithoutTax": 6720,
+          "tax": 29,
+          "totalAmount": 6749
+        },
+        {
+          "productId": "6AZXCl43oUI",
+          "productName": "Столи",
+          "packaging": "шт",
+          "quantity": 22,
+          "unitPrice": 5100,
+          "amountWithoutTax": 112200,
+          "tax": 20,
+          "totalAmount": 112220
+        },
+        {
+          "productId": "6AZXCl43oUI",
+          "productName": "Столи",
+          "packaging": "комплект",
+          "quantity": 2,
+          "unitPrice": 5100,
+          "amountWithoutTax": 10200,
+          "tax": 20,
+          "totalAmount": 10220
+        }
+      ],
+      "products": [
+        {
+          "id": "1",
+          "name": "Стілець обідній BISTRUP оливковий/дуб",
+          "packaging": "упаковка",
+          "quantity": 12,
+          "unitPrice": 560,
+          "amountWithoutTax": 6720,
+          "tax": 29,
+          "totalAmount": 6749
+        },
+        {
+          "id": "6AZXCl43oUI",
+          "name": "Столи",
+          "packaging": "шт",
+          "quantity": 22,
+          "unitPrice": 5100,
+          "amountWithoutTax": 112200,
+          "tax": 20,
+          "totalAmount": 112220
+        },
+        {
+          "id": "6AZXCl43oUI",
+          "name": "Столи",
+          "packaging": "комплект",
+          "quantity": 2,
+          "unitPrice": 5100,
+          "amountWithoutTax": 10200,
+          "tax": 20,
+          "totalAmount": 10220
+        }
+      ]
     }
   ],
   "write-offs": [
@@ -961,6 +1038,53 @@
       ]
     }
   ],
-  "transfers": [],
+  "transfers": [
+    {
+      "id": "NwqK7DN9unA",
+      "date": "2026-04-26T14:20:00",
+      "warehouseFrom": "Загальний склад",
+      "warehouseTo": "Загальний склад",
+      "comment": "",
+      "employee": "Іван",
+      "amount": 1440,
+      "productName": "Стілець обідній BISTRUP оливковий/дуб, Диван обідній BISTRUP оливковий/дуб",
+      "items": [
+        {
+          "productId": "1",
+          "productName": "Стілець обідній BISTRUP оливковий/дуб",
+          "packing": "шт",
+          "quantity": 10,
+          "unitPrice": 60,
+          "lineAmount": 600
+        },
+        {
+          "productId": "2",
+          "productName": "Диван обідній BISTRUP оливковий/дуб",
+          "packing": "упаковка",
+          "quantity": 12,
+          "unitPrice": 70,
+          "lineAmount": 840
+        }
+      ],
+      "products": [
+        {
+          "id": "1",
+          "name": "Стілець обідній BISTRUP оливковий/дуб",
+          "packing": "шт",
+          "quantity": 10,
+          "unitPrice": 60,
+          "lineAmount": 600
+        },
+        {
+          "id": "2",
+          "name": "Диван обідній BISTRUP оливковий/дуб",
+          "packing": "упаковка",
+          "quantity": 12,
+          "unitPrice": 70,
+          "lineAmount": 840
+        }
+      ]
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

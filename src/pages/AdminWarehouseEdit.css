@@ -1,0 +1,108 @@
+.admin-warehouse-edit-page {
+    width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231F20;
+    font-family: 'Raleway', sans-serif;
+}
+
+.admin-warehouse-edit-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #231F20;
+    font-family: inherit;
+    font-size: 30px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.admin-warehouse-edit-back span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: #00AAAD;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.admin-warehouse-edit-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    width: min(100%, 620px);
+    margin-top: 48px;
+}
+
+.admin-warehouse-edit-field {
+    display: grid;
+    gap: 12px;
+}
+
+.admin-warehouse-edit-field span {
+    color: #231F20;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.admin-warehouse-edit-field input {
+    width: 100%;
+    height: 56px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    border: 1px solid rgba(35, 31, 32, 0.5);
+    border-radius: 10px;
+    background: #E0E0E0;
+    color: #231F20;
+    font-family: inherit;
+    font-size: 20px;
+    outline: none;
+}
+
+.admin-warehouse-edit-field input:focus {
+    border-color: #00AAAD;
+    box-shadow: 0 0 0 3px rgba(0, 170, 173, 0.14);
+}
+
+.admin-warehouse-edit-submit {
+    justify-self: start;
+    min-width: 150px;
+    height: 51px;
+    padding: 0 28px;
+    border: 0;
+    border-radius: 10px;
+    background: #00AAAD;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 24px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.admin-warehouse-edit-submit:hover:not(:disabled) {
+    background: #008f92;
+    transform: translateY(-1px);
+}
+
+.admin-warehouse-edit-submit:disabled {
+    cursor: default;
+    opacity: 0.7;
+}
+
+@media (max-width: 700px) {
+    .admin-warehouse-edit-back {
+        font-size: 24px;
+    }
+
+    .admin-warehouse-edit-form {
+        margin-top: 32px;
+    }
+}

@@ -43,10 +43,13 @@ import Checkout from './pages/Checkout';
 import AdminClients from './pages/AdminClients';
 import AdminEmployees from './pages/AdminEmployees';
 import AdminStores from './pages/AdminStores';
+import AdminStoreEdit from './pages/AdminStoreEdit';
 import AdminEmployeeEdit from './pages/AdminEmployeeEdit';
 import AdminWarehouses from './pages/AdminWarehouses';
+import AdminWarehouseEdit from './pages/AdminWarehouseEdit';
 import AdminStock from './pages/AdminStock';
 import AdminTransfers from './pages/AdminTransfers';
+import AdminTransferAdd from './pages/AdminTransferAdd';
 import AdminSupplies from './pages/AdminSupplies';
 import AdminWriteOffs from './pages/AdminWriteOffs';
 import AdminWriteOffAdd from './pages/AdminWriteOffAdd';
@@ -96,13 +99,20 @@ function AppContent() {
               <Route path="/admin/employees/add" element={<AdminEmployeeEdit />} />
               <Route path="/admin/employees/edit/:id" element={<AdminEmployeeEdit />} />
               <Route path="/admin/stores" element={<AdminStores />} />
+              <Route path="/admin/stores/add" element={<AdminStoreEdit />} />
+              <Route path="/admin/stores/edit/:id" element={<AdminStoreEdit />} />
               <Route path="/admin/warehouses" element={<AdminWarehouses />} />
+              <Route path="/admin/warehouses/add" element={<AdminWarehouseEdit />} />
+              <Route path="/admin/warehouses/edit/:id" element={<AdminWarehouseEdit />} />
               <Route path="/admin/stock" element={<AdminStock />} />
               <Route path="/admin/transfers" element={<AdminTransfers />} />
+              <Route path="/admin/transfers/add" element={<AdminTransferAdd />} />
               <Route path="/admin/supplies" element={<AdminSupplies />} />
               <Route path="/admin/supplies/add" element={<AdminSuppliesAdd />} />
+              <Route path="/admin/supplies/edit/:id" element={<AdminSuppliesAdd />} />
               <Route path="/admin/write-offs" element={<AdminWriteOffs />} />
               <Route path="/admin/write-offs/add" element={<AdminWriteOffAdd />} />
+              <Route path="/admin/write-offs/edit/:id" element={<AdminWriteOffAdd />} />
 
         </Route>
         <Route path="/" element={<HomePage />} />

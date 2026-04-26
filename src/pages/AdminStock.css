@@ -1,51 +1,106 @@
 .admin-stock-container {
-    padding: 0;
     width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
 }
 
 .admin-stock-table-wrapper {
-    margin-top: 40px;
     width: 100%;
+    margin-top: 28px;
+    overflow-x: auto;
 }
 
 .admin-stock-table {
     width: 100%;
+    min-width: 1080px;
     border-collapse: collapse;
-    font-family: 'Raleway', sans-serif;
+    table-layout: fixed;
 }
 
 .admin-stock-table thead th {
-    font-weight: 300;
+    padding: 0 16px 17px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.42);
+    color: #231f20;
     font-size: 20px;
-    color: #231F20;
+    font-weight: 300;
+    line-height: 1.2;
     text-align: left;
-    padding-bottom: 25px;
-    padding-top: 10px;
-    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
 }
 
-/* 7 колонок для Залишків */
-.admin-stock-table thead th:nth-child(1) { width: 30%; padding-left: 0; } /* Назва */
-.admin-stock-table thead th:nth-child(2) { width: 15%; }                  /* Категорія */
-.admin-stock-table thead th:nth-child(3) { width: 12%; }                  /* Залишки */
-.admin-stock-table thead th:nth-child(4) { width: 13%; }                  /* Собівартість */
-.admin-stock-table thead th:nth-child(5) { width: 12%; }                  /* Сума */
-.admin-stock-table thead th:nth-child(6) { width: 13%; }                  /* Ліміт */
-.admin-stock-table thead th:nth-child(7) { width: 5%; text-align: center; } /* Дії */
+.admin-stock-table thead th:nth-child(1) { width: 35%; }
+.admin-stock-table thead th:nth-child(2) { width: 15%; }
+.admin-stock-table thead th:nth-child(3) { width: 10%; }
+.admin-stock-table thead th:nth-child(4) { width: 14%; }
+.admin-stock-table thead th:nth-child(5) { width: 11%; }
+.admin-stock-table thead th:nth-child(6) { width: 9%; }
+.admin-stock-table thead th:nth-child(7) { width: 6%; padding-right: 0; }
 
 .admin-stock-table tbody tr {
-    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+    border-bottom: 1px solid rgba(35, 31, 32, 0.32);
 }
 
 .admin-stock-table tbody td {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font-weight: 500;
+    padding: 20px 16px 20px 0;
+    color: #231f20;
     font-size: 20px;
-    color: #231F20;
+    font-weight: 500;
+    line-height: 1.25;
     vertical-align: middle;
 }
 
-.admin-stock-table tbody td:nth-child(1) {
-    padding-left: 0;
+.admin-stock-table tbody td:first-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admin-stock-table tbody td:last-child {
+    padding-right: 0;
+    text-align: right;
+}
+
+.admin-stock-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.admin-stock-sort svg {
+    width: 12px;
+    height: 8px;
+    fill: rgba(35, 31, 32, 0.5);
+}
+
+.admin-stock-supply-link {
+    border: 0;
+    background: transparent;
+    color: #00aaad;
+    padding: 0;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.admin-stock-supply-link:hover {
+    color: #008f91;
+}
+
+.admin-stock-empty {
+    padding: 34px 0 !important;
+    color: rgba(35, 31, 32, 0.48) !important;
+    text-align: center !important;
+    font-weight: 400 !important;
+}
+
+@media (max-width: 1440px) {
+    .admin-stock-table thead th,
+    .admin-stock-table tbody td,
+    .admin-stock-supply-link {
+        font-size: 18px;
+    }
 }

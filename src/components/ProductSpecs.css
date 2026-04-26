@@ -1,61 +1,51 @@
 .product-specs-container {
   width: 100%;
+  margin: 58px 0 64px;
   font-family: 'Raleway', sans-serif;
-  margin: 40px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.product-specs-title h2{
+.product-specs-title {
+  margin: 0 0 34px;
   color: #000;
-    text-align: center;
-    font-family: Raleway;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 .product-specs-table {
-    
+  width: min(100%, 900px);
+  margin: 0 auto;
   border-collapse: collapse;
-  /* Тонкая рамка вокруг всей таблицы */
-  border: 1px solid #d1d1d1; 
-  background-color: #E0E0E0;
-  max-width: 1300px;
-  width: 100%; /* Добавил 100%, чтобы таблица растягивалась до твоих 1300px */
+  background: #E0E0E0;
 }
 
-/* Общие стили для всех ячеек */
 .product-specs-table td {
-    padding: 27px 20px;
-    
-  border: 1px solid rgba(0, 0, 0, 0.50); /* Рамки между ячейками */
-  padding: 12px 20px;
-  color: #333;
+  padding: 14px 24px;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  color: #000;
+  text-align: center;
   vertical-align: middle;
 }
 
-/* Стили для левой колонки (Названия) */
 .spec-label {
-  width: 35%; /* Левая колонка чуть уже правой */
-  color: #000;
-  text-align: center;
-  font-family: 'Raleway', sans-serif;
-  font-size: 28px;
-  font-style: normal;
+  width: 34%;
+  font-size: 16px;
   font-weight: 700;
-  line-height: normal;
 }
 
-
-.spec-value{
-
-  text-align: center;
-  font-family: 'Raleway', sans-serif;
-  font-size: 28px;
-  font-style: normal;
+.spec-value {
+  font-size: 16px;
   font-weight: 300;
-  line-height: normal;
+}
+
+@media (max-width: 640px) {
+  .product-specs-title {
+    font-size: 28px;
+  }
+
+  .product-specs-table td {
+    padding: 12px;
+    font-size: 14px;
+  }
 }

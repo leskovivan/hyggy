@@ -1,60 +1,165 @@
-/* Унікальний контейнер для цієї сторінки */
 .admin-supplies-page {
-
+    width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231F20;
     font-family: 'Raleway', sans-serif;
 }
 
 .supplies-table-wrapper {
-    margin-top: 40px;
     width: 100%;
+    margin-top: 28px;
+    overflow-x: auto;
 }
 
 .supplies-table {
     width: 100%;
+    min-width: 1120px;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
-/* Стиль заголовків як у твоєму "ідеалі" */
 .supplies-table thead th {
-    font-weight: 300; /* Light */
-    font-size: 20px;
+    padding: 0 16px 17px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.46);
     color: #231F20;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.2;
     text-align: left;
-    padding-bottom: 25px;
-    padding-top: 10px;
-    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
+    white-space: nowrap;
 }
 
-/* Розподіл ширини колонок */
-.supplies-table thead th:nth-child(1) { width: 5%; }  /* № */
-.supplies-table thead th:nth-child(2) { width: 12%; } /* Дата */
-.supplies-table thead th:nth-child(3) { width: 15%; } /* Постачальник */
-.supplies-table thead th:nth-child(4) { width: 13%; } /* Склад */
-.supplies-table thead th:nth-child(5) { width: 25%; } /* Товари */
-.supplies-table thead th:nth-child(6) { width: 10%; } /* Статус */
-.supplies-table thead th:nth-child(7) { width: 15%; } /* Сума */
-.supplies-table thead th:nth-child(8) { width: 5%; text-align: center; }
+.supplies-table thead th:nth-child(1) {
+    width: 6%;
+}
 
-.supplies-table tbody tr {
-    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+.supplies-table thead th:nth-child(2) {
+    width: 16%;
+}
+
+.supplies-table thead th:nth-child(3) {
+    width: 15%;
+}
+
+.supplies-table thead th:nth-child(4) {
+    width: 16%;
+}
+
+.supplies-table thead th:nth-child(5) {
+    width: 21%;
+}
+
+.supplies-table thead th:nth-child(6) {
+    width: 12%;
+}
+
+.supplies-table thead th:nth-child(7) {
+    width: 9%;
+}
+
+.supplies-table thead th:nth-child(8) {
+    width: 5%;
+    padding-right: 0;
+    text-align: center;
 }
 
 .supplies-table tbody td {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font-weight: 500;
-    font-size: 20px;
+    padding: 20px 16px 20px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.34);
     color: #231F20;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.25;
     vertical-align: middle;
 }
 
-/* Статуси */
-.status-badge {
-    color: #00AAAD;
-    text-decoration: underline;
+.supplies-table tbody td:last-child {
+    padding-right: 0;
+    text-align: center;
+}
+
+.supplies-sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
     cursor: pointer;
 }
 
-.status-badge.unpaid {
-    color: #E74C3C; /* Червоний для неоплачених */
+.supplies-sort-button span {
+    display: inline-flex;
+    transform: translateY(-1px);
+    font-size: 18px;
+}
+
+.supplies-product-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.supplies-status {
+    display: inline-flex;
+    max-width: 100%;
+    overflow: hidden;
+    color: #231F20;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.supply-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: #231F20;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.supply-action-btn:hover {
+    background: rgba(0, 170, 173, 0.12);
+    color: #00AAAD;
+}
+
+.supply-action-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.supplies-empty {
+    padding: 42px 0 !important;
+    color: rgba(35, 31, 32, 0.58) !important;
+    font-size: 18px !important;
+    text-align: center !important;
+}
+
+@media (max-width: 900px) {
+    .admin-supplies-page {
+        padding-bottom: 32px;
+    }
+
+    .supplies-table-wrapper {
+        margin-top: 22px;
+    }
+
+    .supplies-table {
+        min-width: 980px;
+    }
 }

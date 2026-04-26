@@ -1,50 +1,113 @@
 .admin-transfers-container {
-    padding: 0;
     width: 100%;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 0 0 48px;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
 }
 
 .admin-transfers-table-wrapper {
-    margin-top: 40px;
     width: 100%;
+    margin-top: 28px;
+    overflow-x: auto;
 }
 
 .admin-transfers-table {
     width: 100%;
+    min-width: 1040px;
     border-collapse: collapse;
-    font-family: 'Raleway', sans-serif;
+    table-layout: fixed;
 }
 
 .admin-transfers-table thead th {
-    font-weight: 300;
+    padding: 0 18px 17px 0;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.48);
+    color: #231f20;
     font-size: 20px;
-    color: #231F20;
+    font-weight: 300;
+    line-height: 1.2;
     text-align: left;
-    padding-bottom: 25px;
-    padding-top: 10px;
-    border-bottom: 1px solid rgba(35, 31, 32, 0.5);
 }
 
-/* 6 колонок для Переміщень */
-.admin-transfers-table thead th:nth-child(1) { width: 15%; padding-left: 0; } /* Дата */
-.admin-transfers-table thead th:nth-child(2) { width: 35%; }                  /* Найменування */
-.admin-transfers-table thead th:nth-child(3) { width: 10%; }                  /* Сума */
-.admin-transfers-table thead th:nth-child(4) { width: 15%; }                  /* Працівник */
-.admin-transfers-table thead th:nth-child(5) { width: 20%; }                  /* Склади */
-.admin-transfers-table thead th:nth-child(6) { width: 5%; text-align: center; } /* Дії */
+.admin-transfers-table thead th:nth-child(1) { width: 17%; }
+.admin-transfers-table thead th:nth-child(2) { width: 38%; }
+.admin-transfers-table thead th:nth-child(3) { width: 12%; }
+.admin-transfers-table thead th:nth-child(4) { width: 14%; }
+.admin-transfers-table thead th:nth-child(5) { width: 14%; }
+.admin-transfers-table thead th:nth-child(6) { width: 5%; padding-right: 0; }
 
 .admin-transfers-table tbody tr {
-    border-bottom: 0.5px solid rgba(35, 31, 32, 0.5);
+    border-bottom: 1px solid rgba(35, 31, 32, 0.32);
 }
 
 .admin-transfers-table tbody td {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    font-weight: 500;
+    padding: 20px 18px 20px 0;
+    color: #231f20;
     font-size: 20px;
-    color: #231F20;
+    font-weight: 500;
+    line-height: 1.25;
     vertical-align: middle;
 }
 
-.admin-transfers-table tbody td:nth-child(1) {
-    padding-left: 0;
+.admin-transfers-table tbody td:last-child {
+    padding-right: 0;
+    text-align: right;
+}
+
+.admin-transfers-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 0;
+    cursor: pointer;
+}
+
+.admin-transfers-sort svg {
+    width: 12px;
+    height: 8px;
+    fill: rgba(35, 31, 32, 0.5);
+}
+
+.transfer-warehouse-cell {
+    font-size: 16px;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.transfer-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.18s ease, transform 0.18s ease;
+}
+
+.transfer-action-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+}
+
+.transfer-action-btn:hover {
+    color: #00aaad;
+    transform: translateY(-1px);
+}
+
+.admin-transfers-empty {
+    padding: 34px 0 !important;
+    color: rgba(35, 31, 32, 0.48) !important;
+    text-align: center !important;
 }
