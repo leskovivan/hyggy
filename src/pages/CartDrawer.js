@@ -1,79 +1,99 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext'; 
-import { useAuth } from '../context/AuthContext'; 
+import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import './CartDrawer.css';
 
+const formatPrice = (value) => `${Math.round(value).toLocaleString('uk-UA')} $`;
+
+const getOldPrice = (item) => {
+  if (!item.discountPercent) return null;
+  return Math.round(item.price / (1 - item.discountPercent / 100));
+};
+
 const CartDrawer = () => {
-  const { cartItems, isCartOpen, toggleCart, updateQuantity, removeFromCart, totalAmount } = useCart();
-  const { user } = useAuth(); 
+  const { cartItems, isCartOpen, toggleCart, removeFromCart, totalAmount } = useCart();
+  const { user } = useAuth();
   const navigate = useNavigate();
+  const deliveryPrice = 0;
+  const finalTotal = totalAmount + deliveryPrice;
 
   const handleCheckout = (e) => {
-    // Зупиняємо будь-які інші події
     e.preventDefault();
     e.stopPropagation();
 
-    console.log("КЛІК СПРАЦЮВАВ!"); // Якщо бачиш це в консолі - JS в нормі
-
     if (!user) {
-      alert("Будь ласка, увійдіть в акаунт!");
+      alert('Будь ласка, увійдіть в акаунт!');
       toggleCart();
       navigate('/login');
       return;
     }
 
-    toggleCart(); 
-    navigate('/cart'); 
+    toggleCart();
+    navigate('/checkout');
+  };
+
+  const handleContinueShopping = () => {
+    toggleCart();
   };
 
   return (
     <>
-      {/* КЛАС active МАЄ ЗБІГАТИСЯ З CSS */}
       <div className={`cart-overlay ${isCartOpen ? 'active' : ''}`} onClick={toggleCart}></div>
-      
-      <aside className={`cart-drawer ${isCartOpen ? 'active' : ''}`}>
-        <div className="cart-drawer-header">
-          <h2>Кошик ({cartItems.length})</h2>
-          <button className="close-drawer" onClick={toggleCart}>×</button>
-        </div>
 
-        <div className="cart-drawer-content">
-          {cartItems.length === 0 ? (
-            <p className="empty-cart-msg">Ваш кошик порожній</p>
-          ) : (
-            cartItems.map(item => (
-              <div key={item.id} className="drawer-item">
-                <img src={item.image} alt={item.name} />
-                <div className="drawer-item-info">
-                  <h4>{item.name}</h4>
-                  <p>{item.price} $</p>
-                  <div className="qty-selector">
-                    <button onClick={() => updateQuantity(item.id, -1)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, 1)}>+</button>
-                  </div>
-                </div>
-                <button className="delete-item" onClick={() => removeFromCart(item.id)}>🗑</button>
-              </div>
-            ))
-          )}
-        </div>
-
-        {cartItems.length > 0 && (
-          <div className="cart-drawer-footer">
-            <div className="total-box">
-              <span>Разом:</span>
-              <span>{totalAmount} $</span>
-            </div>
-            <button 
-              className="go-to-checkout" 
-              onClick={handleCheckout}
-              style={{ cursor: 'pointer', position: 'relative', zIndex: 1005 }}
-            >
-              Оформити замовлення
-            </button>
+      <aside className={`cart-drawer ${isCartOpen ? 'active' : ''}`} aria-label="Кошик">
+        {cartItems.length === 0 ? (
+          <div className="drawer-empty-state">
+            <p>Ваш кошик порожній</p>
+            <button type="button" onClick={toggleCart}>Продовжити покупки</button>
           </div>
+        ) : (
+          <>
+            <div className="drawer-items-list">
+              {cartItems.map((item) => {
+                const oldPrice = getOldPrice(item);
+                const itemTotal = item.price * item.quantity;
+                const oldTotal = oldPrice ? oldPrice * item.quantity : null;
+
+                return (
+                  <article key={item.id} className="drawer-item">
+                    <img src={item.image} alt={item.name} className="drawer-item-img" />
+                    <div className="drawer-item-info">
+                      <h2>{item.name}</h2>
+                      <p className="drawer-item-price">{formatPrice(itemTotal)}</p>
+                      {oldTotal && <p className="drawer-item-old-price">{formatPrice(oldTotal)}</p>}
+                      {item.quantity > 1 && <p className="drawer-item-quantity">Кількість: {item.quantity}</p>}
+                      <button type="button" onClick={() => removeFromCart(item.id)}>
+                        Видалити
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="drawer-summary-line" />
+
+            <div className="drawer-summary">
+              <div className="drawer-summary-row">
+                <span>Доставка:</span>
+                <strong>{formatPrice(deliveryPrice)}</strong>
+              </div>
+              <div className="drawer-summary-row">
+                <span>В сумі:</span>
+                <strong>{formatPrice(finalTotal)}</strong>
+              </div>
+            </div>
+
+            <div className="drawer-actions">
+              <button type="button" className="drawer-primary-btn" onClick={handleCheckout}>
+                Продовжити
+              </button>
+              <Link to="/category" className="drawer-continue-link" onClick={handleContinueShopping}>
+                Продовжити покупки
+              </Link>
+            </div>
+          </>
         )}
       </aside>
     </>

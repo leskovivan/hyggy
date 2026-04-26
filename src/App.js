@@ -68,11 +68,12 @@ function AppContent() {
 
   // ПРОВЕРКА: Находимся ли мы сейчас в админ-панели?
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isCheckoutRoute = location.pathname === '/cart' || location.pathname === '/checkout';
 
   return (
     <>
       {/* Прячем обычный Header магазина, если мы в админке */}
-      {!isAdminRoute && <Header />}
+      {!isAdminRoute && !isCheckoutRoute && <Header />}
     
       <Routes>
         <Route path="/admin" element={
@@ -149,12 +150,12 @@ function AppContent() {
       </Routes>
 
       {/* Прячем футеры, если это 404 ИЛИ если мы в админке */}
-      {!isAdminRoute && isKnownPath && (
+      {!isAdminRoute && !isCheckoutRoute && isKnownPath && (
         <>
           <Prefooter />
         </>
       )}
-      {!isAdminRoute && <Footer />}
+      {!isAdminRoute && !isCheckoutRoute && <Footer />}
     </>
   );
 }

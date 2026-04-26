@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ReviewModal.css';
 
-const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
+const ReviewModal = ({ isOpen, onClose, onSubmit, currentUser }) => {
   const [rating, setRating] = useState(0);
   const [formData, setFormData] = useState({
     subject: '',
@@ -10,6 +10,16 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
     comment: '',
     accepted: false
   });
+
+  useEffect(() => {
+    if (!isOpen || !currentUser) return;
+
+    setFormData(prev => ({
+      ...prev,
+      name: prev.name || currentUser.name || '',
+      email: prev.email || currentUser.email || '',
+    }));
+  }, [isOpen, currentUser]);
 
   if (!isOpen) return null;
 
@@ -29,12 +39,19 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
         <button className="review-modal-close" onClick={onClose}>&times;</button>
         <h2 className="review-modal-title">Залишити відгук</h2>
         
-        <div className="review-modal-stars">
+        <div className="review-modal-stars" aria-label={`Оцінка ${rating} з 5`}>
           {[1, 2, 3, 4, 5].map(star => (
-            <svg key={star} width="35" height="35" viewBox="0 0 43 43" 
-                 onClick={() => setRating(star)} style={{ cursor: 'pointer' }}>
+            <button
+              type="button"
+              className="review-modal-star"
+              key={star}
+              onClick={() => setRating(star)}
+              aria-label={`${star} з 5`}
+            >
+            <svg viewBox="0 0 43 43">
               <path d={starPath} fill={star <= rating ? "black" : "#e0e0e0"} />
             </svg>
+            </button>
           ))}
         </div>
 
@@ -46,7 +63,7 @@ const ReviewModal = ({ isOpen, onClose, onSubmit }) => {
           
           <div className="review-modal-terms">
             <input type="checkbox" id="modal-terms" checked={formData.accepted} onChange={e => setFormData({...formData, accepted: e.target.checked})} />
-            <label htmlFor="modal-terms">Прийняти <a href="#">Умови та Положення</a></label>
+            <label htmlFor="modal-terms">Прийняти <button type="button">Умови та Положення</button></label>
           </div>
 
           <button type="submit" className="review-modal-submit">Надіслати відгук</button>

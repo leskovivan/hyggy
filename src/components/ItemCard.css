@@ -1,183 +1,250 @@
-.item-card {
+.item-card-link {
   width: 100%;
-  max-width: 300px;
-  background-color: #fff;
-  font-family: 'Raleway', sans-serif;
-  display: flex;
-  flex-direction: column;
+  max-width: 390px;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
-/* --- ЗОНА КАРТИНКИ --- */
+.item-card {
+  width: 100%;
+  max-width: 390px;
+  height: 792px;
+  background: transparent;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Raleway', sans-serif;
+}
+
 .item-card__image-box {
   position: relative;
-  background-color: #D9D9D9; /* Сіра заглушка, як на макеті */
-  aspect-ratio: 4 / 5; /* Пропорції блоку з картинкою */
+  width: 100%;
+  height: 502px;
+  flex: 0 0 502px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   overflow: hidden;
+  background: #c4c4c4;
 }
 
 .item-card__image {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
 }
 
 .item-card__favorite-btn {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: none;
-  border: none;
+  top: 23px;
+  right: 21px;
+  z-index: 3;
+  width: 46px;
+  height: 42px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   cursor: pointer;
-  color: #333;
 }
 
-/* --- БЕЙДЖІ --- */
+.item-card__favorite-btn svg {
+  width: 26px;
+  height: 26px;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
 .item-card__badges {
   position: absolute;
-  bottom: 0;
   left: 0;
+  bottom: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .badge {
-  color: white;
-  padding: 8px 12px;
+  min-width: 83px;
+  border-radius: 3px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   font-weight: 700;
-  font-size: 14px;
-  display: inline-block;
-  width: fit-content;
+  line-height: 1;
+  text-align: center;
 }
 
 .badge--discount {
-  background-color: #E60000; /* Червоний */
+  height: 53px;
+  padding: 10px 12px;
+  background: #e30505;
+  font-size: 24px;
 }
 
 .badge--new {
-  background-color: #32CD32; /* Зелений */
+  min-width: 0;
+  height: 45px;
+  padding: 10px;
+  background: #44d810;
+  font-size: 20px;
 }
 
-/* --- ІНФО --- */
 .item-card__info {
-  padding: 20px 15px;
+  width: 100%;
   height: 290px;
+  flex: 0 0 290px;
+  padding: 14px;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 13px;
 }
 
 .item-card__brand {
-  font-weight: 700;
-  font-size: 16px;
+  margin: 0;
   color: #000;
-  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .item-card__name {
+  width: 100%;
+  max-width: 347px;
+  margin: 0;
+  color: #000;
+  font-size: 18px;
   font-weight: 400;
-  font-size: 14px;
-  color: #333;
-  margin: 0 0 10px 0;
-  line-height: 1.4;
+  line-height: 1.15;
 }
 
 .item-card__stars {
-  color: #000;
-  letter-spacing: 2px;
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-/* --- ЦІНИ --- */
-.item-card__prices {
-  margin-bottom: 15px;
-}
-
-.price-current {
-  font-size: 28px;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
   color: #000;
   line-height: 1;
 }
 
-.price-old {
-  font-size: 18px;
+.item-card__stars-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-card__stars-icons svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+}
+
+.item-card__reviews-count {
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.item-card__prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  margin: 0;
+}
+
+.price-current {
+  color: #231f20;
+  font-size: 36px;
   font-weight: 700;
-  color: #999;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.price-old {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
   text-decoration: line-through;
-  margin-top: 5px;
+  white-space: nowrap;
 }
 
 .price-unit {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 700;
 }
 
-/* --- СТАТУСИ --- */
 .item-card__statuses {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
 }
 
 .status-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 21px;
+  color: #000;
   font-size: 14px;
-  color: #666;
+  font-weight: 300;
+  line-height: 1;
 }
 
 .status-dot {
-  width: 8px;
-  height: 8px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   display: inline-block;
+  flex: 0 0 11px;
 }
 
 .dot-green {
-  background-color: #32CD32;
+  background: #44d810;
 }
 
 .dot-red {
-  background-color: #E60000;
-}
-.item-card-link {
-  text-decoration: none; /* Убираем подчеркивание */
-  color: inherit;       /* Наследуем цвет текста от родителя */
-  display: block;       /* Ссылка должна занимать все место карточки */
-  transition: transform 0.2s ease;
+  background: #e30505;
 }
 
-.item-card-link:hover {
-  transform: translateY(-5px); /* Легкий подъем всей карточки при наведении */
-}
-.item-card__stars {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Відстань між зірочками та цифрою */
-  margin-bottom: 15px;
+@media (max-width: 720px) {
+  .item-card-link,
+  .item-card {
+    max-width: 390px;
+    margin: 0 auto;
+  }
 }
 
-.item-card__stars-icons {
-  display: flex;
-  align-items: center;
-  gap: 2px; /* Відстань між самими зірочками */
-}
+@media (max-width: 430px) {
+  .item-card {
+    height: auto;
+  }
 
-.item-card__reviews-count {
-  font-size: 12px;
-  color: #888;
-  font-weight: 600;
-}
-.item-card__favorite-btn svg {
-    transition: fill 0.3s ease, stroke 0.3s ease;
-}
+  .item-card__image-box {
+    height: auto;
+    flex-basis: auto;
+    aspect-ratio: 390 / 502;
+  }
 
-.item-card__favorite-btn:hover {
-    transform: scale(1.1);
+  .item-card__info {
+    height: auto;
+    min-height: 290px;
+  }
 }

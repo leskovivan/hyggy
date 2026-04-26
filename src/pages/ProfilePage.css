@@ -1,42 +1,908 @@
-/* Сітка для карток у профілі */
-.profile-grid {
-    display: grid;
-    /* Робимо 3-4 колонки в залежності від ширини */
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
+.profile-page {
+    background: #f3f3f3;
+    color: #231f20;
+    font-family: 'Raleway', sans-serif;
+    padding-bottom: 70px;
 }
 
-.profile-section-subtitle {
-    font-family: 'Raleway';
-    font-size: 32px;
+.profile-page .login-main-container {
+    max-width: 1650px !important;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+
+.profile-content {
+    padding-top: 42px;
+}
+
+.profile-title {
+    margin: 0 0 56px;
+    color: #231f20;
+    font-size: 40px;
     font-weight: 700;
-    margin-bottom: 20px;
-    padding-top: 30px;
-    border-top: 1px solid #ddd;
+    line-height: 1.2;
+}
+
+.profile-dashboard {
+    display: grid;
+    grid-template-columns: 810px 810px;
+    gap: 30px;
+    justify-content: center;
+    margin-bottom: 58px;
+}
+
+.profile-info-card,
+.profile-menu-card {
+    min-height: 300px;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
 }
 
 .profile-info-card {
+    position: relative;
+    padding: 31px 56px 25px 65px;
+}
+
+.profile-user-top {
     display: flex;
-    align-items: center;
-    gap: 50px;
-    background: #fff;
-    padding: 40px;
-    border-radius: 20px;
-    margin-bottom: 50px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    align-items: flex-start;
+    gap: 42px;
+}
+
+.profile-avatar-wrapper {
+    position: relative;
+    width: 182px;
+    height: 182px;
+    flex: 0 0 auto;
 }
 
 .profile-avatar-img {
-    width: 200px;
-    height: 200px;
+    width: 182px;
+    height: 182px;
     border-radius: 50%;
     object-fit: cover;
-    border: 4px solid #00AAAD;
+    display: block;
+}
+
+.upload-photo-label {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+}
+
+.profile-user-details {
+    min-width: 0;
+    padding-top: 54px;
 }
 
 .user-display-name {
-    font-size: 42px;
+    margin: 0 0 10px;
+    color: #231f20;
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.edit-data-btn,
+.save-btn,
+.profile-logout-btn {
+    border: 0;
+    background: transparent;
+    color: #00aaad;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: none;
+}
+
+.edit-data-btn {
+    min-width: 219px;
+    height: 60px;
+    border-radius: 4px;
+    background: #00aaad;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 0 18px;
+}
+
+.edit-data-btn:hover {
+    background: #009295;
+}
+
+.profile-upload-link {
+    border: 0;
+    background: transparent;
+    color: #00aaad;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.profile-edit-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-edit-input {
+    width: 210px;
+    height: 34px;
+    border: 1px solid rgba(35, 31, 32, 0.35);
+    background: #e0e0e0;
+    color: #231f20;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.profile-contact-list {
+    display: grid;
+    grid-template-columns: 219px 1fr;
+    column-gap: 128px;
+    row-gap: 35px;
+    margin-top: 57px;
+}
+
+.profile-contact-list div {
+    display: contents;
+    min-width: 0;
+}
+
+.profile-contact-list span {
+    color: #231f20;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.profile-contact-list strong {
+    color: #231f20;
+    font-size: 14px;
+    font-weight: 400;
+    justify-self: end;
+    overflow-wrap: anywhere;
+}
+
+.profile-card-actions {
+    position: absolute;
+    right: 57px;
+    bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 44px;
+}
+
+.profile-logout-btn {
+    min-width: 219px;
+    height: 60px;
+    border-radius: 4px;
+    background: #00aaad;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.profile-logout-btn:hover {
+    background: #009295;
+}
+
+.profile-edit-panel {
+    margin: 8px auto 58px;
+    max-width: 520px;
+    text-align: center;
+}
+
+.profile-edit-panel h3 {
+    margin: 0 0 22px;
+    color: #231f20;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.profile-edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.profile-edit-form input {
+    width: 390px;
+    height: 45px;
+    border: 1px solid rgba(35, 31, 32, 0.18);
+    border-radius: 4px;
+    background: #d9d9d9;
+    color: #231f20;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 15px;
+    padding: 0 18px;
+    outline: none;
+}
+
+.profile-edit-form input::placeholder {
+    color: rgba(35, 31, 32, 0.45);
+}
+
+.profile-edit-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 390px;
+    margin-top: 4px;
+}
+
+.profile-save-edit,
+.profile-cancel-edit,
+.profile-delete-account {
+    height: 34px;
+    border: 0;
+    border-radius: 4px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.profile-save-edit,
+.profile-cancel-edit {
+    background: #00aaad;
+}
+
+.profile-save-edit:hover,
+.profile-cancel-edit:hover {
+    background: #009295;
+}
+
+.profile-delete-account {
+    width: 390px;
+    background: #ff3434;
+}
+
+.profile-delete-account:hover {
+    background: #e52323;
+}
+
+.profile-menu-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 78px 140px 145px 114px;
+}
+
+.profile-tab-btn {
+    width: 100%;
+    min-height: 38px;
+    border: 0;
+    background: transparent;
+    color: #231f20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-tab-btn.active span:first-child,
+.profile-tab-btn:hover span:first-child {
+    color: #231f20;
+}
+
+.profile-tab-arrow {
+    position: relative;
+    width: 140px;
+    height: 2px;
+    background: #231f20;
+    flex: 0 0 auto;
+}
+
+.profile-tab-arrow::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #231f20;
+    border-top: 2px solid #231f20;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.profile-section {
+    margin-bottom: 136px;
+}
+
+.profile-section-subtitle {
+    margin: 0 0 36px;
+    color: #231f20;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px;
+}
+
+.profile-grid .item-card {
+    max-width: none;
+}
+
+.profile-grid .item-card__info {
+    height: 290px;
+    padding: 14px;
+}
+
+.profile-grid .item-card__brand {
+    font-size: 20px;
+}
+
+.profile-grid .item-card__name {
+    font-size: 18px;
+}
+
+.profile-grid .price-current {
+    font-size: 36px;
+}
+
+.profile-reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+.profile-review-card {
+    background: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: 200px 94px 81px 13px 214px 51px minmax(0, 1fr);
+    align-items: center;
+    min-height: 162px;
+    padding: 26px 68px;
+}
+
+.profile-review-author {
+    align-self: center;
+    grid-column: 1;
+}
+
+.profile-review-author strong {
+    display: block;
+    margin-bottom: 12px;
+    color: #231f20;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.profile-review-stars {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    color: transparent;
+    font-size: 31px;
+    line-height: 1;
+    -webkit-text-stroke: 1.4px #231f20;
+}
+
+.profile-review-stars span.filled {
+    color: #231f20;
+}
+
+.profile-review-image,
+.profile-review-placeholder {
+    grid-column: 3;
+    width: 81px;
+    height: 93px;
+}
+
+.profile-review-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.profile-review-placeholder {
+    background: #d9d9d9;
+}
+
+.profile-review-product {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    grid-column: 5;
+}
+
+.profile-review-product strong {
+    color: #231f20;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-review-product span {
+    color: #231f20;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+.profile-review-card p {
+    grid-column: 7;
+    margin: 0;
+    color: #231f20;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: justify;
+}
+
+.profile-orders-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #fff;
+    box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+.profile-order-row {
+    background: #fff;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.12);
+}
+
+.profile-order-row:last-child {
+    border-bottom: 0;
+}
+
+.profile-order-summary {
+    width: 100%;
+    min-height: 66px;
+    border: 0;
+    background: #fff;
+    color: #000;
+    display: grid;
+    grid-template-columns: minmax(310px, 1.05fr) minmax(230px, 0.85fr) minmax(250px, 0.9fr) minmax(180px, 0.65fr) 24px;
+    align-items: center;
+    gap: 44px;
+    padding: 18px 33px;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-order-number,
+.profile-order-price {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-order-date {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.profile-order-status {
+    color: #34b906;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.profile-orders-accordion--completed .profile-order-summary {
+    min-height: 65px;
+}
+
+.profile-orders-accordion--completed .profile-order-number {
+    font-weight: 600;
+}
+
+.profile-orders-accordion--completed .profile-order-date {
+    font-weight: 400;
+}
+
+.profile-orders-accordion--completed .profile-order-status,
+.profile-orders-accordion--completed .profile-order-price {
+    font-weight: 700;
+}
+
+.profile-order-chevron {
+    width: 14px;
+    height: 14px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);
+    justify-self: end;
+    transition: transform 0.2s ease;
+}
+
+.profile-order-row.expanded .profile-order-chevron {
+    transform: rotate(225deg);
+}
+
+.profile-order-details {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 80px;
+    padding: 24px 33px 32px;
+    background: #fff;
+    border-top: 1px solid rgba(35, 31, 32, 0.12);
+}
+
+.profile-order-details-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.profile-order-details-meta strong {
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.profile-order-details-meta span {
+    color: #000;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.profile-order-details-meta .profile-order-status {
+    color: #34b906;
+    font-weight: 700;
+}
+
+.profile-order-products {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-order-product {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) 96px minmax(160px, 0.7fr);
+    align-items: center;
+    gap: 42px;
+    min-height: 118px;
+    border-bottom: 1px solid rgba(35, 31, 32, 0.45);
+}
+
+.profile-order-product:last-child {
+    border-bottom: 0;
+}
+
+.profile-order-product-text strong,
+.profile-order-product-price strong {
+    display: block;
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.profile-order-product-text p,
+.profile-order-product-price span {
+    margin: 0;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.profile-order-product img,
+.profile-order-placeholder {
+    width: 82px;
+    height: 96px;
+    object-fit: contain;
+    background: #f1f1f1;
+    justify-self: center;
+}
+
+.empty-text {
+    color: rgba(35, 31, 32, 0.65);
+    font-size: 18px;
+    margin: 0;
+}
+
+@media (max-width: 1720px) {
+    .profile-page .login-main-container {
+        width: auto;
+        margin: 0 40px;
+    }
+
+    .profile-dashboard {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 1400px) {
+    .profile-page .login-main-container {
+        margin: 0 40px;
+        padding: 0 !important;
+    }
+
+    .profile-info-card,
+    .profile-menu-card {
+        min-height: 300px;
+    }
+
+    .profile-info-card {
+        padding: 28px 34px 24px;
+    }
+
+    .profile-avatar-wrapper,
+    .profile-avatar-img {
+        width: 140px;
+        height: 140px;
+    }
+
+    .profile-user-details {
+        padding-top: 38px;
+    }
+
+    .profile-contact-list {
+        column-gap: 42px;
+        margin-top: 48px;
+    }
+
+    .edit-data-btn,
+    .profile-logout-btn {
+        min-width: 160px;
+        height: 48px;
+        font-size: 16px;
+    }
+
+    .profile-card-actions {
+        right: 34px;
+        bottom: 24px;
+        gap: 24px;
+    }
+
+    .profile-menu-card {
+        padding: 58px 80px 92px;
+    }
+
+    .profile-tab-btn {
+        font-size: 19px;
+        gap: 28px;
+    }
+
+    .profile-tab-arrow {
+        width: 104px;
+    }
+
+    .profile-order-summary {
+        grid-template-columns: minmax(210px, 1.1fr) minmax(160px, 0.85fr) minmax(190px, 0.9fr) minmax(130px, 0.7fr) 24px;
+        gap: 28px;
+    }
+
+    .profile-order-number,
+    .profile-order-date,
+    .profile-order-status,
+    .profile-order-price {
+        font-size: 18px;
+    }
+
+    .profile-grid {
+        gap: 24px;
+    }
+
+    .profile-review-card {
+        grid-template-columns: 180px 54px 76px 12px 200px 40px minmax(0, 1fr);
+        padding: 24px 48px;
+    }
+
+    .profile-review-stars {
+        width: 180px;
+        font-size: 28px;
+    }
+
+    .profile-review-author strong {
+        font-size: 22px;
+    }
+
+    .profile-review-card p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .profile-page .login-main-container {
+        margin: 0 20px;
+        padding: 0 !important;
+    }
+
+    .profile-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info-card,
+    .profile-menu-card {
+        min-height: auto;
+    }
+
+    .profile-info-card {
+        min-height: 420px;
+    }
+
+    .profile-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .profile-review-card {
+        grid-template-columns: 180px 76px minmax(180px, 240px) minmax(0, 1fr);
+        column-gap: 28px;
+        padding: 24px 32px;
+    }
+
+    .profile-review-author {
+        grid-column: 1;
+    }
+
+    .profile-review-image,
+    .profile-review-placeholder {
+        grid-column: 2;
+    }
+
+    .profile-review-product {
+        grid-column: 3;
+    }
+
+    .profile-review-card p {
+        grid-column: 4;
+    }
+
+    .profile-order-summary {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px 22px;
+    }
+
+    .profile-order-chevron {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .profile-order-details {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+}
+
+@media (max-width: 640px) {
+    .profile-title {
+        font-size: 28px;
+    }
+
+    .profile-info-card,
+    .profile-menu-card {
+        min-height: auto;
+        padding: 24px;
+    }
+
+    .profile-menu-card {
+        gap: 30px;
+    }
+
+    .profile-tab-btn {
+        font-size: 18px;
+        gap: 18px;
+    }
+
+    .profile-contact-list {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 28px;
+    }
+
+    .profile-contact-list div {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .profile-contact-list strong {
+        justify-self: auto;
+    }
+
+    .profile-card-actions {
+        position: static;
+        margin-top: 22px;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .edit-data-btn,
+    .profile-logout-btn {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .profile-tab-arrow {
+        width: 72px;
+    }
+
+    .profile-edit-form input,
+    .profile-edit-actions,
+    .profile-delete-account {
+        width: 100%;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-review-card {
+        grid-template-columns: 1fr 81px;
+        gap: 18px;
+        padding: 22px;
+    }
+
+    .profile-review-author,
+    .profile-review-product,
+    .profile-review-card p {
+        grid-column: 1 / -1;
+    }
+
+    .profile-review-image,
+    .profile-review-placeholder {
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    .profile-review-stars {
+        width: 180px;
+        font-size: 28px;
+    }
+
+    .profile-order-summary {
+        grid-template-columns: 1fr 24px;
+        padding: 22px;
+    }
+
+    .profile-order-summary span:not(.profile-order-chevron) {
+        grid-column: 1;
+    }
+
+    .profile-order-chevron {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .profile-order-number,
+    .profile-order-date,
+    .profile-order-status,
+    .profile-order-price {
+        font-size: 17px;
+    }
+
+    .profile-order-details {
+        padding: 24px 22px 30px;
+    }
+
+    .profile-order-product {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 18px 0;
+    }
+
+    .profile-order-product img,
+    .profile-order-placeholder {
+        justify-self: start;
+    }
 }

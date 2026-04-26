@@ -107,8 +107,13 @@ const ProductPage = () => {
   const handleReviewSubmit = async (formDataFromModal) => {
     const newReview = {
       id: Date.now(),
-      author: formDataFromModal.name,
+      userId: user?.id,
+      author: formDataFromModal.name || user?.name,
+      name: formDataFromModal.name || user?.name,
+      email: formDataFromModal.email || user?.email,
+      subject: formDataFromModal.subject,
       text: formDataFromModal.comment,
+      comment: formDataFromModal.comment,
       rating: formDataFromModal.rating,
       date: new Date().toLocaleDateString('uk-UA'),
     };
@@ -218,7 +223,12 @@ const ProductPage = () => {
           />
         </section>
 
-        <ReviewModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleReviewSubmit} />
+        <ReviewModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSubmit={handleReviewSubmit}
+          currentUser={user}
+        />
 
         <section id="similar" className="product-carousel-section">
           <h2 className="product-section-title">Схожі товари</h2>

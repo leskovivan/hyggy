@@ -204,6 +204,13 @@
           "text": "Дуже цікаво",
           "rating": 1,
           "date": "24.04.2026"
+        },
+        {
+          "id": 1777217868563,
+          "author": "Іван Бебрович",
+          "text": "Ну хз",
+          "rating": 3,
+          "date": "26.04.2026"
         }
       ],
       "rating": 3
@@ -242,7 +249,20 @@
           "value": "Чорний"
         }
       ],
-      "reviews": [],
+      "reviews": [
+        {
+          "id": 1777218858651,
+          "userId": "hqp81MIe0q8",
+          "author": "Vanya",
+          "name": "Vanya",
+          "email": "vanya@gmail.com",
+          "subject": "СТіл",
+          "text": "Класнючий",
+          "comment": "Класнючий",
+          "rating": 5,
+          "date": "26.04.2026"
+        }
+      ],
       "rating": 5
     },
     {
@@ -400,15 +420,20 @@
       ]
     },
     {
-      "name": "Vanya",
-      "email": "vanya@gmail.com",
+      "name": "Vanya21",
+      "email": "vanya@gmail.com2",
       "password": "08Vova1983",
       "role": "user",
       "subscribe": false,
       "findOrders": false,
       "createdAt": "2026-04-23T20:26:12.511Z",
       "id": "hqp81MIe0q8",
-      "favorites": []
+      "favorites": [
+        2,
+        4,
+        3
+      ],
+      "phone": ""
     },
     {
       "name": "рмпрлопдор",
