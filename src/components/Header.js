@@ -80,12 +80,20 @@ function Header() {
     const handleSearchKeyDown = (e) => {
         if (e.key === 'Enter' && productSearch.length > 1) {
             setIsSearchDropdownOpen(false);
-            navigate(`/search?q=${productSearch}`);
+            navigate(`/search?q=${encodeURIComponent(productSearch.trim())}`);
             setProductSearch(''); // Очищуємо поле після переходу
         }
     };
 
     // Перемикачі інтерфейсу
+    const handleSearchSubmit = () => {
+        const value = productSearch.trim();
+        if (value.length < 2) return;
+        setIsSearchDropdownOpen(false);
+        navigate(`/search?q=${encodeURIComponent(value)}`);
+        setProductSearch('');
+    };
+
     const toggleStoreSelector = () => setIsStoreSelectorOpen(!isStoreSelectorOpen);
     const closeStoreSelector = () => setIsStoreSelectorOpen(false);
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -129,7 +137,7 @@ function Header() {
                                     onBlur={() => setTimeout(() => setIsSearchDropdownOpen(false), 200)}
                                     onFocus={() => productSearch.length > 1 && setIsSearchDropdownOpen(true)}
                                 />
-                                <button className="search-icon-btn">
+                                <button className="search-icon-btn" type="button" onClick={handleSearchSubmit}>
                                     <img src={imgSearch} alt="Search" />
                                 </button>
 

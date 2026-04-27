@@ -59,7 +59,7 @@ function AppContent() {
   const location = useLocation();
 
   const staticPaths = [
-    '/', '/blog', '/shops', '/qa', '/work', '/about', '/about-us', '/category'
+    '/', '/blog', '/shops', '/qa', '/work', '/about', '/about-us', '/category', '/search'
   ];
   
   const isKnownPath = 

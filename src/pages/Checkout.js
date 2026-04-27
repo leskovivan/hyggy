@@ -43,11 +43,13 @@ const Checkout = () => {
     const prevStep = () => setStep(prev => prev - 1);
 
     const handleFinalSubmit = async () => {
+        const orderItems = cartItems;
+        const completedTotal = finalTotal;
         const finalOrder = {
             userId: user?.id,
             date: new Date().toLocaleString('uk-UA'),
-            items: cartItems,
-            totalAmount: finalTotal,
+            items: orderItems,
+            totalAmount: completedTotal,
             details: orderData,
             status: "Нове"
         };
@@ -61,7 +63,12 @@ const Checkout = () => {
 
             if (res.ok) {
                 const data = await res.json();
-                setOrderData(prev => ({ ...prev, orderId: data.id }));
+                setOrderData(prev => ({
+                    ...prev,
+                    orderId: data.id,
+                    completedItems: orderItems,
+                    completedTotal,
+                }));
                 clearCart(); // Тепер має працювати після правки в CartContext.js
                 nextStep();
             }
@@ -149,7 +156,8 @@ const Checkout = () => {
                 <AddressStep 
                     data={orderData.address} 
                     updateData={(d) => setOrderData({...orderData, address: d})} 
-                    onNext={nextStep} 
+                    onNext={nextStep}
+                    onCancel={() => setStep(0)}
                 />
             )}
 
@@ -171,7 +179,14 @@ const Checkout = () => {
                 />
             )}
 
-            {step === 4 && <SuccessStep orderId={orderData.orderId} />}
+            {step === 4 && (
+                <SuccessStep
+                    orderId={orderData.orderId}
+                    orderData={orderData}
+                    items={orderData.completedItems || cartItems}
+                    totalAmount={orderData.completedTotal ?? finalTotal}
+                />
+            )}
         </main>
     );
 };

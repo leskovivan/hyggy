@@ -447,6 +447,16 @@
       "favorites": [
         2
       ]
+    },
+    {
+      "name": "Ivan",
+      "email": "2fa@gmail.com",
+      "password": "12345678",
+      "role": "user",
+      "subscribe": true,
+      "findOrders": false,
+      "createdAt": "2026-04-26T21:47:51.673Z",
+      "id": "jpY5STMUHw4"
     }
   ],
   "favorites": [],
@@ -908,6 +918,120 @@
       },
       "status": "Нове",
       "id": "s5-G5jEhL8M"
+    },
+    {
+      "userId": "hqp81MIe0q8",
+      "date": "26.04.2026, 23:58:18",
+      "items": [
+        {
+          "id": "3",
+          "category": "kitchen",
+          "slug": "vedbo-dining-table",
+          "brand": "VEDBO",
+          "name": "Стіл обідній VEDBO білий/дуб",
+          "price": 250,
+          "inStock": true,
+          "hasDelivery": true,
+          "shortDescription": "Обідній стіл з матовою поверхнею, стійкою до відбитків.",
+          "promoEndDate": "2026-05-15T23:59:59",
+          "isAlwaysLowPrice": false,
+          "discountPercent": 22,
+          "isNew": true,
+          "isGreatDeal": false,
+          "article": "1048239",
+          "image": "/images/office.png",
+          "images": [
+            "/images/office.png",
+            "/images/muuto.png",
+            "/images/Garden.png"
+          ],
+          "style": "Лофт",
+          "color": "Білий",
+          "material": "ДСП / МДФ",
+          "description": "Обідній стіл VEDBO з матовою поверхнею, яка стійка до відбитків пальців.",
+          "characteristics": [
+            {
+              "label": "Матеріал",
+              "value": "МДФ, Масив дуба, Акриловий лак"
+            },
+            {
+              "label": "Колір",
+              "value": "Білий, Натуральний дуб"
+            }
+          ],
+          "reviews": [
+            {
+              "id": 1,
+              "author": "Марія",
+              "rating": 5,
+              "text": "Дуже стильний і міцний стіл."
+            },
+            {
+              "subject": "фві",
+              "name": "вфі",
+              "email": "fs@f",
+              "comment": "іфв",
+              "accepted": true,
+              "rating": 5
+            },
+            {
+              "id": 1777050970262,
+              "author": "Іван",
+              "text": "Дуже цікаво",
+              "rating": 3,
+              "date": "24.04.2026"
+            },
+            {
+              "id": 1777051615586,
+              "author": "Іван",
+              "text": "Дуже цікаво",
+              "rating": 2,
+              "date": "24.04.2026"
+            },
+            {
+              "id": 1777051624470,
+              "author": "Іван",
+              "text": "Дуже цікаво",
+              "rating": 1,
+              "date": "24.04.2026"
+            },
+            {
+              "id": 1777217868563,
+              "author": "Іван Бебрович",
+              "text": "Ну хз",
+              "rating": 3,
+              "date": "26.04.2026"
+            }
+          ],
+          "rating": 3,
+          "quantity": 1
+        }
+      ],
+      "totalAmount": 290,
+      "details": {
+        "address": {
+          "firstName": "Іван",
+          "lastName": "Лєсков",
+          "city": "Одеса",
+          "street": "аофвалфо",
+          "building": "213",
+          "email": "20200f@gmail.com",
+          "phone": "0621398712"
+        },
+        "delivery": {
+          "type": "nova-poshta-branch",
+          "branch": "np-7854"
+        },
+        "payment": {
+          "method": "card",
+          "cardNumber": "1234567890123456",
+          "expiry": "2021",
+          "cvv": "123"
+        },
+        "orderId": null
+      },
+      "status": "Нове",
+      "id": "gyBhwJAjrSA"
     }
   ],
   "employees": [

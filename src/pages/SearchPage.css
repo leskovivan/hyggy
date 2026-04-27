@@ -1,274 +1,423 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Raleway:wght@400;500;600;700&display=swap');
 
-.search-page-container {
-    padding: 20px 135px;
-    font-family: 'Raleway', sans-serif;
-    color: #231f20;
+.search-page {
+  background: #f3f3f3;
+  color: #231f20;
+  font-family: 'Raleway', sans-serif;
+  padding: 34px 0 104px;
 }
 
-/* --- ТАБИ (Товари / Сторінки) --- */
+.search-page-container {
+  width: min(100% - 270px, 1650px);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.search-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.search-breadcrumb a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.search-breadcrumb a:hover {
+  color: #00aaad;
+}
+
+.search-breadcrumb span[aria-hidden='true'] {
+  color: #000;
+  font-size: 28px;
+  line-height: 1;
+}
+
 .search-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    border-bottom: 2px solid #e0e0e0;
-    margin-bottom: 40px;
+  width: 500px;
+  margin: 54px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .tab-item {
-    background: none;
-    border: none;
-    padding: 15px 0;
-    font-size: 24px;
-    font-weight: 600;
-    color: #888;
-    cursor: pointer;
-    position: relative;
-    transition: color 0.3s ease;
+  height: 48px;
+  border: 0;
+  border-bottom: 3px solid #737373;
+  background: none;
+  color: #737373;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .tab-item.active {
-    color: #00aaad;
+  border-bottom-color: #00aaad;
+  color: #00aaad;
+  font-weight: 700;
 }
 
-.tab-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: #00aaad;
-}
-
-/* --- ЗАГОЛОВОК --- */
 .search-results-title {
-    text-align: center;
-    font-size: 42px;
-    font-weight: 700;
-    margin-bottom: 40px;
+  margin: 58px 0 76px;
+  color: #000;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
 }
 
-/* --- ПАНЕЛЬ ФІЛЬТРІВ --- */
 .filter-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 40px;
+  margin-bottom: 98px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
 }
 
 .filter-group {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* --- КАСТОМНІ ВИПАДАЙКИ (FilterDropdown) --- */
 .custom-dropdown {
-    position: relative;
+  position: relative;
+}
+
+.dropdown-trigger,
+.filter-btn-all {
+  min-height: 67px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background: #e0e0e0;
+  color: #000;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
 .dropdown-trigger {
-    background-color: #e0e0e0;
-    border: 1px solid #767676;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    color: #231f20;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+  min-width: 210px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.filter-btn-all {
+  min-width: 216px;
+  padding: 0 24px;
 }
 
 .dropdown-trigger svg {
-    transition: transform 0.3s ease;
-}
-
-.dropdown-trigger.open {
-    border-color: #00aaad;
+  transition: transform 0.25s ease;
 }
 
 .dropdown-trigger.open svg {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
-.dropdown-trigger:hover {
-    background-color: #d5d5d5;
-}
-
-/* Контент випадайки */
 .dropdown-content {
-    position: absolute;
-    top: 100%; /* Прибираємо розрив, тепер вони стикаються */
-    left: 0;
-    
-    background: #e0e0e0;
-    border-radius: 8px;
-    z-index: 100;
-    min-width: 100%;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    overflow: hidden;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 50;
+  min-width: 100%;
+  overflow: hidden;
+  background: #e0e0e0;
+  border: 1px solid #000;
+  border-radius: 10px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
 }
 
 .simple-drop-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
-.simple-drop-list span {
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #231f20;
-    transition: 0.2s;
-    white-space: nowrap;
+.simple-drop-list button {
+  border: 0;
+  padding: 14px 20px;
+  background: transparent;
+  color: #231f20;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  text-align: left;
+  white-space: nowrap;
 }
 
-.simple-drop-list span:hover {
-    background-color: #d0d0d0;
-    color: #00aaad;
+.simple-drop-list button:hover,
+.simple-drop-list button.active {
+  background: #d0d0d0;
+  color: #00aaad;
 }
 
-/* Кнопка "Всі фільтри" */
-.filter-btn-all {
-    background-color: #d8d8d8;
-    border: 1px solid #767676;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.filter-btn-all:hover {
-    background-color: #c0c0c0;
-    border-color: #00aaad;
-}
-
-/* --- ПЕРЕМИКАЧ (Sale Toggle) --- */
 .sale-toggle-container {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 18px;
-    font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #231f20;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
 }
 
-.switch input { opacity: 0; width: 0; height: 0; }
+.switch input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
 
 .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 24px;
+  position: absolute;
+  inset: 0;
+  background: #ccc;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 18px; width: 18px;
-    left: 3px; bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
+.slider::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.25s;
 }
 
-input:checked + .slider { background-color: #00aaad; }
-input:checked + .slider:before { transform: translateX(26px); }
-
-/* --- МАЙБУТНІЙ САЙДБАР --- */
-.sidebar-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    display: flex;
-    justify-content: flex-end;
+.switch input:checked + .slider {
+  background: #00aaad;
 }
 
-.sidebar-content {
-    width: 400px;
-    height: 100%;
-    background: white;
-    padding: 40px;
-    position: relative;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+.switch input:checked + .slider::before {
+  transform: translateX(26px);
 }
 
-.close-sidebar {
-    position: absolute;
-    top: 20px; right: 20px;
-    font-size: 30px;
-    border: none; background: none; cursor: pointer;
+.search-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 70px 30px;
 }
 
-/* --- ГРІД ТА АНІМАЦІЇ --- */
-.profile-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
+.search-pages-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
 }
 
-.profile-grid > div {
-    animation: fadeInUp 0.5s ease forwards;
+.search-page-card {
+  min-height: 250px;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  background: #fff;
+  color: #231f20;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.search-page-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
 }
 
+.search-page-card__image {
+  min-width: 0;
+  overflow: hidden;
+  background: #d9d9d9;
+}
+
+.search-page-card__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.search-page-card__content {
+  min-width: 0;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.search-page-card__type {
+  margin-bottom: 14px;
+  color: #00aaad;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.search-page-card strong {
+  margin-bottom: 18px;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.search-page-card__content > span:last-child {
+  color: #231f20;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.35;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.search-empty,
 .loading-state {
-    text-align: center;
-    padding: 50px;
-    font-size: 24px;
-    color: #888;
+  margin: 0;
+  padding: 80px 0;
+  color: rgba(35, 31, 32, 0.65);
+  font-size: 24px;
+  text-align: center;
 }
-/* Кастомний слайдер */
-.range-input-teal {
-    -webkit-appearance: none;
+
+.search-pagination {
+  margin: 88px auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+.search-pagination button,
+.search-pagination span {
+  min-width: 61px;
+  height: 52px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: #e0e0e0;
+  color: #000;
+  font-family: 'Raleway', sans-serif;
+  font-size: 27px;
+  font-weight: 400;
+}
+
+.search-pagination button {
+  cursor: pointer;
+}
+
+.search-pagination button.active,
+.search-pagination button:hover:not(:disabled) {
+  background: #d9d9d9;
+}
+
+.search-pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1500px) {
+  .search-page-container {
+    width: min(100% - 96px, 1320px);
+  }
+
+  .search-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .search-page-card {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .search-page-container {
+    width: calc(100% - 48px);
+  }
+
+  .filter-bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .search-products-grid,
+  .search-pages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .search-page-card {
+    grid-template-columns: 1fr;
+  }
+
+  .search-page-card__image {
+    height: 240px;
+  }
+}
+
+@media (max-width: 700px) {
+  .search-page {
+    padding-top: 22px;
+  }
+
+  .search-page-container {
+    width: calc(100% - 32px);
+  }
+
+  .search-breadcrumb {
+    gap: 14px;
+    font-size: 15px;
+  }
+
+  .search-tabs {
     width: 100%;
-    height: 4px;
-    background: #231f20; /* Чорна лінія */
-    border-radius: 5px;
-    outline: none;
-    margin: 20px 0;
-}
+  }
 
-/* Кружечок (Thumb) */
-.range-input-teal::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #ffffff;
-    border: 4px solid #00aaad; /* Бірюзовий обідок */
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
+  .tab-item {
+    font-size: 22px;
+  }
 
-.range-input-teal::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #ffffff;
-    border: 4px solid #00aaad;
-    border-radius: 50%;
-    cursor: pointer;
+  .search-results-title {
+    margin: 42px 0;
+    font-size: 32px;
+  }
+
+  .dropdown-trigger,
+  .filter-btn-all {
+    width: 100%;
+    min-height: 56px;
+    font-size: 20px;
+  }
+
+  .filter-group,
+  .custom-dropdown {
+    width: 100%;
+  }
+
+  .search-products-grid,
+  .search-pages-grid {
+    grid-template-columns: 1fr;
+  }
 }
