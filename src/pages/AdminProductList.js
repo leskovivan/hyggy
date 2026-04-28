@@ -1,20 +1,35 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import './AdminProductList.css';
 import AdminToolbar from '../components/AdminToolbar';
+import './AdminProductList.css';
 
 const categoryLabels = {
-    kitchen: 'Кухня',
     bedroom: 'Спальня',
     bathroom: 'Ванна',
     office: 'Офіс',
-    garden: 'Сад',
     'living-room': 'Вітальня',
+    kitchen: 'Кухня',
+    garden: 'Сад',
+    kids: 'Дитяча кімната',
+    dining: 'Їдальня',
+    hallway: 'Коридор',
+    laundry: 'Пральня',
+    storage: 'Зберігання',
+    sleep: 'Для сну',
 };
 
 const getCategoryLabel = (category) => categoryLabels[category] || category || 'Без категорії';
-const getWarehouse = (product) => product.warehouse || product.storehouse || 'Загальний склад';
+const getWarehouse = (product) => product.warehouse || product.storehouse || product.stockName || 'Загальний склад';
+const formatPrice = (value) => `${Number(value || 0).toLocaleString('uk-UA')}₴`;
+
+const getProductRating = (product) => {
+    if (Array.isArray(product.reviews) && product.reviews.length) {
+        const average = product.reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / product.reviews.length;
+        return Math.round(average);
+    }
+
+    return Math.round(Number(product.rating || 5));
+};
 
 const StarIcon = ({ filled }) => (
     <svg className="product-star" viewBox="0 0 20 20" aria-hidden="true">
@@ -63,35 +78,41 @@ const AdminProductList = () => {
 
     useEffect(() => {
         fetch('http://localhost:3001/products')
-            .then(res => res.json())
-            .then(data => setProducts(data))
-            .catch(err => console.error('Помилка завантаження:', err));
+            .then((response) => response.json())
+            .then((data) => setProducts(Array.isArray(data) ? data : []))
+            .catch((error) => console.error('Помилка завантаження товарів:', error));
     }, []);
 
     const handleDelete = (id) => {
-        if (window.confirm('Видалити цей товар?')) {
-            fetch(`http://localhost:3001/products/${id}`, { method: 'DELETE' })
-                .then(res => {
-                    if (res.ok) setProducts(prev => prev.filter(product => product.id !== id));
-                    else alert('Не вдалося видалити.');
-                })
-                .catch(err => console.error(err));
-        }
+        if (!window.confirm('Видалити цей товар?')) return;
+
+        fetch(`http://localhost:3001/products/${id}`, { method: 'DELETE' })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Delete failed');
+                }
+
+                setProducts((prev) => prev.filter((product) => String(product.id) !== String(id)));
+            })
+            .catch((error) => {
+                console.error('Помилка видалення товару:', error);
+                alert('Не вдалося видалити товар.');
+            });
     };
 
-    const categoryOptions = useMemo(() => {
-        return [...new Set(products.map(product => product.category).filter(Boolean))]
-            .map(category => ({ value: category, label: getCategoryLabel(category) }));
-    }, [products]);
+    const categoryOptions = useMemo(() => (
+        [...new Set(products.map((product) => product.category).filter(Boolean))]
+            .map((category) => ({ value: category, label: getCategoryLabel(category) }))
+    ), [products]);
 
-    const warehouseOptions = useMemo(() => {
-        return [...new Set(products.map(getWarehouse).filter(Boolean))];
-    }, [products]);
+    const warehouseOptions = useMemo(() => (
+        [...new Set(products.map(getWarehouse).filter(Boolean))]
+    ), [products]);
 
     const filteredProducts = useMemo(() => {
         const query = searchTerm.trim().toLowerCase();
 
-        return products.filter(product => {
+        return products.filter((product) => {
             const warehouse = getWarehouse(product);
             const categoryLabel = getCategoryLabel(product.category);
             const searchFields = [
@@ -160,7 +181,7 @@ const AdminProductList = () => {
                     </thead>
                     <tbody>
                         {filteredProducts.map((product, index) => {
-                            const rating = Math.max(0, Math.min(5, Math.round(Number(product.rating) || 0)));
+                            const rating = Math.max(0, Math.min(5, getProductRating(product)));
                             const hasDelivery = product.hasDelivery ?? product.delivery ?? true;
 
                             return (
@@ -168,10 +189,10 @@ const AdminProductList = () => {
                                     <td>{index + 1}</td>
                                     <td className="product-name-cell">{product.name}</td>
                                     <td>{product.brand || 'BISTRUP'}</td>
-                                    <td>{product.price}₴</td>
+                                    <td>{formatPrice(product.price)}</td>
                                     <td>
                                         <div className="product-rating-stars" aria-label={`Рейтинг ${rating} з 5`}>
-                                            {[1, 2, 3, 4, 5].map(star => (
+                                            {[1, 2, 3, 4, 5].map((star) => (
                                                 <StarIcon key={star} filled={star <= rating} />
                                             ))}
                                         </div>

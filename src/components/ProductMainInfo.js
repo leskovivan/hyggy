@@ -17,15 +17,18 @@ const ProductMainInfo = ({ product }) => {
 
   const reviewsCount = product.reviews?.length || 0;
   const averageRating = reviewsCount
-    ? Math.round(product.reviews.reduce((sum, review) => sum + review.rating, 0) / reviewsCount)
-    : Number(product.rating || 0);
+    ? Math.round(product.reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviewsCount)
+    : Number(product.rating || 5);
 
   const currentPrice = formatPrice(product.price);
   const discount = Number(product.discountPercent || product.discount || 0);
-  const oldPrice = discount > 0 ? Math.round(currentPrice / (1 - discount / 100)) : null;
+  const oldPrice = product.oldPrice || (discount > 0 ? Math.round(currentPrice / (1 - discount / 100)) : null);
 
   useEffect(() => {
-    if (!product.promoEndDate) return undefined;
+    if (!product.promoEndDate) {
+      setTimeLeft('');
+      return undefined;
+    }
 
     const calculateTime = () => {
       const difference = new Date(product.promoEndDate).getTime() - Date.now();
@@ -77,7 +80,7 @@ const ProductMainInfo = ({ product }) => {
           <div className="status-card">
             <span className="status-name">Доставка</span>
             <div className="status-indicator">
-              <span className={`product-status-dot ${product.hasDelivery ? 'dot-green' : 'dot-red'}`}></span>
+              <span className={`product-status-dot ${product.hasDelivery ? 'dot-green' : 'dot-red'}`} />
               <span className="status-text">{product.hasDelivery ? 'В наявності' : 'Недоступно'}</span>
             </div>
           </div>
@@ -85,7 +88,7 @@ const ProductMainInfo = ({ product }) => {
           <div className="status-card">
             <span className="status-name">В магазинах</span>
             <div className="status-indicator">
-              <span className={`product-status-dot ${product.inStock ? 'dot-green' : 'dot-red'}`}></span>
+              <span className={`product-status-dot ${product.inStock ? 'dot-green' : 'dot-red'}`} />
               <span className="status-text">{product.inStock ? 'В наявності в 81 магазинах' : 'Під замовлення'}</span>
             </div>
           </div>
@@ -94,9 +97,9 @@ const ProductMainInfo = ({ product }) => {
 
       <div className="product-actions">
         <div className="quantity-selector" aria-label="Кількість">
-          <button type="button" onClick={() => setQuantity(prev => Math.max(1, prev - 1))}>-</button>
+          <button type="button" onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}>-</button>
           <span>{quantity}</span>
-          <button type="button" onClick={() => setQuantity(prev => prev + 1)}>+</button>
+          <button type="button" onClick={() => setQuantity((prev) => prev + 1)}>+</button>
         </div>
         <button className="add-to-cart-btn" type="button" onClick={() => addToCart(product, quantity)}>
           Додати в кошик

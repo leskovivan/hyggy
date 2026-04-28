@@ -13,8 +13,12 @@
     box-sizing: border-box;
 }
 
+.profile-page .profile-breadcrumb-container {
+    padding-top: 46px !important;
+}
+
 .profile-content {
-    padding-top: 42px;
+    padding-top: 64px;
 }
 
 .profile-title {
@@ -276,7 +280,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 78px 140px 145px 114px;
+    padding: 78px 140px 78px 114px;
 }
 
 .profile-tab-btn {
@@ -625,6 +629,10 @@
         margin: 0 40px;
     }
 
+    .profile-page .profile-breadcrumb-container {
+        padding-top: 42px !important;
+    }
+
     .profile-dashboard {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
@@ -674,7 +682,7 @@
     }
 
     .profile-menu-card {
-        padding: 58px 80px 92px;
+        padding: 58px 80px;
     }
 
     .profile-tab-btn {

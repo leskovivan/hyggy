@@ -9,7 +9,7 @@ const StarIcon = ({ fill = 'black', small = false }) => (
 
 const ProductReviews = ({ reviews = [], onOpenModal }) => {
   const averageRating = reviews.length
-    ? Math.round(reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length)
+    ? Math.round(reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviews.length)
     : 5;
 
   return (
@@ -35,20 +35,20 @@ const ProductReviews = ({ reviews = [], onOpenModal }) => {
 
         <div className="reviews-list">
           {reviews.length > 0 ? (
-            reviews.map(review => (
-              <article key={review.id} className="review-item">
+            reviews.map((review, index) => (
+              <article key={review.id || index} className="review-item">
                 <div className="review-author-col">
-                  <h4>{review.author}</h4>
+                  <h4>{review.author || review.name || 'Користувач'}</h4>
                   <div className="review-author-rating">
                     <div className="stars-group">
-                      {[...Array(5)].map((_, index) => (
-                        <StarIcon key={index} small fill={index < review.rating ? 'black' : '#e0e0e0'} />
+                      {[...Array(5)].map((_, starIndex) => (
+                        <StarIcon key={starIndex} small fill={starIndex < Number(review.rating || 0) ? 'black' : '#e0e0e0'} />
                       ))}
                     </div>
-                    <span>{review.rating}/5</span>
+                    <span>{review.rating || 0}/5</span>
                   </div>
                 </div>
-                <p>{review.text}</p>
+                <p>{review.text || review.comment}</p>
               </article>
             ))
           ) : (

@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-const formatMoney = (value) => `${Number(value).toLocaleString('uk-UA', {
+const formatMoney = (value) => `${Number(value || 0).toLocaleString('uk-UA', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
 })} грн`;
 
-const formatDollar = (value) => `${Math.round(value).toLocaleString('uk-UA')} $`;
+const formatDollar = (value) => `${Math.round(value || 0).toLocaleString('uk-UA')} $`;
 
-const AddressStep = ({ data, updateData, onNext, onCancel }) => {
+const AddressStep = ({ data, updateData, onNext, onCancel, deliveryPrice = 40 }) => {
     const { cartItems, totalAmount } = useCart();
     const [acceptedTerms, setAcceptedTerms] = useState(false);
-    const deliveryPrice = 40;
-    const finalTotal = totalAmount + deliveryPrice;
+    const finalTotal = totalAmount + Number(deliveryPrice || 0);
 
     const handleChange = (field, value) => updateData({ ...data, [field]: value });
 
@@ -48,23 +47,23 @@ const AddressStep = ({ data, updateData, onNext, onCancel }) => {
             <h1 className="checkout-address-title">Оплата</h1>
 
             <div className="checkout-address-content">
-                <form className="checkout-address-form" onSubmit={(e) => { e.preventDefault(); handleNext(); }}>
+                <form className="checkout-address-form" onSubmit={(event) => { event.preventDefault(); handleNext(); }}>
                     <h2>Адреса</h2>
 
-                    <input className="checkout-address-input" placeholder="Ім'я*" value={data.firstName} onChange={(e) => handleChange('firstName', e.target.value)} />
-                    <input className="checkout-address-input" placeholder="Прізвище*" value={data.lastName} onChange={(e) => handleChange('lastName', e.target.value)} />
-                    <input className="checkout-address-input" placeholder="Місто*" value={data.city} onChange={(e) => handleChange('city', e.target.value)} />
+                    <input className="checkout-address-input" placeholder="Ім'я*" value={data.firstName} onChange={(event) => handleChange('firstName', event.target.value)} />
+                    <input className="checkout-address-input" placeholder="Прізвище*" value={data.lastName} onChange={(event) => handleChange('lastName', event.target.value)} />
+                    <input className="checkout-address-input" placeholder="Місто*" value={data.city} onChange={(event) => handleChange('city', event.target.value)} />
 
                     <div className="checkout-address-inline">
-                        <input className="checkout-address-input" placeholder="Вулиця*" value={data.street} onChange={(e) => handleChange('street', e.target.value)} />
-                        <input className="checkout-address-input" placeholder="Номер будинку*" value={data.building} onChange={(e) => handleChange('building', e.target.value)} />
+                        <input className="checkout-address-input" placeholder="Вулиця*" value={data.street} onChange={(event) => handleChange('street', event.target.value)} />
+                        <input className="checkout-address-input" placeholder="Номер будинку*" value={data.building} onChange={(event) => handleChange('building', event.target.value)} />
                     </div>
 
-                    <input className="checkout-address-input" placeholder="E-mail*" value={data.email} onChange={(e) => handleChange('email', e.target.value)} />
-                    <input className="checkout-address-input" placeholder="Мобільний телефон*" value={data.phone} onChange={(e) => handleChange('phone', e.target.value)} />
+                    <input className="checkout-address-input" placeholder="E-mail*" value={data.email} onChange={(event) => handleChange('email', event.target.value)} />
+                    <input className="checkout-address-input" placeholder="Мобільний телефон*" value={data.phone} onChange={(event) => handleChange('phone', event.target.value)} />
 
                     <label className="checkout-address-terms">
-                        <input type="checkbox" checked={acceptedTerms} onChange={(e) => setAcceptedTerms(e.target.checked)} />
+                        <input type="checkbox" checked={acceptedTerms} onChange={(event) => setAcceptedTerms(event.target.checked)} />
                         <span>Прийняти</span>
                         <Link to="/terms">Умови та Положення</Link>
                     </label>
@@ -81,7 +80,7 @@ const AddressStep = ({ data, updateData, onNext, onCancel }) => {
                     <div className="checkout-address-summary-items">
                         {cartItems.map((item) => (
                             <article className="checkout-address-summary-item" key={item.id}>
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} />
                                 <div>
                                     <h3>{item.name}</h3>
                                     <p>{item.brand}</p>

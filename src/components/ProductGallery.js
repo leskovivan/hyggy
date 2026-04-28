@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import './ProductGallery.css';
 
-const ProductGallery = ({ images = [] }) => {
+const ProductGallery = ({ images = [], productName = '' }) => {
   const safeImages = useMemo(() => images.filter(Boolean), [images]);
   const [activeImage, setActiveImage] = useState(safeImages[0]);
 
@@ -23,7 +23,7 @@ const ProductGallery = ({ images = [] }) => {
           className="main-image-container"
           aria-label="Головне фото товару"
         >
-          <img className="main-image" src={activeImage || safeImages[0]} alt="" />
+          <img className="main-image" src={activeImage || safeImages[0]} alt={productName} />
         </button>
 
         <div className="thumbnails-row" aria-label="Фото товару">

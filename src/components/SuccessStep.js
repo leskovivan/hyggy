@@ -8,6 +8,12 @@ const formatMoney = (value) => `${Number(value || 0).toLocaleString('uk-UA', {
 
 const formatDollar = (value) => `${Math.round(value || 0).toLocaleString('uk-UA')} $`;
 
+const getDeliveryDate = () => {
+    const date = new Date();
+    date.setDate(date.getDate() + 12);
+    return date.toLocaleDateString('uk-UA');
+};
+
 const SuccessStep = ({ orderId, orderData, items = [], totalAmount = 0 }) => {
     const address = orderData?.address || {};
     const deliveryAddress = [
@@ -29,13 +35,13 @@ const SuccessStep = ({ orderId, orderData, items = [], totalAmount = 0 }) => {
                 <h1>Оплата успішна</h1>
                 <h2>Замовлення №{orderId || '123456'}:</h2>
                 <p className="checkout-success-delivery">
-                    Доставка за адресою {deliveryAddress || 'вулиця Князів Острозьких, 46/2, Київ, 01015'} до 01.01.2024
+                    Доставка за адресою {deliveryAddress || 'вулиця Князів Острозьких, 46/2, Київ, 01015'} до {getDeliveryDate()}
                 </p>
 
                 <div className="checkout-success-order">
                     {items.map((item) => (
                         <article className="checkout-success-item" key={item.id}>
-                            <img src={item.image} alt={item.name} />
+                            <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} />
                             <div>
                                 <h3>{item.name}</h3>
                                 <p>{item.brand}</p>

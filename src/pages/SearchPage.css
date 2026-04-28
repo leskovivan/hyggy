@@ -75,6 +75,10 @@
   text-align: center;
 }
 
+.search-results-title span {
+  font-family: 'Inter', sans-serif;
+}
+
 .filter-bar {
   margin-bottom: 98px;
   display: flex;
@@ -132,7 +136,7 @@
 
 .dropdown-content {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% - 1px);
   left: 0;
   z-index: 50;
   min-width: 100%;
@@ -223,74 +227,96 @@
   gap: 70px 30px;
 }
 
-.search-pages-grid {
+.search-pages-layout {
+  width: min(100%, 1516px);
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 30px;
+  grid-template-columns: minmax(0, 673px) minmax(0, 388px) minmax(0, 389px);
+  grid-auto-rows: 302px;
+  gap: 27px 30px;
 }
 
-.search-page-card {
-  min-height: 250px;
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  background: #fff;
-  color: #231f20;
-  text-decoration: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.18);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.search-page-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
-}
-
-.search-page-card__image {
+.search-story-card {
+  position: relative;
   min-width: 0;
   overflow: hidden;
+  display: block;
+  color: #fff;
+  text-decoration: none;
   background: #d9d9d9;
 }
 
-.search-page-card__image img {
+.search-story-card--large {
+  grid-row: span 2;
+}
+
+.search-story-card img {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+  transition: transform 0.35s ease;
 }
 
-.search-page-card__content {
-  min-width: 0;
-  padding: 30px;
+.search-story-card:hover img {
+  transform: scale(1.04);
+}
+
+.search-story-card__shade {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.search-story-card__title {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-}
-
-.search-page-card__type {
-  margin-bottom: 14px;
-  color: #00aaad;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.search-page-card strong {
-  margin-bottom: 18px;
-  color: #000;
+  padding: 28px;
+  box-sizing: border-box;
+  color: #fff;
   font-family: 'Inter', sans-serif;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.18;
+  text-align: center;
 }
 
-.search-page-card__content > span:last-child {
+.search-story-card--large .search-story-card__title {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 87px 29px;
+  font-size: 36px;
+  text-align: left;
+}
+
+.search-story-card__description {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  min-height: 78px;
+  box-sizing: border-box;
+  padding: 14px 18px;
+  background: #d9d9d9;
   color: #231f20;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.35;
   display: -webkit-box;
   overflow: hidden;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+
+.search-story-card--large .search-story-card__description {
+  min-height: 118px;
+  font-size: 16px;
+  -webkit-line-clamp: 4;
 }
 
 .search-empty,
@@ -348,8 +374,8 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .search-page-card {
-    grid-template-columns: 220px minmax(0, 1fr);
+  .search-pages-layout {
+    grid-template-columns: 1.4fr 1fr 1fr;
   }
 }
 
@@ -363,17 +389,23 @@
     flex-direction: column;
   }
 
-  .search-products-grid,
-  .search-pages-grid {
+  .search-products-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .search-page-card {
-    grid-template-columns: 1fr;
+  .search-pages-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: auto;
   }
 
-  .search-page-card__image {
-    height: 240px;
+  .search-story-card,
+  .search-story-card--large {
+    grid-row: auto;
+    aspect-ratio: 1.28;
+  }
+
+  .search-story-card--large {
+    grid-column: span 2;
   }
 }
 
@@ -417,7 +449,22 @@
   }
 
   .search-products-grid,
-  .search-pages-grid {
+  .search-pages-layout {
     grid-template-columns: 1fr;
+  }
+
+  .search-story-card,
+  .search-story-card--large {
+    grid-column: auto;
+    aspect-ratio: 1.05;
+  }
+
+  .search-story-card__title,
+  .search-story-card--large .search-story-card__title {
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    font-size: 22px;
+    text-align: center;
   }
 }

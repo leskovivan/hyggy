@@ -1,25 +1,44 @@
-import { categories } from './categoriesData';
-import CategoryCard from '../components/CategoryCard';
 import { Link } from 'react-router-dom';
-import './Catalog.css';
-import categoriesData from './categoriesData';
 import Breadcrumb from '../components/Breadcrumb';
+import categories from './categoriesData';
+import './Catalog.css';
 
 const CatalogPage = () => {
   return (
-    <main className="qa-page">
-        
-    <div className='Catalog-site'>
-    <Breadcrumb />
-    <h1 className="catalog-page__title">Категорії</h1>
-    <div className="home-page__categories-grid">
-              {categoriesData.map((category) => (
-                <Link key={category.title} to={`/category/${category.slug}`} className="home-page__category-card">
-                  <img className="home-page__category-image" src={category.img} alt={category.title} />
-                  <span className="home-page__category-label">{category.title}</span>
-                </Link>
-              ))}
-            </div></div></main>
+    <main className="catalog-page">
+      <div className="catalog-page__container">
+        <Breadcrumb customLabels={{ category: 'Категорії' }} />
+
+        <h1 className="catalog-page__title">Категорії</h1>
+
+        <section className="catalog-page__grid" aria-label="Категорії товарів">
+          {categories.map((category) => (
+            <Link
+              key={category.slug}
+              to={`/category/${category.slug}`}
+              className="catalog-category-card"
+            >
+              <img
+                className="catalog-category-card__image"
+                src={category.img}
+                alt={category.title}
+              />
+              <span className="catalog-category-card__title">{category.title}</span>
+            </Link>
+          ))}
+        </section>
+
+        <nav className="catalog-pagination" aria-label="Пагінація категорій">
+          <button type="button" aria-label="Попередня сторінка">{'<'}</button>
+          <button type="button" className="is-active">1</button>
+          <button type="button">2</button>
+          <span>...</span>
+          <button type="button">10</button>
+          <button type="button" aria-label="Наступна сторінка">{'>'}</button>
+        </nav>
+      </div>
+    </main>
   );
 };
+
 export default CatalogPage;

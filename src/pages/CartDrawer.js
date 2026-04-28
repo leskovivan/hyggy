@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import './CartDrawer.css';
 
-const formatPrice = (value) => `${Math.round(value).toLocaleString('uk-UA')} $`;
+const formatPrice = (value) => `${Math.round(value || 0).toLocaleString('uk-UA')} $`;
 
 const getOldPrice = (item) => {
   if (!item.discountPercent) return null;
@@ -18,9 +18,9 @@ const CartDrawer = () => {
   const deliveryPrice = 0;
   const finalTotal = totalAmount + deliveryPrice;
 
-  const handleCheckout = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleCheckout = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
     if (!user) {
       alert('Будь ласка, увійдіть в акаунт!');
@@ -57,7 +57,7 @@ const CartDrawer = () => {
 
                 return (
                   <article key={item.id} className="drawer-item">
-                    <img src={item.image} alt={item.name} className="drawer-item-img" />
+                    <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} className="drawer-item-img" />
                     <div className="drawer-item-info">
                       <h2>{item.name}</h2>
                       <p className="drawer-item-price">{formatPrice(itemTotal)}</p>

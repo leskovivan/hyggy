@@ -6,16 +6,19 @@ const DELIVERY_OPTIONS = [
         id: 'nova-poshta-courier',
         title: "Доставка на адресу кур'єром Нової пошти",
         note: '110,00 грн Доставка 10-12 робочих днів',
+        price: 110,
     },
     {
         id: 'nova-poshta-branch',
         title: 'Доставка до відділення Нової пошти',
         note: '75,00 грн Доставка 10-12 робочих днів',
+        price: 75,
     },
     {
         id: 'ukrposhta-branch',
         title: 'Доставка до відділення Укрпошти',
         note: '50,00 грн Доставка протягом 10-12 робочих днів',
+        price: 50,
     },
 ];
 
@@ -44,15 +47,18 @@ const DeliveryStep = ({ data, updateData, onNext, onPrev }) => {
     const selectedBranch = data.branch || '';
 
     const handleTypeChange = (type) => {
+        const option = DELIVERY_OPTIONS.find((item) => item.id === type);
         updateData({
             ...data,
             type,
+            price: option?.price || 0,
             branch: type === 'nova-poshta-courier' ? '' : selectedBranch,
         });
     };
 
     const handleBranchChange = (branchId) => {
-        updateData({ ...data, branch: branchId, type: 'nova-poshta-branch' });
+        const option = DELIVERY_OPTIONS.find((item) => item.id === 'nova-poshta-branch');
+        updateData({ ...data, branch: branchId, type: 'nova-poshta-branch', price: option?.price || 75 });
     };
 
     const handleNext = () => {
@@ -93,13 +99,13 @@ const DeliveryStep = ({ data, updateData, onNext, onPrev }) => {
                 </div>
 
                 <p className="checkout-delivery-hint">
-                    Введіть ваш індекс, щоб знайти Доставка до відділення Нової пошти
+                    Введіть ваш індекс, щоб знайти доставку до відділення Нової пошти
                 </p>
 
                 <div className="checkout-delivery-search">
                     <input
                         value={postalCode}
-                        onChange={(e) => setPostalCode(e.target.value)}
+                        onChange={(event) => setPostalCode(event.target.value)}
                         aria-label="Індекс"
                     />
                     <button type="button">Пошук</button>

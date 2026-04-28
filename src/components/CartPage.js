@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import './CartPage.css';
 
-const formatPrice = (value) => `${Math.round(value).toLocaleString('uk-UA')} $`;
+const formatPrice = (value) => `${Math.round(value || 0).toLocaleString('uk-UA')} $`;
 
 const getOldPrice = (item) => {
   if (!item.discountPercent) return null;
@@ -46,7 +46,7 @@ const CartPage = () => {
 
                 return (
                   <article key={item.id} className="cart-item-row">
-                    <img src={item.image} alt={item.name} className="cart-item-img" />
+                    <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} className="cart-item-img" />
                     <div className="cart-item-details">
                       <h2 className="cart-item-name">{item.name}</h2>
                       <p className="cart-item-price">{formatPrice(itemTotal)}</p>

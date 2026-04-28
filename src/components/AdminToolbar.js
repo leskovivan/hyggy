@@ -36,14 +36,14 @@ const AdminToolbar = ({
                         className="search-input"
                         placeholder="Швидкий пошук"
                         value={searchTerm || ''}
-                        onChange={event => onSearchChange?.(event.target.value)}
+                        onChange={(event) => onSearchChange?.(event.target.value)}
                     />
                 </label>
 
                 <div className="filter-group">
-                    {filters.map(filter => {
+                    {filters.map((filter) => {
                         const options = filter.options || [];
-                        const selectedOption = options.find(option => String(getOptionValue(option)) === String(filter.value));
+                        const selectedOption = options.find((option) => String(getOptionValue(option)) === String(filter.value));
                         const visibleLabel = filter.value ? getOptionLabel(selectedOption) || filter.label : filter.label;
 
                         return (
@@ -53,10 +53,10 @@ const AdminToolbar = ({
                                     className="filter-select"
                                     aria-label={filter.label}
                                     value={filter.value}
-                                    onChange={event => filter.onChange(event.target.value)}
+                                    onChange={(event) => filter.onChange(event.target.value)}
                                 >
                                     <option value="">{filter.allLabel || `Усі ${String(filter.label).toLowerCase()}`}</option>
-                                    {options.map(option => {
+                                    {options.map((option) => {
                                         const value = getOptionValue(option);
                                         const label = getOptionLabel(option);
 

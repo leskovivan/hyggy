@@ -1,63 +1,61 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
 import Breadcrumb from '../components/Breadcrumb';
+import './LoginPage.css';
 import './RegisterPage.css';
 
 const ForgotPasswordPage = () => {
   const [code, setCode] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Імітація перевірки коду
-    if (code === '1234') { // Наприклад, тестовий код
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (code.trim() === '1234') {
       alert('Код підтверджено! Тепер ви можете змінити пароль.');
-      navigate('/reset-password'); // Або куди тобі треба далі за логікою
-    } else {
-      alert('Невірний код. Спробуйте ще раз.');
+      navigate('/login');
+      return;
     }
+
+    alert('Невірний код. Спробуйте ще раз.');
   };
 
   return (
-    <div className="login-page">
-      <div className="login-main-container">
-        <Breadcrumb items={[{ label: 'Головна', path: '/' }, { label: 'Забули пароль?' }]} />
-      </div>
+    <main className="auth-page">
+      <div className="auth-page__container">
+        <Breadcrumb items={[
+          { label: 'Домашня сторінка', path: '/' },
+          { label: 'Моя сторінка', path: '/profile' },
+          { label: 'Забули пароль?' },
+        ]} />
 
-      <h2 className="login-title">Забули пароль?</h2>
+        <header className="auth-heading">
+          <h1>Забули пароль?</h1>
+        </header>
 
-      <div className="login-content">
-        <div className="login-container">
-          {/* Текст-інструкція */}
+        <section className="auth-panel" aria-label="Відновлення пароля">
           <p className="forgot-password-text">
-            Напишіть свою електронну адресу для того, щоб скинути пароль. 
-            Ми відправимо вам лист з посиланням, де ви зможете ввести новий пароль.
+            Введіть код підтвердження з листа, щоб продовжити відновлення пароля.
           </p>
 
-          <form className="login-form" onSubmit={handleSubmit}>
-            <div className="input-group confirmation-code">
-              <input 
-                type="text" 
-                placeholder="Введіть код" 
-                value={code}
-                onChange={(e) => setCode(e.target.value)} 
-                required 
-              />
-            </div>
+          <form className="auth-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Введіть код"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              required
+            />
 
-            <button type="submit" className="login-submit-btn">
-                Підтвердити
-            </button>
+            <button type="submit" className="auth-primary-btn">Підтвердити</button>
 
-            <button type="button" className="cancel-link" onClick={() => navigate('/login')}>
+            <button type="button" className="auth-link" onClick={() => navigate('/login')}>
               Скасувати
             </button>
           </form>
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

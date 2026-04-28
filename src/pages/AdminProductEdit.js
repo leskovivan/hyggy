@@ -1,188 +1,331 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './AdminBlogEdit.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import './AdminProductEdit.css';
+
+const emptyCharacteristic = () => ({ label: '', value: '' });
+
+const categoryOptions = [
+    { value: 'bedroom', label: 'Спальня' },
+    { value: 'bathroom', label: 'Ванна' },
+    { value: 'office', label: 'Офіс' },
+    { value: 'living-room', label: 'Вітальня' },
+    { value: 'kitchen', label: 'Кухня' },
+    { value: 'garden', label: 'Для саду' },
+    { value: 'kids', label: 'Дитяча кімната' },
+    { value: 'dining', label: 'Їдальня' },
+    { value: 'hallway', label: 'Коридор' },
+    { value: 'storage', label: 'Зберігання' },
+];
+
+const initialFormData = {
+    article: '',
+    name: '',
+    brand: 'BISTRUP',
+    category: '',
+    shortDescription: '',
+    price: '',
+    discountPercent: '',
+    alwaysLowPrice: false,
+    isNew: false,
+    hasDelivery: true,
+    inStock: true,
+    isGreatOffer: false,
+    rating: 5,
+    description: '',
+    characteristics: [emptyCharacteristic(), emptyCharacteristic(), emptyCharacteristic()],
+    images: [],
+};
 
 const AdminProductEdit = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const isNew = !id || id === 'new';
-
-    const [formData, setFormData] = useState({
-        article: '',
-        name: '',
-        category: '',
-        shortDescription: '',
-        price: '',
-        discountPercent: '', // Виправлено: discount -> discountPercent
-        alwaysLowPrice: false,
-        isNew: false,
-        hasDelivery: true,
-        inStock: true,       // Додано: стан для наявності
-        isGreatOffer: false,
-        rating: 5,
-        description: '',
-        characteristics: [{ label: '', value: '' }],
-        images: [] 
-    });
+    const isNewProduct = !id || id === 'new';
+    const [formData, setFormData] = useState(initialFormData);
 
     useEffect(() => {
-        if (!isNew) {
-            fetch(`http://localhost:3001/products/${id}`)
-                .then(res => res.json())
-                .then(data => {
-                    setFormData({
-                        ...data,
-                        hasDelivery: data.hasDelivery !== undefined ? data.hasDelivery : true,
-                        inStock: data.inStock !== undefined ? data.inStock : true, // Обробка наявності
-                        rating: data.rating !== undefined ? data.rating : 5
-                    });
-                })
-                .catch(err => console.error("Помилка завантаження:", err));
-        }
-    }, [id, isNew]);
+        if (isNewProduct) return;
 
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            if (formData.images.length >= 4) {
-                alert("Максимум 4 фотографії!");
-                return;
-            }
+        fetch(`http://localhost:3001/products/${id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                const images = data.images?.length ? data.images : [data.image].filter(Boolean);
+
+                setFormData({
+                    ...initialFormData,
+                    ...data,
+                    brand: data.brand || 'BISTRUP',
+                    price: data.price ?? '',
+                    discountPercent: data.discountPercent ?? '',
+                    hasDelivery: data.hasDelivery !== undefined ? data.hasDelivery : true,
+                    inStock: data.inStock !== undefined ? data.inStock : true,
+                    rating: data.rating !== undefined ? data.rating : 5,
+                    characteristics: data.characteristics?.length ? data.characteristics : initialFormData.characteristics,
+                    images,
+                });
+            })
+            .catch((error) => console.error('Помилка завантаження товару:', error));
+    }, [id, isNewProduct]);
+
+    const updateField = (field, value) => {
+        setFormData((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const handleFileChange = (event) => {
+        const files = Array.from(event.target.files || []);
+        if (!files.length) return;
+
+        const availableSlots = 4 - formData.images.length;
+        const selectedFiles = files.slice(0, availableSlots);
+
+        if (files.length > availableSlots) {
+            alert('Можна завантажити максимум 4 фото.');
+        }
+
+        selectedFiles.forEach((file) => {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setFormData(prev => ({
+                setFormData((prev) => ({
                     ...prev,
-                    images: [...prev.images, reader.result] 
+                    images: [...prev.images, reader.result],
                 }));
             };
             reader.readAsDataURL(file);
-        }
-        e.target.value = '';
+        });
+
+        event.target.value = '';
     };
 
     const removeImage = (index) => {
-        const updatedImages = formData.images.filter((_, i) => i !== index);
-        setFormData({ ...formData, images: updatedImages });
+        setFormData((prev) => ({
+            ...prev,
+            images: prev.images.filter((_, imageIndex) => imageIndex !== index),
+        }));
     };
 
     const handleCharacteristicChange = (index, field, value) => {
-        const newChars = [...formData.characteristics];
-        newChars[index][field] = value;
-        setFormData({ ...formData, characteristics: newChars });
+        setFormData((prev) => ({
+            ...prev,
+            characteristics: prev.characteristics.map((item, itemIndex) => (
+                itemIndex === index ? { ...item, [field]: value } : item
+            )),
+        }));
     };
 
     const addCharacteristic = () => {
-        setFormData({
-            ...formData, 
-            characteristics: [...formData.characteristics, { label: '', value: '' }]
-        });
+        setFormData((prev) => ({
+            ...prev,
+            characteristics: [...prev.characteristics, emptyCharacteristic()],
+        }));
+    };
+
+    const clearCharacteristics = () => {
+        setFormData((prev) => ({
+            ...prev,
+            characteristics: [emptyCharacteristic(), emptyCharacteristic(), emptyCharacteristic()],
+        }));
     };
 
     const removeCharacteristic = (index) => {
-        const newChars = formData.characteristics.filter((_, i) => i !== index);
-        setFormData({ ...formData, characteristics: newChars });
+        setFormData((prev) => ({
+            ...prev,
+            characteristics: prev.characteristics.filter((_, itemIndex) => itemIndex !== index),
+        }));
     };
 
     const handleSave = async () => {
-        if (!formData.name || formData.images.length === 0) {
-            alert("Додайте назву та хоча б одне фото!");
+        if (!formData.name.trim()) {
+            alert('Введіть назву товару.');
             return;
         }
 
-        // Перетворюємо ціни та знижки на числа перед відправкою
+        if (!formData.category) {
+            alert('Виберіть категорію товару.');
+            return;
+        }
+
+        if (!formData.images.length) {
+            alert('Додайте хоча б одне фото товару.');
+            return;
+        }
+
         const dataToSend = {
             ...formData,
-            price: Number(formData.price),
-            discountPercent: Number(formData.discountPercent) || 0
+            price: Number(formData.price) || 0,
+            discountPercent: Number(formData.discountPercent) || 0,
+            image: formData.images[0],
+            characteristics: formData.characteristics.filter((item) => item.label || item.value),
         };
 
-        const url = isNew ? 'http://localhost:3001/products' : `http://localhost:3001/products/${id}`;
-        const method = isNew ? 'POST' : 'PATCH';
+        const url = isNewProduct ? 'http://localhost:3001/products' : `http://localhost:3001/products/${id}`;
+        const method = isNewProduct ? 'POST' : 'PATCH';
 
         try {
-            const res = await fetch(url, {
+            const response = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(dataToSend)
+                body: JSON.stringify(dataToSend),
             });
 
-            if (res.ok) {
-                alert("Товар успішно збережено!");
-                navigate('/admin/products');
+            if (!response.ok) {
+                throw new Error('Save failed');
             }
-        } catch (err) {
-            alert("Помилка збереження");
+
+            alert('Товар успішно збережено!');
+            navigate('/admin/products');
+        } catch (error) {
+            console.error('Помилка збереження товару:', error);
+            alert('Помилка збереження товару.');
         }
     };
 
     return (
-        <div className="admin-blog-edit">
-            <h2 className="section-title">{isNew ? 'Додати товар' : 'Редагувати товар'}</h2>
-            
-            <div className="form-container">
-                <input className="admin-input" placeholder="Введіть артикул..." value={formData.article} onChange={e => setFormData({...formData, article: e.target.value})} />
-                <input className="admin-input" placeholder="Введіть назву товару..." value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
-                
-                <select className="admin-select" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})}>
+        <div className="admin-product-edit">
+            <h2 className="admin-product-title">
+                {isNewProduct ? 'Створення товару' : 'Редагування товару'}
+            </h2>
+
+            <div className="admin-product-form">
+                <input
+                    className="admin-product-input"
+                    placeholder="Введіть артикул..."
+                    value={formData.article}
+                    onChange={(event) => updateField('article', event.target.value)}
+                />
+                <input
+                    className="admin-product-input"
+                    placeholder="Введіть назву товару..."
+                    value={formData.name}
+                    onChange={(event) => updateField('name', event.target.value)}
+                />
+                <select
+                    className="admin-product-input admin-product-select"
+                    value={formData.category}
+                    onChange={(event) => updateField('category', event.target.value)}
+                >
                     <option value="">Виберіть категорію</option>
-                    <option value="kitchen">Кухня</option>
-                    <option value="living-room">Вітальня</option>
-                    <option value="bedroom">Спальня</option>
+                    {categoryOptions.map((category) => (
+                        <option key={category.value} value={category.value}>{category.label}</option>
+                    ))}
                 </select>
+                <input
+                    className="admin-product-input"
+                    placeholder="Введіть короткий опис товару..."
+                    value={formData.shortDescription}
+                    onChange={(event) => updateField('shortDescription', event.target.value)}
+                />
 
-                <input className="admin-input" placeholder="Введіть короткий опис..." value={formData.shortDescription} onChange={e => setFormData({...formData, shortDescription: e.target.value})} />
+                <div className="admin-product-price-row">
+                    <input
+                        className="admin-product-input admin-product-price"
+                        placeholder="Введіть ціну..."
+                        value={formData.price}
+                        onChange={(event) => updateField('price', event.target.value)}
+                    />
 
-                <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                    <input style={{width: '150px'}} className="admin-input" placeholder="Ціна" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} />
-                    
-                    <label style={{display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '14px'}}>
-                        <input type="checkbox" checked={formData.alwaysLowPrice} onChange={e => setFormData({...formData, alwaysLowPrice: e.target.checked})} /> 
-                        Завжди низька ціна
+                    <label className="admin-product-check admin-product-check--wide">
+                        <input
+                            type="checkbox"
+                            checked={formData.alwaysLowPrice}
+                            onChange={(event) => updateField('alwaysLowPrice', event.target.checked)}
+                        />
+                        <span>Завжди низька ціна</span>
                     </label>
-                    {/* Виправлено: discount -> discountPercent */}
-                    <input style={{width: '120px'}} className="admin-input" placeholder="% знижки" value={formData.discountPercent} onChange={e => setFormData({...formData, discountPercent: e.target.value})} />
+
+                    <input
+                        className="admin-product-input admin-product-discount"
+                        placeholder="Введіть % знижки..."
+                        value={formData.discountPercent}
+                        onChange={(event) => updateField('discountPercent', event.target.value)}
+                    />
                 </div>
 
-                <div style={{ display: 'flex', gap: '20px', padding: '10px 0', flexWrap: 'wrap' }}>
-                    <label style={{cursor: 'pointer'}}><input type="checkbox" checked={formData.isNew} onChange={e => setFormData({...formData, isNew: e.target.checked})} /> Новинка</label>
-                    <label style={{cursor: 'pointer'}}><input type="checkbox" checked={formData.hasDelivery} onChange={e => setFormData({...formData, hasDelivery: e.target.checked})} /> Можлива доставка</label>
-                    <label style={{cursor: 'pointer'}}><input type="checkbox" checked={formData.inStock} onChange={e => setFormData({...formData, inStock: e.target.checked})} /> В наявності</label>
-                    <label style={{cursor: 'pointer'}}><input type="checkbox" checked={formData.isGreatOffer} onChange={e => setFormData({...formData, isGreatOffer: e.target.checked})} /> Чудова пропозиція</label>
+                <div className="admin-product-options">
+                    <label className="admin-product-check">
+                        <input type="checkbox" checked={formData.isNew} onChange={(event) => updateField('isNew', event.target.checked)} />
+                        <span>Новинка</span>
+                    </label>
+                    <label className="admin-product-check">
+                        <input type="checkbox" checked={formData.hasDelivery} onChange={(event) => updateField('hasDelivery', event.target.checked)} />
+                        <span>Можлива доставка</span>
+                    </label>
+                    <label className="admin-product-check">
+                        <input type="checkbox" checked={formData.isGreatOffer} onChange={(event) => updateField('isGreatOffer', event.target.checked)} />
+                        <span>Чудова пропозиція</span>
+                    </label>
                 </div>
 
-                <h3>Докладний опис товару</h3>
-                <textarea className="admin-textarea" placeholder="Введіть опис товару" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
+                <section className="admin-product-section">
+                    <h3>Докладний опис товару</h3>
+                    <textarea
+                        className="admin-product-textarea"
+                        placeholder="Введіть опис товару"
+                        value={formData.description}
+                        onChange={(event) => updateField('description', event.target.value)}
+                    />
+                </section>
 
-                <h3>Характеристики товару</h3>
-                {formData.characteristics.map((char, index) => (
-                    <div key={index} style={{ display: 'flex', gap: '15px', marginBottom: '10px', alignItems: 'center' }}>
-                        <input className="admin-input" placeholder="Назва (напр. Матеріал)" value={char.label} onChange={e => handleCharacteristicChange(index, 'label', e.target.value)} />
-                        <input className="admin-input" placeholder="Значення (напр. Дуб)" value={char.value} onChange={e => handleCharacteristicChange(index, 'value', e.target.value)} />
-                        <button type="button" className="delete-block-btn" style={{position: 'static'}} onClick={() => removeCharacteristic(index)}>✖</button>
+                <section className="admin-product-section">
+                    <h3>Характеристики товару</h3>
+
+                    <div className="admin-characteristics">
+                        {formData.characteristics.map((characteristic, index) => (
+                            <div className="admin-characteristic-row" key={index}>
+                                <input
+                                    className="admin-product-input"
+                                    placeholder="Назва характеристики"
+                                    value={characteristic.label}
+                                    onChange={(event) => handleCharacteristicChange(index, 'label', event.target.value)}
+                                />
+                                <input
+                                    className="admin-product-input"
+                                    placeholder="Значення характеристики"
+                                    value={characteristic.value}
+                                    onChange={(event) => handleCharacteristicChange(index, 'value', event.target.value)}
+                                />
+                                {formData.characteristics.length > 1 && (
+                                    <button
+                                        type="button"
+                                        className="admin-characteristic-remove"
+                                        onClick={() => removeCharacteristic(index)}
+                                        aria-label="Видалити характеристику"
+                                    >
+                                        ×
+                                    </button>
+                                )}
+                            </div>
+                        ))}
                     </div>
-                ))}
-                
-                <div style={{ display: 'flex', gap: '15px' }}>
-                    <button type="button" className="teal-btn" onClick={addCharacteristic}>Додати характеристику</button>
-                    <button type="button" className="red-btn" onClick={() => setFormData({...formData, characteristics: []})}>Очистити всі</button>
-                </div>
 
-                <h3>Галерея (макс. 4)</h3>
-                <div className="product-images-grid">
+                    <div className="admin-product-actions-row">
+                        <button type="button" className="admin-product-action" onClick={addCharacteristic}>
+                            Додати характеристику
+                        </button>
+                        <button type="button" className="admin-product-action" onClick={clearCharacteristics}>
+                            Очистити всі характеристики
+                        </button>
+                    </div>
+                </section>
+
+                <div className="admin-product-gallery">
                     {formData.images.map((url, index) => (
-                        <div key={index} className="admin-image-preview">
-                            <img src={url} alt="" />
-                            <button type="button" className="delete-photo-btn" onClick={() => removeImage(index)}>×</button>
+                        <div className="admin-product-image" key={`${url}-${index}`}>
+                            <img src={url} alt={`Фото товару ${index + 1}`} />
+                            <button type="button" onClick={() => removeImage(index)} aria-label="Видалити фото">×</button>
                         </div>
                     ))}
                 </div>
 
-                <div className="upload-placeholder">
-                    <input type="file" id="product-file-input" hidden accept="image/*" onChange={handleFileChange} />
-                    <button type="button" className="teal-btn" onClick={() => document.getElementById('product-file-input').click()} disabled={formData.images.length >= 4}>Завантажити файл</button>
+                <div className="admin-product-upload">
+                    <span>Виберіть фото... (до 4 шт.)</span>
+                    <label>
+                        Завантажити
+                        <input type="file" hidden accept="image/*" multiple onChange={handleFileChange} disabled={formData.images.length >= 4} />
+                    </label>
                 </div>
 
-                <button type="button" className="teal-btn save-btn-main" onClick={handleSave} style={{ marginTop: '30px', width: '100%' }}>Зберегти товар</button>
+                <button type="button" className="admin-product-save" onClick={handleSave}>
+                    Зберегти
+                </button>
             </div>
         </div>
     );

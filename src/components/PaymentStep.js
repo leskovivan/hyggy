@@ -17,7 +17,7 @@ const PaymentStep = ({ data, updateData, onConfirm, onPrev }) => {
             return;
         }
 
-        if (cvv.length !== 3) {
+        if (cvv.replace(/\D/g, '').length !== 3) {
             alert('CVV код має містити 3 цифри.');
             return;
         }
@@ -33,20 +33,21 @@ const PaymentStep = ({ data, updateData, onConfirm, onPrev }) => {
 
             <div className="checkout-payment-top-line" />
 
-            <form className="checkout-payment-form" onSubmit={(e) => { e.preventDefault(); handleConfirm(); }}>
+            <form className="checkout-payment-form" onSubmit={(event) => { event.preventDefault(); handleConfirm(); }}>
                 <h1>Оплата</h1>
 
                 <input
                     className="checkout-payment-input"
                     placeholder="Спосіб оплати*"
                     value={data.method}
-                    onChange={(e) => handleChange('method', e.target.value)}
+                    onChange={(event) => handleChange('method', event.target.value)}
                 />
                 <input
                     className="checkout-payment-input"
                     placeholder="Номер карти*"
                     value={data.cardNumber}
-                    onChange={(e) => handleChange('cardNumber', e.target.value)}
+                    inputMode="numeric"
+                    onChange={(event) => handleChange('cardNumber', event.target.value)}
                 />
 
                 <div className="checkout-payment-inline">
@@ -54,13 +55,14 @@ const PaymentStep = ({ data, updateData, onConfirm, onPrev }) => {
                         className="checkout-payment-input"
                         placeholder="MM/YY*"
                         value={data.expiry}
-                        onChange={(e) => handleChange('expiry', e.target.value)}
+                        onChange={(event) => handleChange('expiry', event.target.value)}
                     />
                     <input
                         className="checkout-payment-input"
                         placeholder="CVV*"
                         value={data.cvv}
-                        onChange={(e) => handleChange('cvv', e.target.value)}
+                        inputMode="numeric"
+                        onChange={(event) => handleChange('cvv', event.target.value)}
                     />
                 </div>
 

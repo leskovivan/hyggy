@@ -1,314 +1,412 @@
-/* FilterSidebar.css */
-
 .filter-sidebar-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 2000;
-    display: flex;
-    justify-content: flex-end;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.34);
 }
 
 .filter-sidebar-content {
-    width: 480px;
-    height: 100%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    animation: slideLeft 0.4s ease-out;
+  width: min(665px, 100vw);
+  height: 100%;
+  overflow-y: auto;
+  background: #fff;
+  color: #231f20;
+  animation: filterPanelIn 0.28s ease-out;
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12);
 }
 
-@keyframes slideLeft {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
+@keyframes filterPanelIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .sidebar-header {
-    padding: 30px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    border-bottom: 1px solid #e0e0e0;
+  position: relative;
+  margin: 0 64px;
+  min-height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #231f20;
 }
 
 .sidebar-header h2 {
-    font-size: 28px;
-    font-weight: 700;
-    margin: 0;
-    font-family: 'Raleway', sans-serif;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
 }
 
 .close-btn {
-    position: absolute;
-    right: 30px;
-    font-size: 32px;
-    background: none; 
-    border: none; 
-    cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: #231f20;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  line-height: 1;
+  transform: translateY(-50%);
 }
 
 .sidebar-body {
-    padding: 20px 40px;
-    overflow-y: auto;
+  padding: 0 64px 72px;
 }
 
 .sidebar-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
+  min-height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #231f20;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.divider {
-    height: 1px;
-    background: #e0e0e0;
-    margin: 10px 0;
+.toggle-row {
+  cursor: pointer;
 }
 
-/* --- Акордеон --- */
+.filter-switch {
+  position: relative;
+  width: 56px;
+  height: 30px;
+  flex: 0 0 auto;
+}
+
+.filter-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.filter-switch-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: #d9d9d9;
+  transition: background 0.2s ease;
+}
+
+.filter-switch-track::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s ease;
+}
+
+.filter-switch input:checked + .filter-switch-track {
+  background: #0aa7aa;
+}
+
+.filter-switch input:checked + .filter-switch-track::before {
+  transform: translateX(26px);
+}
+
 .filter-accordion {
-    border-bottom: 1px solid #e0e0e0;
+  border-bottom: 2px solid #231f20;
 }
 
 .accordion-header {
-    padding: 25px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 600;
-    font-family: 'Raleway', sans-serif;
+  width: 100%;
+  min-height: 76px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #231f20;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
 }
 
-.filter-accordion.open svg {
-    transform: rotate(180deg);
+.accordion-chevron {
+  width: 18px;
+  height: 18px;
+  border-right: 3px solid #231f20;
+  border-bottom: 3px solid #231f20;
+  transform: rotate(45deg) translate(-3px, -3px);
+  transition: transform 0.2s ease;
+}
+
+.filter-accordion.open .accordion-chevron {
+  transform: rotate(-135deg) translate(-2px, -2px);
 }
 
 .accordion-content {
-    padding-bottom: 25px;
+  padding: 4px 0 34px;
 }
 
-/* --- Слайдер ціни (Подвійний) --- */
-.dual-range-wrapper {
-    position: relative;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
+.price-filter {
+  padding-top: 26px;
 }
 
-.dual-range-wrapper::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 4px;
-    background: #000;
-    border-radius: 2px;
+.dual-range {
+  position: relative;
+  height: 42px;
+  display: flex;
+  align-items: center;
 }
 
-.range-track {
-    position: absolute;
-    height: 4px;
-    background: #00aaad;
-    z-index: 1;
+.dual-range::before,
+.dual-range::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
 }
 
-.thumb {
-    position: absolute;
-    width: 100%;
-    pointer-events: none;
-    -webkit-appearance: none;
-    background: none;
-    z-index: 2;
-    outline: none;
+.dual-range::before {
+  background: #231f20;
 }
 
-.thumb::-webkit-slider-thumb {
-    pointer-events: all;
-    -webkit-appearance: none;
-    width: 30px;
-    height: 30px;
-    background: #fff;
-    border: 6px solid #000;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+.dual-range::after {
+  left: var(--range-left);
+  right: var(--range-right);
+  background: #0aa7aa;
 }
 
-/* Поля вводу ціни */
+.dual-range input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 42px;
+  margin: 0;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  z-index: 2;
+}
+
+.dual-range input::-webkit-slider-thumb {
+  width: 28px;
+  height: 28px;
+  border: 7px solid #231f20;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.dual-range input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 7px solid #231f20;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.dual-range input::-moz-range-track {
+  background: transparent;
+  border: 0;
+}
+
 .price-inputs {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    margin-top: 20px;
+  margin-top: 34px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
 }
 
-.input-field {
-    border: 1px solid #767676;
-    border-radius: 12px;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    position: relative;
+.price-field {
+  height: 62px;
+  border: 1px solid #7b7b7b;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: center;
+  padding: 0 16px;
+  font-family: 'Raleway', sans-serif;
 }
 
-.field-label {
-    font-size: 14px;
-    color: #888;
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background: #fff;
-    padding: 0 5px;
+.price-field span {
+  color: #898989;
+  font-size: 14px;
+  font-weight: 400;
 }
 
-.input-field input {
-    border: none;
-    outline: none;
-    width: 100%;
-    text-align: center;
-    font-size: 18px;
-    font-family: inherit;
+.price-field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #231f20;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
 }
 
-/* --- Чекбокси (Виправлено позиціонування) --- */
 .checkbox-list {
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  display: grid;
+  gap: 0;
 }
 
 .check-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    cursor: pointer;
-    position: relative;
-    font-size: 18px;
-    font-family: 'Raleway', sans-serif;
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 56px 36px;
+  align-items: center;
+  gap: 12px;
+  color: #231f20;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
-/* Приховуємо дефолтний чекбокс */
+.check-item--simple {
+  grid-template-columns: minmax(0, 1fr) 36px;
+}
+
+.check-title {
+  min-width: 0;
+}
+
+.check-count {
+  justify-self: end;
+  color: #231f20;
+  font-size: 18px;
+  font-weight: 400;
+}
+
 .check-item input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Наш кастомний квадрат */
 .checkmark {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
-    position: relative;
+  width: 27px;
+  height: 27px;
+  border: 2px solid #231f20;
+  border-radius: 2px;
+  background: #fff;
+  justify-self: end;
+  position: relative;
 }
 
-/* Стан "вибрано" */
-.check-item input:checked ~ .checkmark {
-    background-color: #00aaad;
-    border-color: #00aaad;
+.checkmark::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 3px;
+  width: 7px;
+  height: 14px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  display: none;
+  transform: rotate(45deg);
 }
 
-/* Малюємо галочку (білу "V") */
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    left: 7px;
-    top: 3px;
-    width: 6px;
-    height: 11px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+.check-item input:checked + .checkmark {
+  border-color: #0aa7aa;
+  background: #0aa7aa;
 }
 
-.check-item input:checked ~ .checkmark:after {
-    display: block;
+.check-item input:checked + .checkmark::after {
+  display: block;
 }
 
-/* --- Кнопки статусу (Доставка) --- */
-.status-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+.filter-chips {
+  padding-top: 4px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 
-.status-tag {
-    padding: 12px 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background: white;
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.2s;
+.filter-chip {
+  min-height: 62px;
+  border: 1px solid #7b7b7b;
+  border-radius: 10px;
+  background: #fff;
+  color: #231f20;
+  cursor: pointer;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.15;
+  padding: 10px 12px;
 }
 
-.status-tag:hover, .status-tag.active {
-    border-color: #00aaad;
-    color: #00aaad;
+.filter-chip.active {
+  border-color: #0aa7aa;
+  background: #0aa7aa;
+  color: #fff;
 }
 
-/* --- Тумблер (Switch) --- */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
+.filter-empty {
+  margin: 0;
+  padding: 10px 0 20px;
+  color: #767676;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
 }
 
-.switch input { opacity: 0; width: 0; height: 0; }
+@media (max-width: 720px) {
+  .sidebar-header {
+    margin: 0 24px;
+    min-height: 104px;
+  }
 
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 24px;
-}
+  .sidebar-body {
+    padding: 0 24px 48px;
+  }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 18px; width: 18px;
-    left: 3px; bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-}
+  .sidebar-row,
+  .accordion-header {
+    min-height: 68px;
+    font-size: 18px;
+  }
 
-input:checked + .slider { background-color: #00aaad; }
-input:checked + .slider:before { transform: translateX(26px); }
-/* Підсвітка обраної категорії у випадайці */
-.simple-drop-list span.active {
-    color: #00aaad;
-    font-weight: 600;
-    background-color: #f0fdfd;
-}
+  .price-inputs,
+  .filter-chips {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 
-/* Кнопка очищення всередині випадайки */
-.clear-filter-btn {
-    margin-top: 5px;
-    padding: 8px;
-    border: none;
-    background: none;
-    color: #ff4d4f;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: underline;
-}
+  .check-item {
+    grid-template-columns: minmax(0, 1fr) 44px 32px;
+    font-size: 18px;
+  }
 
-.clear-filter-btn:hover {
-    color: #cf1322;
+  .check-item--simple {
+    grid-template-columns: minmax(0, 1fr) 32px;
+  }
 }

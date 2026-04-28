@@ -1,134 +1,181 @@
 import React, { useState } from 'react';
-import './QAPage.css';
-import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/Breadcrumb';
+import './QAPage.css';
 
-const QA_CATEGORIES = [
-  "Питання пов'язані з онлайн замовленнями",
-  "Перевезення та доставка",
-  "Повернення та претензії",
-  "Питання стосовно продукції",
-  "Питання пов’язані з магазинами та замовленнями із магазинів"
+const qaGroups = [
+  {
+    title: "Питання пов'язані з онлайн замовленнями",
+    questions: [
+      'Як я можу змінити замовлення?',
+      'Як я можу скасувати замовлення?',
+      'Я не отримав підтвердження замовлення або рахунок-фактуру',
+      'Магазин не проінформував мене, що я можу забрати замовлення',
+      'Якими варіантами оплати я можу скористатися на сайті?',
+      'Як довго моє замовлення «Замов та Забери» залишається зарезервованим?',
+      'Де я можу використати свою подарункову картку?',
+    ],
+  },
+  {
+    title: 'Перевезення та доставка',
+    questions: [
+      'Які варіанти доставки доступні для замовлень?',
+      'Скільки часу займає доставка моєї покупки?',
+      'Як я можу відстежувати статус свого замовлення?',
+      'Чи можу я змінити адресу доставки?',
+      'Що робити, якщо кур’єр не зміг доставити замовлення?',
+    ],
+  },
+  {
+    title: 'Повернення та претензії',
+    questions: [
+      'Які умови повернення товарів, якщо вони не підійшли?',
+      'Що робити, якщо товар прибув пошкодженим?',
+      'Скільки часу займає повернення коштів?',
+      'Чи можна повернути товар, куплений онлайн, у магазині?',
+    ],
+  },
+  {
+    title: 'Питання стосовно продукції',
+    questions: [
+      'Які матеріали використовуються для виготовлення вашої продукції?',
+      'Чи надаєте ви послуги складання меблів?',
+      'Як перевірити наявність товару?',
+      'Де знайти інструкцію зі складання?',
+    ],
+  },
+  {
+    title: 'Питання пов’язані з магазинами та замовленнями із магазинів',
+    questions: [
+      'Як я можу знайти найближчий до мене магазин?',
+      'Чи можу я замовити товар в магазині, а забрати його самостійно?',
+      'Як дізнатися графік роботи магазину?',
+      'Чи є можливість отримати знижку при великому замовленні?',
+    ],
+  },
 ];
 
-const COMMON_QUESTIONS_LEFT = [
-  "Як я можу зробити замовлення в вашому інтернет-магазині?",
-  "Чи можу я змінити або скасувати своє замовлення після його оформлення?",
-  "Які варіанти доставки доступні для замовлень?",
-  "Скільки часу займе доставка моєї покупки?",
-  "Як я можу відстежувати статус свого замовлення?",
-  "Які умови повернення товарів, якщо вони не підійшли?",
-  "Що робити, якщо товар прибув пошкодженим?"
-];
-
-const COMMON_QUESTIONS_RIGHT = [
-  "Які матеріали використовуються для виготовлення вашої продукції?",
-  "Як я можу знайти найближчий до мене магазин, що продає ваші меблі?",
-  "Чи можу я замовити товар в магазині, а забрати його самостійно?",
-  "Чи надаєте ви послуги складання меблів?",
-  "Які методи оплати ви приймаєте?",
-  "Чи є можливість отримати знижку при покупці великої кількості меблів?"
+const commonQuestions = [
+  'Як я можу зробити замовлення в вашому інтернет-магазині?',
+  'Чи можу я змінити або скасувати своє замовлення після його оформлення?',
+  'Які варіанти доставки доступні для замовлень?',
+  'Скільки часу займе доставка моєї покупки?',
+  'Як я можу відстежувати статус свого замовлення?',
+  'Які умови повернення товарів, якщо вони не підійшли?',
+  'Що робити, якщо товар прибув пошкодженим?',
+  'Які матеріали використовуються для виготовлення вашої продукції?',
+  'Як я можу знайти найближчий до мене магазин, що продає ваші меблі?',
+  'Чи можу я замовити товар в магазині, а забрати його самостійно?',
+  'Чи надаєте ви послуги складання меблів?',
+  'Які методи оплати ви приймаєте?',
+  'Чи є можливість отримати знижку при покупці великої кількості меблів?',
 ];
 
 function QAPage() {
   const [openIndex, setOpenIndex] = useState(null);
 
-  const toggleAccordion = (index) => {
-    setOpenIndex(openIndex === index ? null : index);
+  const splitIndex = Math.ceil(commonQuestions.length / 2);
+  const commonColumns = [
+    commonQuestions.slice(0, splitIndex),
+    commonQuestions.slice(splitIndex),
+  ];
+
+  const toggleGroup = (index) => {
+    setOpenIndex((currentIndex) => (currentIndex === index ? null : index));
   };
 
   return (
     <main className="qa-page">
-      <div className="work-page__breadcrumbs">
-                <Breadcrumb />
-              </div>
-      <div className="qa-page__header">
-        <h1 className="qa-page__title">Питання і відповіді</h1>
-      </div>
+      <section className="qa-page__container qa-page__breadcrumbs">
+        <Breadcrumb customLabels={{ qa: 'Питання/відповіді' }} />
+      </section>
 
-      <div className="qa-page__content-top">
+      <section className="qa-page__container qa-page__top">
         <div className="qa-page__intro">
-          <p>
-            Вітаємо вас у розділі "Питання та відповіді" нашого інтернет-магазину! Ми прагнемо зробити ваш досвід покупки максимально зручним і зрозумілим. Тут ви знайдете відповіді на найпоширеніші запитання щодо замовлень, доставки, повернення товарів та нашої продукції. Ми рекомендуємо ознайомитися з цією інформацією перед оформленням замовлення, щоб уникнути можливих непорозумінь. Якщо ви не знайшли потрібну інформацію, будь ласка, зв’яжіться з нашою службою підтримки, і ми із задоволенням вам допоможемо. Наші фахівці готові відповісти на ваші запитання в будь-який час. Ваш комфорт і задоволення від покупки – наш головний пріоритет. Ми постійно вдосконалюємо наш сервіс, щоб зробити його ще більш зручним для вас. Дякуємо, що обрали нас для облаштування вашого дому!
+          <h1 className="qa-page__title">Питання і відповіді</h1>
+          <p className="qa-page__intro-text">
+            Вітаємо вас у розділі "Питання та відповіді" нашого інтернет-магазину! Ми прагнемо зробити ваш досвід покупки максимально зручним і зрозумілим. Тут ви знайдете відповіді на найпоширеніші запитання щодо замовлень, доставки, повернення товарів та нашої продукції. Ми рекомендуємо ознайомитися з цією інформацією перед оформленням замовлення, щоб уникнути можливих непорозумінь. Якщо ви не знайшли потрібну інформацію, будь ласка, зв’яжіться з нашою службою підтримки, і ми із задоволенням вам допоможемо. Наші фахівці готові відповісти на ваші запитання в будь-який час. Ваш комфорт і задоволення від покупки - наш головний пріоритет.
           </p>
         </div>
 
-        <div className="qa-page__contacts-card">
+        <aside className="qa-page__contacts" aria-label="Контакти">
           <h2 className="qa-page__contacts-title">Контакти</h2>
-          
-          <div className="qa-page__contacts-list">
-            <div className="qa-page__contact-item">
-              <img src="https://www.figma.com/api/mcp/asset/4941208a-db07-47aa-9da8-c37e626c0459" alt="Messenger" className="qa-page__contact-icon" />
-              <div className="qa-page__contact-info">
-                <span className="qa-page__contact-name">Зв’язатися з нами в Messenger</span>
-                <span className="qa-page__contact-time">Час відповіді - 1 год.</span>
+          <div className="qa-page__contacts-card">
+            <div className="qa-page__contact-row">
+              <span className="qa-page__contact-icon qa-page__contact-icon--chat" aria-hidden="true" />
+              <div>
+                <p className="qa-page__contact-name">Зв’язатися з нами в Messenger</p>
+                <p className="qa-page__contact-note">Час відповіді - 1 год.</p>
               </div>
             </div>
-            
-            <div className="qa-page__contacts-divider"></div>
-
-            <div className="qa-page__contact-item">
-              <img src="https://www.figma.com/api/mcp/asset/70dbd602-a2c0-428b-9370-87d2d3154a8d" alt="Phone" className="qa-page__contact-icon qa-page__contact-icon--rotate" />
-              <div className="qa-page__contact-info">
-                <span className="qa-page__contact-name">+380123456789</span>
-                <span className="qa-page__contact-time">Час відповіді - 1 хв.</span>
+            <div className="qa-page__contact-row">
+              <span className="qa-page__contact-icon qa-page__contact-icon--phone" aria-hidden="true" />
+              <div>
+                <p className="qa-page__contact-name">+380123456789</p>
+                <p className="qa-page__contact-note">Час відповіді - 1 хв.</p>
               </div>
             </div>
-
-            <div className="qa-page__contacts-divider"></div>
-
-            <div className="qa-page__contact-item">
-              <img src="https://www.figma.com/api/mcp/asset/f9fe0cd8-3008-46cc-be83-6f882b1ba779" alt="Email" className="qa-page__contact-icon qa-page__contact-icon--email" />
-              <div className="qa-page__contact-info">
-                <span className="qa-page__contact-name">E-mail</span>
-                <span className="qa-page__contact-time">Час відповіді - 24 год.</span>
+            <div className="qa-page__contact-row">
+              <span className="qa-page__contact-icon qa-page__contact-icon--email" aria-hidden="true" />
+              <div>
+                <p className="qa-page__contact-name">E-mail</p>
+                <p className="qa-page__contact-note">Час відповіді - 24 год.</p>
               </div>
             </div>
-
-            <div className="qa-page__contact-schedule">
-              <div className="qa-page__schedule-item">
-                 <img src="https://www.figma.com/api/mcp/asset/0652784b-9fb5-48f4-b701-a4a8b62bfbe3" alt="Clock" className="qa-page__contact-icon qa-page__contact-icon--clock" />
-                 <div className="qa-page__contact-info">
-                    <span className="qa-page__schedule-title" style={{fontWeight: 700}}>Графік роботи відділу по роботі з клієнтами</span>
-                    <ul className="qa-page__schedule-list">
-                      <li>Пн – Пт: 09:00 - 19:00</li>
-                      <li>Сб – Нд: 10:00 - 18:00</li>
-                    </ul>
-                 </div>
-              </div>
+            <div className="qa-page__schedule">
+              <p className="qa-page__schedule-title">Графік роботи відділу по роботі з клієнтами</p>
+              <ul>
+                <li>Пн - Пт: 09:00 - 19:00</li>
+                <li>Сб - Нд: 10:00 - 18:00</li>
+              </ul>
             </div>
           </div>
-        </div>
-      </div>
+        </aside>
+      </section>
 
-      <div className="qa-page__accordion-section">
-        {QA_CATEGORIES.map((category, index) => (
-          <div key={index} className={`qa-page__accordion-item ${openIndex === index ? 'active' : ''}`} onClick={() => toggleAccordion(index)}>
-            <h3 className="qa-page__accordion-title">{category}</h3>
-            <img 
-               src="https://www.figma.com/api/mcp/asset/cbcb1e8e-ce3d-49e9-b04e-8cf48db9b9d6" 
-               alt="Toggle" 
-               className={`qa-page__accordion-icon ${openIndex === index ? 'rotated' : ''}`} 
-            />
-          </div>
-        ))}
-      </div>
+      <section className="qa-page__container qa-page__accordion" aria-label="Категорії питань">
+        {qaGroups.map((group, index) => {
+          const isOpen = openIndex === index;
 
-      <div className="qa-page__common-section">
+          return (
+            <article className={`qa-page__accordion-item${isOpen ? ' qa-page__accordion-item--open' : ''}`} key={group.title}>
+              <button
+                className="qa-page__accordion-button"
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={`qa-panel-${index}`}
+                onClick={() => toggleGroup(index)}
+              >
+                <span>{group.title}</span>
+                <span className="qa-page__chevron" aria-hidden="true" />
+              </button>
+              {isOpen && (
+                <div className="qa-page__accordion-panel" id={`qa-panel-${index}`}>
+                  {group.questions.map((question) => (
+                    <button className="qa-page__accordion-question" type="button" key={question}>
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </article>
+          );
+        })}
+      </section>
+
+      <section className="qa-page__container qa-page__common">
         <h2 className="qa-page__common-title">Найбільш поширені питання</h2>
-        <div className="qa-page__common-lists">
-          <ul className="qa-page__common-list">
-            {COMMON_QUESTIONS_LEFT.map((q, i) => (
-              <li key={i}><a href="#" className="qa-page__common-link">{q}</a></li>
-            ))}
-          </ul>
-          <ul className="qa-page__common-list">
-            {COMMON_QUESTIONS_RIGHT.map((q, i) => (
-              <li key={i}><a href="#" className="qa-page__common-link">{q}</a></li>
-            ))}
-          </ul>
+        <div className="qa-page__common-card">
+          {commonColumns.map((column, columnIndex) => (
+            <div className="qa-page__common-column" key={columnIndex}>
+              {column.map((question) => (
+                <button className="qa-page__common-link" type="button" key={question}>
+                  {question}
+                </button>
+              ))}
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
     </main>
   );
 }

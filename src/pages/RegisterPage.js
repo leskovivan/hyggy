@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './LoginPage.css';
 import Breadcrumb from '../components/Breadcrumb';
+import './LoginPage.css';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
@@ -10,7 +10,6 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
-  
   const [agreed, setAgreed] = useState(false);
   const [findOrders, setFindOrders] = useState(false);
   const [subscribe, setSubscribe] = useState(false);
@@ -18,119 +17,132 @@ const RegisterPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    // 1. Базова валідація
     if (password !== confirmPassword) {
       alert('Паролі не збігаються!');
       return;
     }
+
     if (!agreed) {
       alert('Ви повинні прийняти умови та положення');
       return;
     }
 
     try {
-      // 2. Перевірка, чи не зайнятий імейл
-      const checkRes = await fetch(`http://localhost:3001/users?email=${email}`);
-      const existingUsers = await checkRes.json();
-      
+      const checkResponse = await fetch(`http://localhost:3001/users?email=${email}`);
+      const existingUsers = await checkResponse.json();
+
       if (existingUsers.length > 0) {
         alert('Користувач з таким e-mail вже існує!');
         return;
       }
 
-      // 3. Створення нового об'єкта юзера
       const newUser = {
         name,
         email,
-        password, // В реальних проектах паролі хешують, але для json-server поки так
+        password,
         role: 'user',
-        subscribe: subscribe,
-        findOrders: findOrders,
-        createdAt: new Date().toISOString()
+        subscribe,
+        findOrders,
+        favorites: [],
+        createdAt: new Date().toISOString(),
       };
 
-      // 4. Запис у db.json
       const response = await fetch('http://localhost:3001/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser)
+        body: JSON.stringify(newUser),
       });
 
       if (response.ok) {
         const userData = await response.json();
-        login(userData); // Зберігаємо юзера в контексті (AuthContext + LocalStorage)
-        navigate('/');   // Перенаправляємо на головну
+        login(userData);
+        navigate('/confirm');
       }
     } catch (error) {
-      console.error("Помилка реєстрації:", error);
+      console.error('Помилка реєстрації:', error);
       alert('Сталася помилка на сервері. Спробуйте пізніше.');
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-main-container">
-        <Breadcrumb items={[{ label: 'Головна', path: '/' }, { label: 'Реєстрація' }]} />
-      </div>
+    <main className="auth-page auth-page--register">
+      <div className="auth-page__container">
+        <Breadcrumb items={[
+          { label: 'Домашня сторінка', path: '/' },
+          { label: 'Моя сторінка', path: '/profile' },
+          { label: 'Створити обліковий запис' },
+        ]} />
 
-      <h2 className="login-title">Створити обліковий запис</h2>
+        <header className="auth-heading">
+          <h1>Створити обліковий запис</h1>
+        </header>
 
-      <div className="login-content">
-        <div className="login-container register-container-wide">
-          
-          <form className="login-form" onSubmit={handleSubmit}>
-            <div className="input-group">
-              <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            </div>
+        <section className="auth-panel" aria-label="Створити обліковий запис">
+          <form className="auth-form register-form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              required
+            />
 
-            <div className="input-group">
-              <input type="password" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} required />
-            </div>
+            <input
+              type="password"
+              placeholder="Пароль"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
 
-            <div className="input-group">
-              <input type="password" placeholder="Повторити пароль" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-            </div>
+            <input
+              type="password"
+              placeholder="Повторити пароль"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              required
+            />
 
-            <div className="input-group">
-              <input type="text" placeholder="Ім'я" value={name} onChange={(e) => setName(e.target.value)} required />
-            </div>
+            <input
+              type="text"
+              placeholder="Ім’я"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+            />
 
             <div className="checkbox-section">
               <label className="checkbox-item">
-                <input type="checkbox" checked={agreed} onChange={() => setAgreed(!agreed)} />
-                <span className="custom-selector"></span>
+                <input type="checkbox" checked={agreed} onChange={() => setAgreed((value) => !value)} />
+                <span className="custom-selector" />
                 <span className="checkbox-text">Прийняти <a href="/terms">Умови та Положення</a></span>
               </label>
 
               <label className="checkbox-item">
-                <input type="checkbox" checked={findOrders} onChange={() => setFindOrders(!findOrders)} />
-                <span className="custom-selector"></span>
+                <input type="checkbox" checked={findOrders} onChange={() => setFindOrders((value) => !value)} />
+                <span className="custom-selector" />
                 <span className="checkbox-text">Знайти минулі замовлення для цього облікового запису</span>
               </label>
 
               <label className="checkbox-item">
-                <input type="checkbox" checked={subscribe} onChange={() => setSubscribe(!subscribe)} />
-                <span className="custom-selector"></span>
+                <input type="checkbox" checked={subscribe} onChange={() => setSubscribe((value) => !value)} />
+                <span className="custom-selector" />
                 <span className="checkbox-text">Підписатися на наші новини <a href="/news" className="preview-link">Переглянути</a></span>
               </label>
             </div>
-            
-            {/* Кнопка тепер просто submit, логіка переходу всередині handleSubmit */}
-            <button type="submit" className="login-submit-btn">
-              Створити обліковий запис
-            </button>
 
-            <button type="button" className="cancel-link" onClick={() => navigate('/login')}>
+            <button type="submit" className="auth-primary-btn">Створити обліковий запис</button>
+
+            <button type="button" className="auth-link" onClick={() => navigate('/login')}>
               Скасувати
             </button>
           </form>
-
-        </div>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

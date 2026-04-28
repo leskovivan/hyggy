@@ -1,66 +1,61 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import './LoginPage.css';
 import Breadcrumb from '../components/Breadcrumb';
+import './LoginPage.css';
 import './RegisterPage.css';
-const ConfirmPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
-  
-  const [agreed, setAgreed] = useState(false);
-  const [findOrders, setFindOrders] = useState(false);
-  const [subscribe, setSubscribe] = useState(false);
 
-  const { login } = useAuth();
+const ConfirmPage = () => {
+  const [code, setCode] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Паролі не збігаються!');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!code.trim()) {
+      alert('Введіть код підтвердження');
       return;
     }
-    if (!agreed) {
-      alert('Ви повинні прийняти умови');
-      return;
-    }
-    login({ email, name, role: 'user' });
-    navigate('/');
+
+    navigate('/success');
   };
 
   return (
-    <div className="login-page">
-      <div className="login-main-container">
-        <Breadcrumb items={[{ label: 'Головна', path: '/' }, { label: 'Підтвердження реєстрації' }]} />
-      </div>
+    <main className="auth-page auth-page--confirm">
+      <div className="auth-page__container">
+        <Breadcrumb items={[
+          { label: 'Домашня сторінка', path: '/' },
+          { label: 'Моя сторінка', path: '/profile' },
+          { label: 'Створити обліковий запис' },
+        ]} />
 
-      <h2 className="login-title">Підтвердження облікового запису</h2>
-      <div className="login-content">
-        <p>Ми відправили на вказану вами електронну адресу лист з кодом для підтвердження облікового запису.</p>
-      </div><div className="login-content">
-        
-        <div className="login-container register-container-wide">
-          
-          <form className="login-form" onSubmit={handleSubmit}>
-            <div className="input-group confirmation-code">
-              <input style={{"max-width": "500px", margin: "0 auto"}} type="text" placeholder="Введіть код"  onChange={(e) => setEmail(e.target.value)} required />
-            </div>
+        <header className="auth-heading">
+          <h1>Підтвердження облікового запису</h1>
+        </header>
 
-            
-            
-            <button type="submit" className="login-submit-btn" >Підтвердити реєстрацію</button>
-            
-            
-          </form>
-            <button type="button" className="cancel-link" onClick={() => navigate('/login')}>
+        <section className="auth-confirm-panel" aria-label="Підтвердження облікового запису">
+          <p className="auth-confirm-text">
+            Ми відправили на вказану вами електронну адресу лист з кодом для підтвердження облікового запису.
+          </p>
+
+          <form className="auth-form auth-confirm-form" onSubmit={handleSubmit}>
+            <input
+              className="auth-code-input"
+              type="text"
+              placeholder="Введіть код"
+              value={code}
+              onChange={(event) => setCode(event.target.value)}
+              required
+            />
+
+            <button type="submit" className="auth-primary-btn">Підтвердити</button>
+
+            <button type="button" className="auth-link" onClick={() => navigate('/login')}>
               Скасувати
             </button>
-        </div>
+          </form>
+        </section>
       </div>
-    </div>
+    </main>
   );
 };
 

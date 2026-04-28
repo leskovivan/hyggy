@@ -43,8 +43,8 @@
 }
 
 .thumb-wrapper {
-  flex: 0 0 120px;
-  width: 120px;
+  flex: 0 0 250px;
+  width: 250px;
   aspect-ratio: 250 / 218;
   padding: 0;
   border: 2px solid transparent;
@@ -89,5 +89,21 @@
 
   .gallery-secondary {
     display: none;
+  }
+
+  .thumb-wrapper {
+    flex-basis: 180px;
+    width: 180px;
+  }
+}
+
+@media (max-width: 520px) {
+  .thumbnails-row {
+    gap: 16px;
+  }
+
+  .thumb-wrapper {
+    flex-basis: 120px;
+    width: 120px;
   }
 }

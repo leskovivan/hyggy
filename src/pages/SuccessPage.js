@@ -1,51 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import './LoginPage.css';
 import Breadcrumb from '../components/Breadcrumb';
+import './LoginPage.css';
 import './RegisterPage.css';
-const SuccsessPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
-  
-  const [agreed, setAgreed] = useState(false);
-  const [findOrders, setFindOrders] = useState(false);
-  const [subscribe, setSubscribe] = useState(false);
 
-  const { login } = useAuth();
+const SuccessPage = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      alert('Паролі не збігаються!');
-      return;
-    }
-    if (!agreed) {
-      alert('Ви повинні прийняти умови');
-      return;
-    }
-    login({ email, name, role: 'user' });
-    navigate('/');
-  };
-
   return (
-    <div className="login-page">
-      <div className="login-main-container">
-        <Breadcrumb items={[{ label: 'Головна', path: '/' }, { label: 'Створити обліковий запис' }]} />
-      </div>
+    <main className="auth-page auth-page--success">
+      <div className="auth-page__container">
+        <Breadcrumb items={[
+          { label: 'Домашня сторінка', path: '/' },
+          { label: 'Моя сторінка', path: '/profile' },
+          { label: 'Створити обліковий запис' },
+        ]} />
 
-      <h2 className="login-title">Підтвердження облікового запису</h2>
-      <div className="login-content">
-        
-            <button type="button" className="cancel-link" onClick={() => navigate('/profile')}>
-              Перейти в профіль
-            </button>
-        </div>
+        <header className="auth-heading">
+          <h1>Обліковий запис успішно створено</h1>
+        </header>
+
+        <section className="auth-success-panel" aria-label="Обліковий запис успішно створено">
+          <button type="button" className="auth-link" onClick={() => navigate('/profile')}>
+            Перейти в профіль
+          </button>
+        </section>
       </div>
+    </main>
   );
 };
 
-export default SuccsessPage;
+export default SuccessPage;

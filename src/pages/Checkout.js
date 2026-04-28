@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
+import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Checkout.css';
+import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 import AddressStep from '../components/AddressStep';
 import DeliveryStep from '../components/DeliveryStep';
 import PaymentStep from '../components/PaymentStep';
 import SuccessStep from '../components/SuccessStep';
+import './Checkout.css';
 
-const formatMoney = (value) => `${Number(value).toLocaleString('uk-UA', {
+const DEFAULT_DELIVERY_PRICE = 40;
+
+const formatMoney = (value) => `${Number(value || 0).toLocaleString('uk-UA', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
 })} грн`;
 
-const formatDollar = (value) => `${Math.round(value).toLocaleString('uk-UA')} $`;
+const formatDollar = (value) => `${Math.round(value || 0).toLocaleString('uk-UA')} $`;
 
 const getOldPrice = (item) => {
     if (!item.discountPercent) return item.price;
@@ -24,26 +26,31 @@ const Checkout = () => {
     const [step, setStep] = useState(0);
     const { cartItems, totalAmount, clearCart, updateQuantity, removeFromCart } = useCart();
     const { user } = useAuth();
-    const deliveryPrice = 40;
-    const totalSavings = cartItems.reduce((sum, item) => {
-        const oldPrice = getOldPrice(item);
-        return sum + Math.max(0, oldPrice - item.price) * item.quantity;
-    }, 0);
-    const totalVAT = totalAmount * 0.2;
-    const finalTotal = totalAmount + deliveryPrice;
 
     const [orderData, setOrderData] = useState({
         address: { firstName: '', lastName: '', city: '', street: '', building: '', email: '', phone: '' },
-        delivery: { type: 'nova-poshta-courier', branch: '' },
-        payment: { method: 'card', cardNumber: '', expiry: '', cvv: '' },
-        orderId: null
+        delivery: { type: 'nova-poshta-courier', branch: '', price: DEFAULT_DELIVERY_PRICE },
+        payment: { method: '', cardNumber: '', expiry: '', cvv: '' },
+        orderId: null,
+        completedItems: [],
+        completedTotal: 0,
     });
 
-    const nextStep = () => setStep(prev => prev + 1);
-    const prevStep = () => setStep(prev => prev - 1);
+    const deliveryPrice = Number(orderData.delivery?.price ?? DEFAULT_DELIVERY_PRICE);
+    const finalTotal = totalAmount + deliveryPrice;
+
+    const totalSavings = useMemo(() => cartItems.reduce((sum, item) => {
+        const oldPrice = getOldPrice(item);
+        return sum + Math.max(0, oldPrice - item.price) * item.quantity;
+    }, 0), [cartItems]);
+
+    const totalVAT = totalAmount * 0.2;
+
+    const nextStep = () => setStep((prev) => prev + 1);
+    const prevStep = () => setStep((prev) => Math.max(0, prev - 1));
 
     const handleFinalSubmit = async () => {
-        const orderItems = cartItems;
+        const orderItems = cartItems.map((item) => ({ ...item }));
         const completedTotal = finalTotal;
         const finalOrder = {
             userId: user?.id,
@@ -51,30 +58,32 @@ const Checkout = () => {
             items: orderItems,
             totalAmount: completedTotal,
             details: orderData,
-            status: "Нове"
+            status: 'Нове',
         };
 
         try {
-            const res = await fetch('http://localhost:3001/orders', {
+            const response = await fetch('http://localhost:3001/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(finalOrder)
+                body: JSON.stringify(finalOrder),
             });
 
-            if (res.ok) {
-                const data = await res.json();
-                setOrderData(prev => ({
-                    ...prev,
-                    orderId: data.id,
-                    completedItems: orderItems,
-                    completedTotal,
-                }));
-                clearCart(); // Тепер має працювати після правки в CartContext.js
-                nextStep();
+            if (!response.ok) {
+                throw new Error('Order request failed');
             }
-        } catch (err) {
-            console.error("Помилка замовлення:", err);
-            alert("Не вдалося зберегти замовлення.");
+
+            const savedOrder = await response.json();
+            setOrderData((prev) => ({
+                ...prev,
+                orderId: savedOrder.id,
+                completedItems: orderItems,
+                completedTotal,
+            }));
+            clearCart();
+            nextStep();
+        } catch (error) {
+            console.error('Помилка замовлення:', error);
+            alert('Не вдалося зберегти замовлення.');
         }
     };
 
@@ -107,7 +116,7 @@ const Checkout = () => {
                                             <span />
                                         </button>
 
-                                        <img src={item.image} alt={item.name} className="checkout-item-image" />
+                                        <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} className="checkout-item-image" />
 
                                         <div className="checkout-item-copy">
                                             <h2>{item.name}</h2>
@@ -153,29 +162,30 @@ const Checkout = () => {
             )}
 
             {step === 1 && (
-                <AddressStep 
-                    data={orderData.address} 
-                    updateData={(d) => setOrderData({...orderData, address: d})} 
+                <AddressStep
+                    data={orderData.address}
+                    updateData={(address) => setOrderData((prev) => ({ ...prev, address }))}
                     onNext={nextStep}
                     onCancel={() => setStep(0)}
+                    deliveryPrice={deliveryPrice}
                 />
             )}
 
             {step === 2 && (
-                <DeliveryStep 
-                    data={orderData.delivery} 
-                    updateData={(d) => setOrderData({...orderData, delivery: d})} 
-                    onNext={nextStep} 
-                    onPrev={prevStep} 
+                <DeliveryStep
+                    data={orderData.delivery}
+                    updateData={(delivery) => setOrderData((prev) => ({ ...prev, delivery }))}
+                    onNext={nextStep}
+                    onPrev={prevStep}
                 />
             )}
 
             {step === 3 && (
-                <PaymentStep 
-                    data={orderData.payment} 
-                    updateData={(d) => setOrderData({...orderData, payment: d})} 
-                    onConfirm={handleFinalSubmit} 
-                    onPrev={prevStep} 
+                <PaymentStep
+                    data={orderData.payment}
+                    updateData={(payment) => setOrderData((prev) => ({ ...prev, payment }))}
+                    onConfirm={handleFinalSubmit}
+                    onPrev={prevStep}
                 />
             )}
 
@@ -183,8 +193,8 @@ const Checkout = () => {
                 <SuccessStep
                     orderId={orderData.orderId}
                     orderData={orderData}
-                    items={orderData.completedItems || cartItems}
-                    totalAmount={orderData.completedTotal ?? finalTotal}
+                    items={orderData.completedItems}
+                    totalAmount={orderData.completedTotal}
                 />
             )}
         </main>

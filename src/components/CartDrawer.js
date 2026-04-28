@@ -43,7 +43,7 @@ const CartDrawer = () => {
           ) : (
             cartItems.map(item => (
               <div key={item.id} className="drawer-item">
-                <img src={item.image} alt={item.name} />
+                <img src={item.image || (item.images && item.images[0]) || ''} alt={item.name} />
                 <div className="drawer-item-info">
                   <h4>{item.name}</h4>
                   <p>{item.price} $</p>

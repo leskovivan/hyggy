@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ItemCard from '../components/ItemCard'; 
 import Breadcrumb from '../components/Breadcrumb';
+import ItemCard from '../components/ItemCard';
+import categories from './categoriesData';
+import { products as fallbackProducts } from './products';
 import './CategoryPage.css';
-
-const CATEGORY_LABELS = {
-  kitchen: 'Кухня',
-  bedroom: 'Спальня',
-  'living-room': 'Вітальня',
-  office: 'Офіс',
-  bathroom: 'Ванна',
-  garden: 'Для саду',
-};
 
 const BRAND_CARDS = [
   {
@@ -36,34 +29,74 @@ const BRAND_CARDS = [
   },
 ];
 
+const ARTICLES = [
+  {
+    image: '/images/bedroom.png',
+    title: 'Створіть затишний дім: 5 порад з вибору меблів для різних кімнат',
+    text: 'Вибір меблів для вашого будинку - це не тільки питання стилю, але й комфорту та функціональності.',
+  },
+  {
+    image: '/images/office.png',
+    title: 'Як правильно вибрати освітлення для різних кімнат вашої оселі',
+    text: 'Освітлення відіграє ключову роль у створенні комфортної атмосфери та підкреслює характер інтер’єру.',
+  },
+];
+
+const getCategoryTitle = (slug) => {
+  const category = categories.find((item) => item.slug === slug);
+  return category?.title || 'Категорія';
+};
+
+const normalizeProduct = (product, categoryName) => ({
+  ...product,
+  category: product.category || categoryName,
+  image: product.image || product.images?.[0] || '/images/product-chair.png',
+  brand: product.brand || 'BISTRUP',
+  name: product.name || 'Стілець обідній BISTRUP оливковий/дуб',
+  rating: product.rating ?? 5,
+});
+
 const CategoryPage = () => {
   const { categoryName } = useParams();
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const decodedCategory = decodeURIComponent(categoryName || '');
-  const categoryTitle = CATEGORY_LABELS[decodedCategory] || 'Категорія';
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const categoryTitle = getCategoryTitle(decodedCategory);
 
   useEffect(() => {
     setIsLoading(true);
 
-    fetch(`http://localhost:3001/products?category=${decodedCategory.toLowerCase()}`)
-      .then((res) => res.json())
+    fetch(`http://localhost:3001/products?category=${decodedCategory}`)
+      .then((response) => response.json())
       .then((data) => {
-        setFilteredProducts(data);
+        const source = Array.isArray(data) ? data : [];
+        setProducts(source.map((product) => normalizeProduct(product, decodedCategory)));
         setIsLoading(false);
       })
-      .catch((err) => {
-        console.error('Помилка завантаження товарів:', err);
+      .catch((error) => {
+        console.error('Помилка завантаження товарів:', error);
+        const fallback = fallbackProducts
+          .filter((product) => product.category === decodedCategory)
+          .map((product) => normalizeProduct(product, decodedCategory));
+
+        setProducts(fallback);
         setIsLoading(false);
       });
   }, [decodedCategory]);
+
+  const visibleProducts = useMemo(() => {
+    if (products.length) return products;
+
+    return fallbackProducts
+      .filter((product) => product.category === decodedCategory)
+      .map((product) => normalizeProduct(product, decodedCategory));
+  }, [decodedCategory, products]);
 
   return (
     <main className="category-page">
       <div className="category-page-container">
         <div className="category-breadcrumb-wrap">
-          <Breadcrumb customLabels={{ [decodedCategory]: categoryTitle }} />
+          <Breadcrumb customLabels={{ category: 'Категорії', [decodedCategory]: categoryTitle }} />
         </div>
 
         <header className="category-page-heading">
@@ -75,8 +108,8 @@ const CategoryPage = () => {
           <div className="category-state">Завантаження товарів...</div>
         ) : (
           <div className="category-products-grid">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((item) => (
+            {visibleProducts.length > 0 ? (
+              visibleProducts.map((item) => (
                 <ItemCard key={item.id} product={item} />
               ))
             ) : (
@@ -104,20 +137,15 @@ const CategoryPage = () => {
           <span />
         </button>
         <div className="category-articles-track">
-          <article className="category-article-card">
-            <div className="category-article-image">
-              <img src="/images/bedroom.png" alt="Інтер'єр спальні" />
-              <h3>Створіть затишний дім: 5 порад з вибору меблів для різних кімнат</h3>
-            </div>
-            <p>Вибір меблів для вашого будинку - це не тільки питання стилю, але й комфорту та функціональності.</p>
-          </article>
-          <article className="category-article-card">
-            <div className="category-article-image">
-              <img src="/images/office.png" alt="Сучасний інтер'єр" />
-              <h3>Як правильно вибрати освітлення для різних кімнат вашої оселі</h3>
-            </div>
-            <p>Освітлення відіграє ключову роль у створенні комфортної атмосфери у вашому будинку.</p>
-          </article>
+          {ARTICLES.map((article) => (
+            <article className="category-article-card" key={article.title}>
+              <div className="category-article-image">
+                <img src={article.image} alt="" />
+                <h3>{article.title}</h3>
+              </div>
+              <p>{article.text}</p>
+            </article>
+          ))}
         </div>
         <button className="category-articles-arrow category-articles-arrow--right" type="button" aria-label="Наступна стаття">
           <span />

@@ -1,258 +1,459 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
-
 .qa-page {
-  max-width: 1920px;
-  margin: 0 auto;
-  background-color: #f3f3f3;
-  padding-bottom: 120px;
-  font-family: 'Inter', sans-serif;
+  background: #f3f3f3;
   color: #000;
-  position: relative;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 72px;
+}
+
+.qa-page__container {
+  width: min(1650px, calc(100% - 270px));
+  margin: 0 auto;
 }
 
 .qa-page__breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 40px 140px;
+  padding-top: 31px;
+  padding-bottom: 47px;
+}
+
+.qa-page__breadcrumbs .breadcrumb {
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.75);
+  font-family: 'Inter', sans-serif;
   font-size: 20px;
   font-weight: 300;
-  color: rgba(0, 0, 0, 0.75);
+  line-height: 24px;
 }
 
-.qa-page__breadcrumb-link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.qa-page__breadcrumb-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.qa-page__breadcrumb-current {
-  color: inherit;
-}
-
-.qa-page__header {
-  padding: 20px 140px 40px;
+.qa-page__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1090px) 530px;
+  gap: 30px;
+  align-items: start;
 }
 
 .qa-page__title {
-  margin: 0;
+  margin: 0 0 119px;
+  color: #000;
   font-size: 48px;
   font-weight: 700;
-  line-height: normal;
+  line-height: 58px;
 }
 
-.qa-page__content-top {
-  display: flex;
-  gap: 30px;
-  padding: 0 135px 60px;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.qa-page__intro {
-  flex: 1;
+.qa-page__intro-text {
   max-width: 1085px;
+  margin: 0;
+  color: #000;
   font-size: 24px;
   font-weight: 400;
   line-height: 35px;
 }
 
-.qa-page__intro p {
-  margin: 0 0 20px 0;
+.qa-page__contacts-title {
+  margin: 0 0 37px;
+  color: #000;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+  text-align: center;
 }
 
 .qa-page__contacts-card {
-  width: 530px;
-  background: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  min-height: 636px;
   box-sizing: border-box;
-  padding-bottom: 20px;
+  background: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 22px 28px 34px;
 }
 
-.qa-page__contacts-title {
-  margin: -60px 0 30px 0;
-  font-size: 40px;
-  font-weight: 700;
-  text-align: center;
-  position: relative;
-  top: -20px;
-}
-
-.qa-page__contacts-list {
-  padding: 0 28px 20px;
-}
-
-.qa-page__contact-item,
-.qa-page__schedule-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 35px;
-  padding: 25px 0;
+.qa-page__contact-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 18px;
+  align-items: center;
+  min-height: 120px;
+  border-bottom: 1px solid #000;
 }
 
 .qa-page__contact-icon {
-  width: 52px;
-  height: 50px;
-  object-fit: contain;
-  flex-shrink: 0;
+  position: relative;
+  display: block;
+  width: 58px;
+  height: 58px;
 }
 
-.qa-page__contact-icon--rotate {
-  height: 64px;
-  width: 64px;
+.qa-page__contact-icon--chat {
+  width: 52px;
+  height: 50px;
+  border: 4px solid #000;
+  border-radius: 5px;
+}
+
+.qa-page__contact-icon--chat::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  bottom: -14px;
+  width: 16px;
+  height: 16px;
+  border-left: 4px solid #000;
+  border-bottom: 4px solid #000;
+  background: #fff;
+  transform: rotate(-45deg);
+}
+
+.qa-page__contact-icon--phone::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 15px;
+  width: 42px;
+  height: 18px;
+  border: 6px solid #000;
+  border-top: 0;
+  border-radius: 0 0 28px 28px;
+  transform: rotate(-43deg);
 }
 
 .qa-page__contact-icon--email {
   width: 60px;
   height: 46px;
+  border: 4px solid #000;
+  border-radius: 4px;
 }
 
-.qa-page__contact-icon--clock {
-  width: 48px;
-  height: 48px;
+.qa-page__contact-icon--email::before,
+.qa-page__contact-icon--email::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  width: 38px;
+  border-top: 4px solid #000;
 }
 
-.qa-page__contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.qa-page__contact-icon--email::before {
+  left: -2px;
+  transform: rotate(33deg);
+}
+
+.qa-page__contact-icon--email::after {
+  right: -2px;
+  transform: rotate(-33deg);
+}
+
+.qa-page__contact-name,
+.qa-page__contact-note,
+.qa-page__schedule-title,
+.qa-page__schedule ul {
+  margin: 0;
 }
 
 .qa-page__contact-name {
+  color: #000;
   font-size: 22px;
   font-weight: 500;
   line-height: 35px;
 }
 
-.qa-page__contact-time {
+.qa-page__contact-note {
+  color: #000;
   font-size: 18px;
   font-weight: 300;
   line-height: 35px;
 }
 
-.qa-page__contacts-divider {
-  width: 458px;
-  height: 1px;
-  background-color: #000;
-  margin: 0 auto;
-}
-
-.qa-page__contact-schedule {
-  padding: 10px 0 20px;
+.qa-page__schedule {
+  padding-top: 35px;
 }
 
 .qa-page__schedule-title {
+  color: #000;
   font-size: 22px;
   font-weight: 700;
   line-height: 35px;
-  margin-bottom: 10px;
 }
 
-.qa-page__schedule-list {
-  list-style-type: disc;
-  margin: 0;
-  padding-left: 20px;
+.qa-page__schedule ul {
+  padding-left: 112px;
+  margin-top: 39px;
+  color: #000;
   font-size: 22px;
   font-weight: 300;
   line-height: 35px;
 }
 
-.qa-page__accordion-section {
-  padding: 0 135px 20px;
+.qa-page__accordion {
   display: flex;
   flex-direction: column;
   gap: 34px;
-  width: 1090px;
-  max-width: 100%;
-  box-sizing: border-box;
+  margin-top: 60px;
+  margin-left: max(135px, calc((100% - 1650px) / 2));
+  margin-right: auto;
+  width: min(1090px, calc(100% - 270px));
 }
 
 .qa-page__accordion-item {
   background: #e0e0e0;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 2px rgba(0, 0, 0, 0.25);
+}
+
+.qa-page__accordion-button {
+  width: 100%;
+  min-height: 105px;
+  border: 0;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
   padding: 32px 35px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.qa-page__accordion-title {
-  margin: 0;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  line-height: normal;
+  line-height: 34px;
 }
 
-.qa-page__accordion-icon {
+.qa-page__chevron {
   width: 35px;
-  height: 41px;
-  transition: transform 0.3s ease;
-  transform: rotate(180deg) scaleX(-1);
+  height: 35px;
+  flex: 0 0 auto;
+  border-top: 6px solid #000;
+  border-right: 6px solid #000;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
 }
 
-.qa-page__accordion-icon.rotated {
-  transform: rotate(0) scaleX(1);
+.qa-page__accordion-item--open .qa-page__chevron {
+  transform: rotate(135deg) translate(-2px, -2px);
 }
 
-.qa-page__common-section {
-  padding: 60px 135px 0;
+.qa-page__accordion-panel {
+  padding: 0 35px 55px;
+}
+
+.qa-page__accordion-question {
+  display: block;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: #000;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 35px;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.qa-page__accordion-question + .qa-page__accordion-question {
+  margin-top: 5px;
+}
+
+.qa-page__common {
+  margin-top: 59px;
 }
 
 .qa-page__common-title {
+  margin: 0 0 38px;
+  color: #000;
   font-size: 48px;
   font-weight: 700;
-  line-height: normal;
-  margin: 0 0 40px 0;
+  line-height: 58px;
 }
 
-.qa-page__common-lists {
-  display: flex;
+.qa-page__common-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 65px;
-  background: white;
-  padding: 50px 30px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  min-height: 615px;
+  background: #fff;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  padding: 35px 32px;
 }
 
-.qa-page__common-list {
-  flex: 1;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.qa-page__common-column {
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
 .qa-page__common-link {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
   color: #000;
+  font-family: 'Inter', sans-serif;
   font-size: 25px;
-  line-height: 35px;
   font-weight: 400;
+  line-height: 35px;
+  text-align: left;
   text-decoration: underline;
 }
 
+.qa-page__accordion-question:hover,
 .qa-page__common-link:hover {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
-@media (max-width: 1200px) {
-  .qa-page__content-top {
-    flex-direction: column;
+@media (max-width: 1500px) {
+  .qa-page__container {
+    width: min(1180px, calc(100% - 80px));
   }
-  .qa-page__intro {
-    max-width: 100%;
+
+  .qa-page__top {
+    grid-template-columns: minmax(0, 1fr) 420px;
   }
-  .qa-page__accordion-section {
-    width: 100%;
+
+  .qa-page__intro-text {
+    font-size: 20px;
+    line-height: 32px;
   }
-  .qa-page__common-lists {
-    flex-direction: column;
+
+  .qa-page__accordion {
+    margin-left: max(40px, calc((100% - 1180px) / 2));
+    width: min(920px, calc(100% - 80px));
+  }
+
+  .qa-page__accordion-button {
+    font-size: 24px;
+  }
+
+  .qa-page__common-card {
+    min-height: 0;
+  }
+
+  .qa-page__common-link {
+    font-size: 21px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .qa-page__container,
+  .qa-page__accordion {
+    width: calc(100% - 32px);
+  }
+
+  .qa-page__breadcrumbs {
+    padding-top: 24px;
+    padding-bottom: 32px;
+  }
+
+  .qa-page__top,
+  .qa-page__common-card {
+    grid-template-columns: 1fr;
+  }
+
+  .qa-page__title {
+    margin-bottom: 32px;
+    font-size: 40px;
+    line-height: 50px;
+  }
+
+  .qa-page__contacts {
+    max-width: 530px;
+  }
+
+  .qa-page__contacts-title {
+    text-align: left;
+  }
+
+  .qa-page__accordion {
+    margin-left: auto;
+    margin-top: 42px;
+  }
+
+  .qa-page__common-title {
+    font-size: 40px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 620px) {
+  .qa-page {
+    padding-bottom: 44px;
+  }
+
+  .qa-page__breadcrumbs .breadcrumb {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .qa-page__title,
+  .qa-page__common-title {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .qa-page__intro-text,
+  .qa-page__accordion-question,
+  .qa-page__common-link {
+    font-size: 16px;
+    line-height: 27px;
+  }
+
+  .qa-page__contacts-card {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .qa-page__contact-row {
+    grid-template-columns: 48px 1fr;
+    gap: 14px;
+    min-height: 96px;
+  }
+
+  .qa-page__contact-icon {
+    transform: scale(0.72);
+    transform-origin: left center;
+  }
+
+  .qa-page__contact-name,
+  .qa-page__schedule-title {
+    font-size: 17px;
+    line-height: 27px;
+  }
+
+  .qa-page__contact-note,
+  .qa-page__schedule ul {
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .qa-page__schedule ul {
+    padding-left: 22px;
+    margin-top: 18px;
+  }
+
+  .qa-page__accordion-button {
+    min-height: 82px;
+    padding: 22px 20px;
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .qa-page__chevron {
+    width: 24px;
+    height: 24px;
+    border-width: 4px;
+  }
+
+  .qa-page__accordion-panel {
+    padding: 0 20px 30px;
+  }
+
+  .qa-page__common-card {
+    padding: 24px 18px;
+  }
+
+  .qa-page__common-column {
+    gap: 22px;
   }
 }

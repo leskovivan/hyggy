@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-
 import { useAuth } from '../context/AuthContext';
 import logo from '../images/logo.svg';
 import './AdminLayout.css';
@@ -35,8 +34,7 @@ const AdminLayout = () => {
     const { logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-
-    const isWarehouseRoute = warehouseRoutes.some(route => location.pathname.startsWith(route));
+    const isWarehouseRoute = warehouseRoutes.some((route) => location.pathname.startsWith(route));
 
     const handleLogout = () => {
         logout();
@@ -66,7 +64,7 @@ const AdminLayout = () => {
                         </div>
 
                         <div className="admin-nav-submenu">
-                            {warehouseLinks.map(link => (
+                            {warehouseLinks.map((link) => (
                                 <NavLink
                                     key={link.to}
                                     to={link.to}
@@ -78,7 +76,7 @@ const AdminLayout = () => {
                         </div>
                     </div>
 
-                    {mainLinks.slice(1).map(link => (
+                    {mainLinks.slice(1).map((link) => (
                         <NavLink
                             key={link.to}
                             to={link.to}

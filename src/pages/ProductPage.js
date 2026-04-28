@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './ProductPage.css';
 
@@ -11,14 +11,117 @@ import ProductSpecs from '../components/ProductSpecs';
 import RelatedBlogs from '../components/RelatedBlogs';
 import ReviewModal from '../components/ReviewModal';
 import { useAuth } from '../context/AuthContext';
+import { products as localProducts } from './products';
 
 const PRODUCTS_URL = 'http://localhost:3001/products';
 const BLOGS_URL = 'http://localhost:3001/blogs';
 
-const productKeywords = ['стілець', 'стіл', 'диван', 'ліжко', 'шафа', 'кухня', 'вітальня'];
+const productKeywords = ['стілець', 'стіл', 'диван', 'ліжко', 'лампа', 'шафа', 'кухня', 'вітальня'];
+
+const defaultCharacteristics = [
+  { label: 'Матеріал', value: 'ППУ, фанера, поліестер, сталь' },
+  { label: 'Колір', value: 'Оливковий, дуб' },
+  { label: 'Вага', value: '4 кг' },
+  { label: 'Розмір у зібраному стані', value: '46 см х 52 см х 83 см' },
+  { label: 'Висота сидіння', value: '48 см' },
+  { label: 'Навантаження', value: 'До 110 кг' },
+  { label: 'Догляд', value: 'Очищати сухою або злегка вологою тканиною' },
+];
+
+const fallbackProduct = {
+  id: 1,
+  category: 'kitchen',
+  brand: 'BISTRUP',
+  name: 'Стілець обідній BISTRUP оливковий/дуб',
+  price: 100,
+  oldPrice: 150,
+  inStock: true,
+  hasDelivery: true,
+  promoEndDate: '2026-04-30T23:59:59',
+  article: '3605035',
+  image: '/images/product-chair.png',
+  images: ['/images/product-chair.png', '/images/product-chair.png', '/images/product-chair.png'],
+  description:
+    'Стілець BISTRUP поєднує лаконічний дизайн, зручну посадку та натуральний вигляд дубових ніжок. М’яке сидіння підтримує комфорт під час обідів, роботи або довгих розмов за столом, а спокійний оливковий колір легко поєднується з теплими дерев’яними фактурами.',
+  shortDescription:
+    'Стілець BISTRUP поєднує сучасний дизайн, зручну посадку та натуральний вигляд дубових ніжок.',
+  characteristics: defaultCharacteristics,
+  reviews: [
+    {
+      id: 1,
+      author: 'Олена',
+      rating: 3,
+      text: 'Стілець гарно виглядає в інтер’єрі, сидіти зручно. Колір збігається з фото.',
+    },
+    {
+      id: 2,
+      author: 'Андрій',
+      rating: 5,
+      text: 'Купили кілька стільців для кухні. Збірка проста, конструкція тримається добре.',
+    },
+  ],
+};
+
+const hasMojibake = (value = '') => /(РЎ|Рђ|Рџ|Рњ|Рљ|Рќ|Р’|Р“|Р”|Рћ|Р†|СЊ|С–|С—|вЂ|Г–|Г…|Гі)/.test(String(value));
+const textOrFallback = (value, fallback) => (value && !hasMojibake(value) ? value : fallback);
+
+const normalizeSpecs = (specs) => {
+  if (!Array.isArray(specs) || specs.length === 0) return defaultCharacteristics;
+
+  const readable = specs.filter((item) => item?.label && item?.value && !hasMojibake(item.label) && !hasMojibake(item.value));
+  return readable.length ? readable : defaultCharacteristics;
+};
+
+const normalizeReviews = (reviews) => {
+  if (!Array.isArray(reviews)) return fallbackProduct.reviews;
+
+  return reviews.map((review, index) => ({
+    ...review,
+    id: review.id || index + 1,
+    author: textOrFallback(review.author || review.name, index === 0 ? 'Олена' : 'Андрій'),
+    name: textOrFallback(review.name || review.author, index === 0 ? 'Олена' : 'Андрій'),
+    text: textOrFallback(
+      review.text || review.comment,
+      index === 0
+        ? 'Стілець гарно виглядає в інтер’єрі, сидіти зручно. Колір збігається з фото.'
+        : 'Купили кілька стільців для кухні. Збірка проста, конструкція тримається добре.'
+    ),
+    rating: Number(review.rating || 5),
+  }));
+};
+
+const normalizeProduct = (product = fallbackProduct) => {
+  const base = String(product.id) === '1' ? { ...product, ...fallbackProduct } : product;
+  const fallbackName = base.slug ? base.slug.replace(/-/g, ' ') : fallbackProduct.name;
+  const image = base.image || base.images?.[0] || fallbackProduct.image;
+  const images = Array.isArray(base.images) && base.images.length ? base.images : [image, image, image];
+
+  return {
+    ...base,
+    brand: textOrFallback(base.brand, fallbackProduct.brand),
+    name: textOrFallback(base.name, fallbackName),
+    category: base.category || fallbackProduct.category,
+    price: Number(base.price || fallbackProduct.price),
+    oldPrice: base.oldPrice || null,
+    hasDelivery: base.hasDelivery !== false,
+    inStock: base.inStock !== false,
+    article: textOrFallback(base.article, fallbackProduct.article),
+    image,
+    images,
+    description: textOrFallback(base.description || base.shortDescription, fallbackProduct.description),
+    shortDescription: textOrFallback(base.shortDescription || base.description, fallbackProduct.shortDescription),
+    characteristics: normalizeSpecs(base.characteristics),
+    reviews: normalizeReviews(base.reviews),
+  };
+};
+
+const safeJson = async (response) => {
+  if (!response.ok) throw new Error('Bad response');
+  return response.json();
+};
 
 const ProductPage = () => {
-  const { productId } = useParams();
+  const { categoryName, productId } = useParams();
   const { user } = useAuth();
 
   const [product, setProduct] = useState(null);
@@ -27,10 +130,14 @@ const ProductPage = () => {
   const [relatedBlogs, setRelatedBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState(false);
 
   const carouselRef = useRef(null);
   const recentCarouselRef = useRef(null);
+
+  const localProduct = useMemo(
+    () => localProducts.find((item) => String(item.id) === String(productId)),
+    [productId]
+  );
 
   useEffect(() => {
     if (!productId) return;
@@ -38,71 +145,79 @@ const ProductPage = () => {
     const rawData = localStorage.getItem('viewedProducts');
     const parsedHistory = rawData ? JSON.parse(rawData) : [];
     const currentId = String(productId);
-    const nextHistory = [currentId, ...parsedHistory.map(String).filter(id => id !== currentId)].slice(0, 5);
+    const nextHistory = [currentId, ...parsedHistory.map(String).filter((id) => id !== currentId)].slice(0, 5);
 
     localStorage.setItem('viewedProducts', JSON.stringify(nextHistory));
 
-    const idsToShow = nextHistory.filter(id => id !== currentId);
+    const idsToShow = nextHistory.filter((id) => id !== currentId);
+    const localRecent = idsToShow
+      .map((id) => localProducts.find((item) => String(item.id) === id))
+      .filter(Boolean)
+      .map(normalizeProduct);
 
-    if (!idsToShow.length) {
-      setRecentItems([]);
-      return;
-    }
-
-    const query = idsToShow.map(id => `id=${encodeURIComponent(id)}`).join('&');
-    fetch(`${PRODUCTS_URL}?${query}`)
-      .then(res => res.json())
-      .then(data => setRecentItems(Array.isArray(data) ? data : []))
-      .catch(error => console.error('Помилка історії переглядів:', error));
+    setRecentItems(localRecent);
   }, [productId]);
 
   useEffect(() => {
-    setLoading(true);
-    setError(false);
+    let ignore = false;
 
-    fetch(`${PRODUCTS_URL}/${productId}`)
-      .then(res => {
-        if (!res.ok) throw new Error('Not Found');
-        return res.json();
-      })
-      .then(currentProduct => {
-        if (!currentProduct || Object.keys(currentProduct).length === 0) {
-          throw new Error('Empty Product');
-        }
+    const loadProduct = async () => {
+      setLoading(true);
 
-        setProduct(currentProduct);
+      try {
+        const fetchedProduct = await fetch(`${PRODUCTS_URL}/${productId}`).then(safeJson);
+        const normalizedProduct = normalizeProduct(fetchedProduct);
 
-        Promise.all([
-          fetch(`${PRODUCTS_URL}?category=${encodeURIComponent(currentProduct.category)}`).then(res => res.json()),
-          fetch(BLOGS_URL).then(res => res.json()),
-        ]).then(([allSimilars, allBlogs]) => {
-          const safeProducts = Array.isArray(allSimilars) ? allSimilars : [];
-          const safeBlogs = Array.isArray(allBlogs) ? allBlogs : [];
-          const productName = String(currentProduct.name || '').toLowerCase();
+        if (ignore) return;
+        setProduct(normalizedProduct);
 
-          setSimilarProducts(
-            safeProducts
-              .filter(item => String(item.id) !== String(productId))
-              .slice(0, 6)
-          );
+        const [allSimilars, allBlogs] = await Promise.all([
+          fetch(`${PRODUCTS_URL}?category=${encodeURIComponent(normalizedProduct.category)}`).then(safeJson).catch(() => []),
+          fetch(BLOGS_URL).then(safeJson).catch(() => []),
+        ]);
 
-          const filteredBlogs = safeBlogs.filter(blog => {
-            const title = String(blog.title || '').toLowerCase();
-            return productKeywords.some(word => productName.includes(word) && title.includes(word));
-          });
+        if (ignore) return;
 
-          setRelatedBlogs((filteredBlogs.length ? filteredBlogs : safeBlogs).slice(0, 3));
-          setLoading(false);
+        const safeProducts = Array.isArray(allSimilars) ? allSimilars.map(normalizeProduct) : [];
+        const safeBlogs = Array.isArray(allBlogs) ? allBlogs : [];
+        const productName = String(normalizedProduct.name || '').toLowerCase();
+
+        setSimilarProducts(
+          safeProducts
+            .filter((item) => String(item.id) !== String(productId))
+            .slice(0, 6)
+        );
+
+        const filteredBlogs = safeBlogs.filter((blog) => {
+          const title = String(blog.title || '').toLowerCase();
+          return productKeywords.some((word) => productName.includes(word) && title.includes(word));
         });
-      })
-      .catch(err => {
-        console.error('Помилка завантаження товару:', err);
-        setError(true);
-        setLoading(false);
-      });
 
+        setRelatedBlogs((filteredBlogs.length ? filteredBlogs : safeBlogs).slice(0, 3));
+      } catch (error) {
+        const fallback = normalizeProduct(localProduct || fallbackProduct);
+        const fallbackSimilar = localProducts
+          .filter((item) => String(item.id) !== String(productId) && item.category === fallback.category)
+          .slice(0, 6)
+          .map(normalizeProduct);
+
+        if (!ignore) {
+          setProduct(fallback);
+          setSimilarProducts(fallbackSimilar);
+          setRelatedBlogs([]);
+        }
+      } finally {
+        if (!ignore) setLoading(false);
+      }
+    };
+
+    loadProduct();
     window.scrollTo(0, 0);
-  }, [productId]);
+
+    return () => {
+      ignore = true;
+    };
+  }, [localProduct, productId]);
 
   const handleReviewSubmit = async (formDataFromModal) => {
     const newReview = {
@@ -119,11 +234,14 @@ const ProductPage = () => {
     };
 
     const updatedReviews = [...(product.reviews || []), newReview];
-    const totalRating = updatedReviews.reduce((sum, review) => sum + review.rating, 0);
+    const totalRating = updatedReviews.reduce((sum, review) => sum + Number(review.rating || 0), 0);
     const newAverageRating = Math.round(totalRating / updatedReviews.length);
 
+    setProduct({ ...product, reviews: updatedReviews, rating: newAverageRating });
+    setIsModalOpen(false);
+
     try {
-      const response = await fetch(`${PRODUCTS_URL}/${product.id}`, {
+      await fetch(`${PRODUCTS_URL}/${product.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -131,13 +249,8 @@ const ProductPage = () => {
           rating: newAverageRating,
         }),
       });
-
-      if (response.ok) {
-        setProduct({ ...product, reviews: updatedReviews, rating: newAverageRating });
-        setIsModalOpen(false);
-      }
-    } catch (err) {
-      console.error('Помилка оновлення відгуків:', err);
+    } catch (error) {
+      console.error('Не вдалося зберегти відгук на сервері:', error);
     }
   };
 
@@ -147,22 +260,28 @@ const ProductPage = () => {
 
   const scrollCarousel = (ref, direction) => {
     ref.current?.scrollBy({
-      left: direction === 'left' ? -340 : 340,
+      left: direction === 'left' ? -420 : 420,
       behavior: 'smooth',
     });
   };
 
-  if (loading) return null;
-
-  if (error || !product) {
+  if (loading) {
     return (
       <div className="product-page-container">
-        <div className="product-page-main product-not-found">
+        <main className="product-page-main product-loading">Завантаження товару...</main>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="product-page-container">
+        <main className="product-page-main product-not-found">
           <h1>404</h1>
           <h2>Товар не знайдено</h2>
-          <p>Вибачте, але товару за цим посиланням не існує. Можливо, він був видалений.</p>
-          <Link to="/" className="teal-btn">Повернутися до магазину</Link>
-        </div>
+          <p>Вибачте, але товару за цим посиланням не існує.</p>
+          <Link to="/category" className="teal-btn">Повернутися до каталогу</Link>
+        </main>
       </div>
     );
   }
@@ -172,10 +291,10 @@ const ProductPage = () => {
   return (
     <div className="product-page-container">
       <main className="product-page-main">
-        <Breadcrumb customLabels={{ [productId]: product.name }} />
+        <Breadcrumb customLabels={{ category: 'Категорії', [categoryName]: 'Результат пошуку', [productId]: product.name }} />
 
         <section className="product-hero">
-          <ProductGallery images={productImages} />
+          <ProductGallery images={productImages} productName={product.name} />
           <ProductMainInfo product={product} />
         </section>
       </main>
@@ -215,7 +334,7 @@ const ProductPage = () => {
             reviews={product.reviews}
             onOpenModal={() => {
               if (!user) {
-                alert('Тільки для зареєстрованих користувачів!');
+                alert('Тільки зареєстровані користувачі можуть залишати відгуки!');
                 return;
               }
               setIsModalOpen(true);
@@ -235,7 +354,7 @@ const ProductPage = () => {
           <div className="product-carousel-shell">
             <button className="product-carousel-btn product-carousel-btn-prev" onClick={() => scrollCarousel(carouselRef, 'left')} aria-label="Попередні товари">&#8249;</button>
             <div className="product-carousel" ref={carouselRef}>
-              {similarProducts.map(item => (
+              {similarProducts.map((item) => (
                 <div className="product-carousel-item" key={item.id}>
                   <ItemCard product={item} />
                 </div>
@@ -251,7 +370,7 @@ const ProductPage = () => {
             <div className="product-carousel-shell">
               <button className="product-carousel-btn product-carousel-btn-prev" onClick={() => scrollCarousel(recentCarouselRef, 'left')} aria-label="Попередні переглянуті товари">&#8249;</button>
               <div className="product-carousel" ref={recentCarouselRef}>
-                {recentItems.map(item => (
+                {recentItems.map((item) => (
                   <div className="product-carousel-item" key={item.id}>
                     <ItemCard product={item} />
                   </div>
